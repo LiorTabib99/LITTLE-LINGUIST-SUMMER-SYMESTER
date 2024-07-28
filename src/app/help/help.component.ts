@@ -6,16 +6,17 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
-  selector: 'app-header',
+  selector: 'app-help',
   standalone: true,
   imports: [
-    MatToolbarModule, MatIconModule, 
-    MatMenuModule, MatButtonModule,RouterModule,
-    CommonModule, MatIconModule,MatMenuModule
+    CommonModule, MatButtonModule,
+    MatIconModule,MatMenuModule ,
+    MatToolbarModule , RouterModule
   ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  templateUrl: './help.component.html',
+  styleUrl: './help.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent { }
+export class HelpComponent { }

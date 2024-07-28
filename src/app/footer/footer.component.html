@@ -1,6 +1,11 @@
 <div class="footer-container">
     <span class="example-spacer"></span>
     <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>help_outline</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="'/help'">help</button>
+      </mat-menu>
     </div>
-</div>
+  </div>

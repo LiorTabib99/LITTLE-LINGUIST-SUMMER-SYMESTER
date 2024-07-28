@@ -1,0 +1,109 @@
+:host {
+    display: block;
+  }
+  
+  .game-selection {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 45px;
+  }
+  
+  h2 {
+    text-align: right;
+    padding-right: 25px;
+    font-size: 25.7px;
+  }
+  
+   mat-card {
+    margin: 10px;
+    height: 155px;
+    width: 210px;
+    word-wrap: normal;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+  }
+  
+  div {
+    text-align: center;
+    align-items: center;
+  }
+  
+  /* dashboard.component.css */
+  
+  /* Center text inside the buttons */
+  .game-selection button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px; /* Adjust the font size as needed */
+  }
+  
+  /* Style the buttons */
+  mat-card{
+    margin: 10px; /* Add margin between buttons */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    transition: background-color 0.3s ease; /* Smooth color transition */
+  }
+  
+  /* Custom colors for each button */
+  .mat-card-trivia[color="primary"] {
+    background-color: #1976d2; /* Change to desired color */
+    color: white;
+  }
+  
+  .mat-card-mixed-letters[color="primary"] {
+    background-color: #d81b60; /* Change to desired color */
+    color: white;
+  }
+  
+  .mat-card-word-sorter[color="primary"] {
+    background-color: #f44336; /* Change to desired color */
+    color: white;
+  }
+  
+  /* Hover effect for buttons */
+ .mat-card-trivia :hover {
+    background-color: #1565c0; /* Slightly darker for primary */
+  }
+  
+  .mat-card-mixed-letters :hover[color="accent"]:hover {
+    background-color: #c2185b; /* Slightly darker for accent */
+  }
+  
+  .mat-card-word-sorter :hover[color="warn"]:hover {
+    background-color: #e53935; /* Slightly darker for warn */
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #f0f0f0; /* צבע רקע של הכותרת */
+    padding: 20px;
+    border-bottom: 2px solid #ccc; /* קו תחתון להפרדה */
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 24px; /* גודל הגופן של הכותרת */
+    color: #333; /* צבע הכותרת */
+  }
+  
+
+
+  .custom-card {
+    cursor: pointer;
+    max-width: 90vw; /* גודל מקסימלי של הכרטיס */
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
