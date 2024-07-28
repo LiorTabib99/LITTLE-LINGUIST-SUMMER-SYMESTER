@@ -12,7 +12,7 @@ import { MixLettersComponent } from '../mix-letters/mix-letters.component';
 import { FooterComponent } from '../footer/footer.component';
 import { GameCardComponent } from '../game-card/game-card.component';
 import { NavigationComponent } from '../navigation/navigation.component';
-// import { NgModule } from '@angular/core';
+
 import { MatCardModule } from '@angular/material/card';
 import { GameExplnationComponent } from '../game-explnation/game-explnation.component';
 
@@ -32,18 +32,18 @@ import { GameExplnationComponent } from '../game-explnation/game-explnation.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })   
 export class DashboardComponent {
-  // Create an instance of gameProfile
-  // game: gameProfile;
+  Create an instance of gameProfile
+  game: gameProfile;
 
-  // constructor() {
-  //   // Initialize the gameProfile instance
-  //   this.game = new gameProfile(
-  //     1, 
-  //     'Example Game',
-  //     'This is an example game description.',
-  //     'http://example.com'
-  //   );
-  // }
+  constructor() {
+    // Initialize the gameProfile instance
+    this.game = new gameProfile(
+      1, 
+      'Example Game',
+      'This is an example game description.',
+      'http://example.com'
+    );
+  }
 }
 
 
