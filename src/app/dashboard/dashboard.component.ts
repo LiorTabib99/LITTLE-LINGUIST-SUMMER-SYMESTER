@@ -32,18 +32,19 @@ import { GameExplnationComponent } from '../game-explnation/game-explnation.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })   
 export class DashboardComponent {
-  Create an instance of gameProfile
-  game: gameProfile;
+  // Create an instance of gameProfile
+  // game: gameProfile;
 
-  constructor() {
-    // Initialize the gameProfile instance
-    this.game = new gameProfile(
-      1, 
-      'Example Game',
-      'This is an example game description.',
-      'http://example.com'
-    );
-  }
+  // constructor() {
+  //   // Initialize the gameProfile instance
+  //   this.game = new gameProfile(
+  //     1, 
+  //     'Example Game',
+  //     'This is an example game description.',
+  //     'http://example.com'
+  //   );
+  // }
+  // tesdttttt
 }
 
 
