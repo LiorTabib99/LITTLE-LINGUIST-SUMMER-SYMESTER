@@ -19,8 +19,7 @@ export class gameProfile{
 
 
 
-// export interface gameProfile {
-//     id: number;
-//     name: string;
-//     lastUpdateDate: Date;
-//   }
+const TranslateGasme = new  gameProfile(1, "Translate Game","Translate words","")
+// const TranslateGasme = new  gameProfile(1, "Translate Game","Translate words","")
+// const TranslateGasme = new  gameProfile(1, "Translate Game","Translate words","")
+// const TranslateGasme = new  gameProfile(1, "Translate Game","Translate words","")

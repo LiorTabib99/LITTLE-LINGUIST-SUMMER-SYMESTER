@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { TriviaComponent } from '../trivia/trivia.component';
 import { WordSorterComponent } from '../word-sorter/word-sorter.component';
 import { MixLettersComponent } from '../mix-letters/mix-letters.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -23,7 +22,7 @@ import { GameExplnationComponent } from '../game-explnation/game-explnation.comp
     CommonModule,GameCardComponent,
     MatButtonModule,MatIconModule,
     MatMenuModule,MatToolbarModule,NavigationComponent,
-    RouterModule,TriviaComponent,WordSorterComponent,
+    RouterModule,WordSorterComponent,
     MixLettersComponent,FooterComponent ,MatCardModule,
     GameExplnationComponent,
   ],

@@ -236,7 +236,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { TriviaComponent } from '../trivia/trivia.component';
 import { WordSorterComponent } from '../word-sorter/word-sorter.component';
 import { MixLettersComponent } from '../mix-letters/mix-letters.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -258,7 +257,7 @@ import { CategoriesService } from '../services/categories.service';
     MatOptionModule,MatButtonModule,
     MatCardModule,DashboardComponent, GameCardComponent,
     HeaderComponent ,MatIconModule,NavigationComponent,
-    FooterComponent,MixLettersComponent,TriviaComponent,
+    FooterComponent,MixLettersComponent,
     WordSorterComponent, RouterModule,CommonModule ,MatToolbarModule,
     MatMenuModule,GameExplnationComponent,CategoriesListComponent
   ],
