@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'gameSelecting', component: GameSelectingComponent },
   { path: 'mixLetter', component: MixLettersComponent },
   { path: 'word-sorting-game/category/:id', component: WordSorterComponent },
-  { path: '', component: DashboardComponent },
+  { path: 'main', component: DashboardComponent },
   { path: 'translate', component: TranslateGameComponent },
   { path: 'mixed-words-game/:categoryId', component: MixedWordsGameComponent },
 ];
