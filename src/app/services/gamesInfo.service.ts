@@ -9,7 +9,11 @@ import { gameProfile } from '../shared/model/gameProfile';
 
 
 export class GamesInfoService {
-  public games: gameProfile[] = []
+  private games: gameProfile[] = [
+    // new gameProfile{
+
+    // }
+  ]
   constructor() { }
 
 }

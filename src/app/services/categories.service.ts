@@ -1,3 +1,6 @@
+
+// No need to change it
+
 import { categories } from './../../shared/data/categories';
 import { Injectable } from '@angular/core';
 import { Category } from '../../shared/model/category';
