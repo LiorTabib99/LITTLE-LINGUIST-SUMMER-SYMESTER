@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { HelpComponent } from './help/help.component';
-import { gameProfile } from './shared/model/gameProfile';
+import { gameProfile } from '../shared/model/gameProfile';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GameSelectingComponent } from './game-selecting/game-selecting.component';
 import { WordSorterComponent } from './word-sorter/word-sorter.component';
@@ -11,6 +11,7 @@ import { TranslateGameComponent } from './translate-game/translate-game.componen
 import { MixedWordsGameComponent } from './mixed-words-game/mixed-words-game.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/main', pathMatch: 'full' }, // נתיב ברירת המחדל
   { path: 'admin', component: CategoriesListComponent },
   { path: 'category/:id', component: CategoryFormComponent },
   { path: 'newcategory', component: CategoryFormComponent },
@@ -20,6 +21,6 @@ export const routes: Routes = [
   { path: 'mixLetter', component: MixLettersComponent },
   { path: 'word-sorting-game/category/:id', component: WordSorterComponent },
   { path: 'main', component: DashboardComponent },
-  { path: 'translate', component: TranslateGameComponent },
-  { path: 'mixed-words-game/:categoryId', component: MixedWordsGameComponent },
+  { path: 'translate-game/category/:id', component: TranslateGameComponent },
+  { path: 'mixed-words-game/category/:id', component: MixedWordsGameComponent },
 ];

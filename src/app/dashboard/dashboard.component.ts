@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { gameProfile } from '../shared/model/gameProfile';
+import { gameProfile } from '../../shared/model/gameProfile';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -19,25 +19,31 @@ import { GameExplnationComponent } from '../game-explnation/game-explnation.comp
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    CommonModule,GameCardComponent,
-    MatButtonModule,MatIconModule,
-    MatMenuModule,MatToolbarModule,NavigationComponent,
-    RouterModule,WordSorterComponent,
-    MixLettersComponent,FooterComponent ,MatCardModule,
+    CommonModule,
+    GameCardComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatToolbarModule,
+    NavigationComponent,
+    RouterModule,
+    WordSorterComponent,
+    MixLettersComponent,
+    FooterComponent,
+    MatCardModule,
     GameExplnationComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-})   
+})
 export class DashboardComponent {
   // Create an instance of gameProfile
   // game: gameProfile;
-
   // constructor() {
   //   // Initialize the gameProfile instance
   //   this.game = new gameProfile(
-  //     1, 
+  //     1,
   //     'Example Game',
   //     'This is an example game description.',
   //     'http://example.com'
@@ -46,10 +52,4 @@ export class DashboardComponent {
   // tesdttttt
 }
 
-
-export class AppModule { 
-
-}
-
-
-
+export class AppModule {}

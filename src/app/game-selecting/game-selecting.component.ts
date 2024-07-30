@@ -39,11 +39,9 @@
 // })
 // export class GameSelectingComponent {
 
-
 //   categories: gameProfile[] = []
 
 // }
-
 
 //   categories: gameProfile[] = []; // תחליף לפי הדרך שבה תשיג את הקטגוריות
 
@@ -116,11 +114,6 @@
 //   }
 // }
 
-
-
-
-
-
 // import { Component, Inject } from '@angular/core';
 // import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 // import { gameProfile } from '../shared/model/gameProfile';
@@ -160,7 +153,6 @@
 //   styleUrls: ['./game-selecting.component.css'],
 // })
 
-
 // export class CategorySelectDialog {
 // openCategorySelectDialog(arg0: string) {
 // throw new Error('Method not implemented.');
@@ -180,9 +172,6 @@
 //     this.dialogRef.close(this.selectedCategoryId);
 //   }
 // }
-
-
-
 
 // export class GameSelectingComponent {
 //   categories: gameProfile[] = [];
@@ -215,22 +204,16 @@
 //   }
 // }
 
-
-
-
-
-
-
 import { Component } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { gameProfile } from '../shared/model/gameProfile';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { gameProfile } from '../../shared/model/gameProfile';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from '../header/header.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -242,47 +225,49 @@ import { FooterComponent } from '../footer/footer.component';
 import { GameCardComponent } from '../game-card/game-card.component';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { MatCardModule } from '@angular/material/card';
-import { GameExplnationComponent } from '../game-explnation/game-explnation.component'; 
+import { GameExplnationComponent } from '../game-explnation/game-explnation.component';
 import { CategoriesListComponent } from '../categories-list/categories-list.component';
-import { MatDialog } from '@angular/material/dialog';
-import {  Inject } from '@angular/core';
+import { Inject } from '@angular/core';
 import { Category } from '../../shared/model/category';
 import { CategoriesService } from '../services/categories.service';
-
-
+import { DialogComponent } from '../dialog/dialog.component';
 @Component({
   selector: 'app-game-selecting',
   standalone: true,
-  imports: [MatFormFieldModule,MatSelectModule ,
-    MatOptionModule,MatButtonModule,
-    MatCardModule,DashboardComponent, GameCardComponent,
-    HeaderComponent ,MatIconModule,NavigationComponent,
-    FooterComponent,MixLettersComponent,
-    WordSorterComponent, RouterModule,CommonModule ,MatToolbarModule,
-    MatMenuModule,GameExplnationComponent,CategoriesListComponent
+  imports: [
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatCardModule,
+    DashboardComponent,
+    GameCardComponent,
+    HeaderComponent,
+    MatIconModule,
+    NavigationComponent,
+    FooterComponent,
+    MixLettersComponent,
+    WordSorterComponent,
+    RouterModule,
+    CommonModule,
+    MatToolbarModule,
+    MatMenuModule,
+    GameExplnationComponent,
+    CategoriesListComponent
   ],
   templateUrl: './game-selecting.component.html',
   styleUrl: './game-selecting.component.css',
 })
-
 export class GameSelectingComponent {
-openCategorySelectDialog(arg0: string) {
-throw new Error('Method not implemented.');
-}
-  selectedCategoryId: number | undefined;
-
   constructor(
-    public dialogRef: MatDialogRef<GameSelectingComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { game: string, categories: Category[] }
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
+    private dialogService : MatDialog
+  ){
+    
   }
 
-  onPlayClick(): void {
-    this.dialogRef.close(this.selectedCategoryId);
+  OpenDialog(){
+    this.dialogService.open(DialogComponent)
+    
   }
-
-
+  
 }

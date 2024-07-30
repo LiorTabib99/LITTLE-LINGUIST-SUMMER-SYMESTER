@@ -1,7 +1,7 @@
 <div class="mat-card">
   <button mat-button>
-    <mat-card class="mat-card-trivia">
-      <mat-card-title> Trivia- </mat-card-title>
+    <mat-card class="mat-card-trivia" *ngFor >
+      <mat-card-title ngFor> Trivia- </mat-card-title>
       <mat-card-subtitle>
         Choose every word's translation from a list of 4 options
       </mat-card-subtitle>
@@ -19,10 +19,10 @@
     </mat-card>
   </button>
   
-<button mat-button >
-  <mat-card class="mat-card-word-sorter">
-    <mat-card-title> Word Sorter- </mat-card-title>
-    <mat-card-subtitle> Generate the game description </mat-card-subtitle>
-  </mat-card>
-</button>
+  <button mat-button >
+    <mat-card class="mat-card-word-sorter">
+      <mat-card-title> Word Sorter- </mat-card-title>
+      <mat-card-subtitle> Generate the game description </mat-card-subtitle>
+    </mat-card>
+  </button>
 </div>
