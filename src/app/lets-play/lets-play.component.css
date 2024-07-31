@@ -1,0 +1,104 @@
+:host {
+    display: block;
+  }
+
+  .mat-toolbar{
+    height: 155px;
+    width: 210px;
+  }
+  
+  .game-selection {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 45px;
+  }
+  
+  h2 {
+    text-align: right;
+    padding-right: 25px;
+    font-size: 25.7px;
+  }
+  
+  button {
+    margin: 10px;
+    height: 155px;
+    width: 210px;
+    word-wrap: normal;
+    text-align: center;
+    font-size: 40px;
+  }
+  
+  div {
+    text-align: center;
+    align-items: center;
+  }
+  
+  /* dashboard.component.css */
+  
+  /* Center text inside the buttons */
+  .game-selection button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px; /* Adjust the font size as needed */
+  }
+  
+  /* Style the buttons */
+  button[mat-raised-button] {
+    margin: 10px; /* Add margin between buttons */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    transition: background-color 0.3s ease; /* Smooth color transition */
+  }
+  
+  /* Custom colors for each button */
+  button[mat-raised-button][color="primary"] {
+    background-color: #1976d2; /* Change to desired color */
+    color: white;
+  }
+  
+  button[mat-raised-button][color="accent"] {
+    background-color: #d81b60; /* Change to desired color */
+    color: white;
+  }
+  
+  button[mat-raised-button][color="warn"] {
+    background-color: #f44336; /* Change to desired color */
+    color: white;
+  }
+  
+  /* Hover effect for buttons */
+  button[mat-raised-button]:hover {
+    background-color: #1565c0; /* Slightly darker for primary */
+  }
+  
+  button[mat-raised-button][color="accent"]:hover {
+    background-color: #c2185b; /* Slightly darker for accent */
+  }
+  
+  button[mat-raised-button][color="warn"]:hover {
+    background-color: #e53935; /* Slightly darker for warn */
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #f0f0f0; /* צבע רקע של הכותרת */
+    padding: 20px;
+    border-bottom: 2px solid #ccc; /* קו תחתון להפרדה */
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 24px; /* גודל הגופן של הכותרת */
+    color: #333; /* צבע הכותרת */
+  }
+  

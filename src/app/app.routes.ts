@@ -9,8 +9,11 @@ import { WordSorterComponent } from './word-sorter/word-sorter.component';
 import { MixLettersComponent } from './mix-letters/mix-letters.component';
 import { TranslateGameComponent } from './translate-game/translate-game.component';
 import { MixedWordsGameComponent } from './mixed-words-game/mixed-words-game.component';
+import { LetsPlayComponent } from './lets-play/lets-play.component';
+
 
 export const routes: Routes = [
+  {path:'latsPlay', component: LetsPlayComponent},
   { path: '', redirectTo: '/main', pathMatch: 'full' }, // נתיב ברירת המחדל
   { path: 'admin', component: CategoriesListComponent },
   { path: 'category/:id', component: CategoryFormComponent },
