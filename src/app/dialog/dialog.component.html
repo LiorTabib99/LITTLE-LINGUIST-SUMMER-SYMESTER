@@ -1,7 +1,43 @@
-<h1 mat-dialog-title>{{data.title}}</h1>
+<!-- <h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
   <p>{{data.description}}</p>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
+</div> -->
+
+
+
+<!-- <h1 mat-dialog-title>{{ data.name }}</h1>
+<div mat-dialog-content>
+  <p>Last Updated: {{ data.lastUpdateDate | date:'short' }}</p>
+  <p>Number of Words: {{ data.wordCount }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div> -->
+
+
+
+<!-- 
+<h1 mat-dialog-title>{{ data.name }}</h1>
+<div mat-dialog-content>
+  <p>Last Updated: {{ data.lastUpdateDate | date: 'short' }}</p>
+  <p>Number of Words: {{ data.wordCount }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div> -->
+
+
+
+
+<h1 mat-dialog-title>{{ data.name }}</h1>
+<div mat-dialog-content>
+  <p>Last Updated: {{ data.lastUpdateDate | date: 'short' }}</p>
+  <p>Number of Words: {{ data.wordCount }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button (click)="onNoClick()">Select</button>
 </div>
