@@ -11,9 +11,8 @@ import { TriviaGameComponent } from './trivia-game/trivia-game.component';
 import { MixedWordsGameComponent } from './mixed-words-game/mixed-words-game.component';
 import { LetsPlayComponent } from './lets-play/lets-play.component';
 
-
 export const routes: Routes = [
-  {path:'latsPlay', component: LetsPlayComponent},
+  { path: 'letsPlay', component: LetsPlayComponent },
   { path: '', redirectTo: '/main', pathMatch: 'full' }, // נתיב ברירת המחדל
   { path: 'admin', component: CategoriesListComponent },
   { path: 'category/:id', component: CategoryFormComponent },
