@@ -1,3 +1,12 @@
+div{
+  text-align: center;
+  display: flex;
+  margin-top: 100px;
+  gap: 140px;
+}
+
+
+
 
 :host {
   display: flex;
@@ -8,32 +17,54 @@
   margin: 20px;
 }
 
-.mat-card-wrapper {
-  max-width: 300px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  overflow: hidden;
-}
 
 .mat-card {
   padding: 0;
   border-radius: 0;
 }
 
-.mat-card-trivia .mat-card, .mat-card-trivia mat-card-title, .mat-card-trivia mat-card-subtitle {
+.mat-card-trivia{
+  max-width: 280px;
+  background-color: #1976d2;
+  
+}
+
+.mat-card-trivia mat-card-title,
+.mat-card-trivia mat-card-subtitle {
   background-color: #1976d2;
   color: #ffffff;
+  font-size: 149.54%;
 }
 
-.mat-card-mixed-letters .mat-card, .mat-card-mixed-letters mat-card-title, .mat-card-mixed-letters mat-card-subtitle {
+.mat-card-mixed-letters{
+  max-width: 300px;
+  background-color: #f44336;
+  
+}
+
+.mat-card-mixed-letters .mat-card,
+.mat-card-mixed-letters mat-card-title,
+.mat-card-mixed-letters mat-card-subtitle {
   background-color: #f44336;
   color: #ffffff;
+  font-size: 149.54%;
 }
 
-.mat-card-word-sorter .mat-card, .mat-card-word-sorter mat-card-title, .mat-card-word-sorter mat-card-subtitle {
+.mat-card-word-sorter{
+  max-width: 300px;
+  background-color: #1a7b04;
+  
+}
+
+.mat-card-word-sorter .mat-card,
+.mat-card-word-sorter mat-card-title,
+.mat-card-word-sorter mat-card-subtitle {
   background-color: #1a7b04;
   color: #ffffff;
+  font-size: 149.54%;
 }
+
+
 
 mat-card-title {
   font-size: 24px;

@@ -1,0 +1,21 @@
+.mat-dialog-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+}
+
+.cateogry-details{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.mat-form-feild{
+    width: 100%;
+}
+
+button{
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+

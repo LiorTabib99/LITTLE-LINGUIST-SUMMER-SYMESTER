@@ -1,11 +1,17 @@
-<div
-  class="mat-card-wrapper"
-  *ngFor="let item of items"
-  [ngClass]="getCardClass(item)"
-  (click)="openDialog(item)"
->
-  <mat-card>
-    <mat-card-title>{{ item.title }}</mat-card-title>
-    <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>
+
+
+<div class="game-cards-container">
+  <mat-card
+    *ngFor="let card of gameCards"
+    [ngClass]="card.class"
+    (click)="openDialog(card)"
+    class="game-card"
+  >
+    <mat-card-header>
+      <mat-card-title>{{ card.title }}</mat-card-title>
+      <mat-card-subtitle>{{ card.description }}</mat-card-subtitle>
+    </mat-card-header>
   </mat-card>
 </div>
+
+

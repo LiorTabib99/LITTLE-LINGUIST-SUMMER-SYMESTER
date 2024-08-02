@@ -1,43 +1,33 @@
-<!-- <h1 mat-dialog-title>{{data.title}}</h1>
+<h1 mat-dialog-title>Choose Category to Play</h1>
+
 <div mat-dialog-content>
-  <p>{{data.description}}</p>
+  <mat-form-field appearance="fill">
+    <label *ngIf="!selectedCategory"> Choose Category </label>
+
+    <mat-select (selectionChange)="OnCategoryChange($event)">
+      <mat-option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="selectedCategory" class="cateogry-details">
+    <p>
+      <strong> number of words: </strong>
+      {{ selectedCategory.words.length }}
+    </p>
+
+    <p>
+      <strong> Last Updated Date: </strong>
+      {{ selectedCategory.lastUpdateDate | date : "MM/dd/yyyy" }}
+    </p>
+  </div>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Close</button>
-</div> -->
+  <button mat-button (click)="onNonClick()">Close</button>
 
-
-
-<!-- <h1 mat-dialog-title>{{ data.name }}</h1>
-<div mat-dialog-content>
-  <p>Last Updated: {{ data.lastUpdateDate | date:'short' }}</p>
-  <p>Number of Words: {{ data.wordCount }}</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Close</button>
-</div> -->
-
-
-
-<!-- 
-<h1 mat-dialog-title>{{ data.name }}</h1>
-<div mat-dialog-content>
-  <p>Last Updated: {{ data.lastUpdateDate | date: 'short' }}</p>
-  <p>Number of Words: {{ data.wordCount }}</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Close</button>
-</div> -->
-
-
-
-
-<h1 mat-dialog-title>{{ data.name }}</h1>
-<div mat-dialog-content>
-  <p>Last Updated: {{ data.lastUpdateDate | date: 'short' }}</p>
-  <p>Number of Words: {{ data.wordCount }}</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button (click)="onNoClick()">Select</button>
+  <button mat-button (click)="OnPlayClick()" [disabled]="!selectedCategory">
+    Play
+  </button>
 </div>

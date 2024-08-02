@@ -7,7 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GameSelectingComponent } from './game-selecting/game-selecting.component';
 import { WordSorterComponent } from './word-sorter/word-sorter.component';
 import { MixLettersComponent } from './mix-letters/mix-letters.component';
-import { TranslateGameComponent } from './translate-game/translate-game.component';
+import { TriviaGameComponent } from './trivia-game/trivia-game.component';
 import { MixedWordsGameComponent } from './mixed-words-game/mixed-words-game.component';
 import { LetsPlayComponent } from './lets-play/lets-play.component';
 
@@ -22,8 +22,8 @@ export const routes: Routes = [
   // { path: 'newCategory', component: gameProfile },
   { path: 'gameSelecting', component: GameSelectingComponent },
   { path: 'mixLetter', component: MixLettersComponent },
-  { path: 'word-sorting-game/category/:id', component: WordSorterComponent },
+  { path: 'word-sorting-game', component: WordSorterComponent },
   { path: 'main', component: DashboardComponent },
-  { path: 'translate-game/category/:id', component: TranslateGameComponent },
-  { path: 'mixed-words-game/category/:id', component: MixedWordsGameComponent },
+  { path: 'trivia-game', component: TriviaGameComponent },
+  { path: 'mixed-words-game', component: MixedWordsGameComponent },
 ];
