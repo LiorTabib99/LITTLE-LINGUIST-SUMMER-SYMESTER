@@ -10,10 +10,10 @@ import { WordSorterComponent } from '../word-sorter/word-sorter.component';
 import { MixLettersComponent } from '../mix-letters/mix-letters.component';
 import { FooterComponent } from '../footer/footer.component';
 import { GameCardComponent } from '../game-card/game-card.component';
-import { NavigationComponent } from '../navigation/navigation.component';
+
 
 import { MatCardModule } from '@angular/material/card';
-import { GameExplnationComponent } from '../game-explnation/game-explnation.component';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -25,13 +25,11 @@ import { GameExplnationComponent } from '../game-explnation/game-explnation.comp
     MatIconModule,
     MatMenuModule,
     MatToolbarModule,
-    NavigationComponent,
     RouterModule,
     WordSorterComponent,
     MixLettersComponent,
     FooterComponent,
-    MatCardModule,
-    GameExplnationComponent,
+    MatCardModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

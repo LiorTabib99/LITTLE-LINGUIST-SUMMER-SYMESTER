@@ -8,7 +8,6 @@ import { GameSelectingComponent } from './game-selecting/game-selecting.componen
 import { WordSorterComponent } from './word-sorter/word-sorter.component';
 import { MixLettersComponent } from './mix-letters/mix-letters.component';
 import { TriviaGameComponent } from './trivia-game/trivia-game.component';
-import { MixedWordsGameComponent } from './mixed-words-game/mixed-words-game.component';
 import { LetsPlayComponent } from './lets-play/lets-play.component';
 
 export const routes: Routes = [
@@ -24,5 +23,4 @@ export const routes: Routes = [
   { path: 'word-sorting-game', component: WordSorterComponent },
   { path: 'main', component: DashboardComponent },
   { path: 'trivia-game', component: TriviaGameComponent },
-  { path: 'mixed-words-game', component: MixedWordsGameComponent },
 ];
