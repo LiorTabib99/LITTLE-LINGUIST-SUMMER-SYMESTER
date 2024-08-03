@@ -1,37 +1,33 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {  Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Input } from '@angular/core';
-import { CategoriesService } from '../services/categories.service';
-import { gameProfile } from '../../shared/model/gameProfile';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
-import { GameSelectingComponent } from '../game-selecting/game-selecting.component';
+import { ActivatedRoute } from '@angular/router';
+import { OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-mix-letters',
   standalone: true,
   imports: [
-    CommonModule,
-    RouterModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
     MatButtonModule,
+    MatIconModule,
+    CommonModule,
   ],
   templateUrl: './mix-letters.component.html',
   styleUrl: './mix-letters.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MixLettersComponent {
-  @Input()
-  id = '';
+export class MixLettersComponent implements OnInit {
+  gameType: string | null = null;
+  categoryName: string | null = null;
 
-  // constructor(private CategoriesService:CategoriesService){
-  //   ngOnInit(): void{
-  //     throw new Error('Method not implemented. ');
-  //   }
-  // }
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.gameType = this.route.snapshot.paramMap.get('gameType');
+    this.route.queryParams.subscribe((params) => {
+      this.categoryName = params['category'] || null;
+    });
+  }
+  
 }

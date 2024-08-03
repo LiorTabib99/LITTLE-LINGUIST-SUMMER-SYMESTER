@@ -47,19 +47,37 @@ export class DialogComponent {
   
 
 
-  OnPlayClick() : void {
-    if(this.selectedCategory ){
+  // OnPlayClick() : void {
+  //   if(this.selectedCategory ){
+  //     const gameRoutes: { [key: string]: string } = {
+  //       'Trivia': '/trivia-game',
+  //       'Mixed Letters': '/mixLetter',
+  //       'Word Sorter': '/word-sorting-game',
+  //     };
+  //     const route  = gameRoutes[
+  //       this.data.gameType
+  //     ];
+  //     if(route){
+  //       this.dialogRef.close(this.selectedCategory)
+  //       this.router.navigate([route])
+  //     }
+  //   }
+  // }
+
+
+  OnPlayClick(): void {
+    if (this.selectedCategory) {
       const gameRoutes: { [key: string]: string } = {
         'Trivia': '/trivia-game',
         'Mixed Letters': '/mixLetter',
         'Word Sorter': '/word-sorting-game',
       };
-      const route  = gameRoutes[
-        this.data.gameType
-      ];
-      if(route){
-        this.dialogRef.close(this.selectedCategory)
-        this.router.navigate([route])
+      const route = gameRoutes[this.data.gameType];
+      if (route) {
+        this.dialogRef.close(this.selectedCategory);
+        this.router.navigate([route], {
+          queryParams: { category: this.selectedCategory.name }
+        });
       }
     }
   }
