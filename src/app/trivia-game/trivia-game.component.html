@@ -1,1 +1,46 @@
-<h1 *ngIf="categoryName">Trivia - {{ categoryName }}</h1>
+<!-- <h1 *ngIf="categoryName">Trivia - {{ categoryName }}</h1> -->
+<div class="main-container">
+  <h1 *ngIf="categoryName">Let's Play Trivia game- {{ categoryName }}</h1>
+  <mat-card *ngIf="currectQuestion">
+    <mat-card-header>
+      <mat-card-title>
+        question {{ currentQuestionsIndex + 1 }} of {{questions.length} }
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ currectQuestion.question }}
+      </p>
+      <div *ngFor="let option of currentQuestion.option">
+        <button mat-button (click)="selectOption(option)">
+          {{ option }}
+        </button>
+      </div>
+      <p *ngIf="feedBack">
+        {{feedBack}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf="!currentQuestion">
+
+    
+   <p>
+    {{feedBack}}
+   </p>
+
+
+   <button mat-button (click)="resetGame()">
+    Reset game
+   </button>
+
+   <button mat-button (click)="goToDashboard()">
+    Return to the Dashboard
+   </button>
+   
+
+
+  </div>
+
+</div>
+
+
