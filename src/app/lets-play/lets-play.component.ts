@@ -20,11 +20,15 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-lets-play',
   standalone: true,
-  imports: [GameCardComponent,MatToolbarModule ,WordSorterComponent,
-    MixLettersComponent,FooterComponent,
-    MatCardModule ,RouterModule ,
-    MatMenuModule,MatIconModule,
-    HeaderComponent,MatButtonModule,CommonModule
+  imports: [
+    GameCardComponent,
+    MatToolbarModule ,
+    WordSorterComponent,
+    MixLettersComponent,
+    FooterComponent,MatCardModule ,
+    RouterModule,MatMenuModule,
+    MatIconModule,HeaderComponent,
+    MatButtonModule,CommonModule
   ],
   templateUrl: './lets-play.component.html',
   styleUrl: './lets-play.component.css'

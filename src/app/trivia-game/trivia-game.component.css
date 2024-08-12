@@ -3,4 +3,66 @@ h1 {
     font-size: 45px;
     margin-top: 36px;
   }
-  
+  /* Make sure the body takes up the full height and uses Flexbox to center its content */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Optional: background color */
+}
+
+/* Container for the trivia game */
+.trivia-game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 600px; /* Adjust width as needed */
+  padding: 20px;
+  box-sizing: border-box;
+  background: #ffffff; /* Optional: background color for visibility */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+/* Styling for h1 element */
+h1 {
+  margin-bottom: 20px;
+  font-size: 2em; /* Adjust size as needed */
+}
+
+/* Styling for mat-card */
+mat-card {
+  width: 100%; /* Ensure it takes full width of the container */
+  max-width: 100%; /* Limit the max width */
+}
+
+/* Ensure card content is centered */
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styling for buttons inside mat-card-content */
+mat-card-content button {
+  margin-top: 10px;
+}
+
+/* Styling for feedback and action buttons outside mat-card */
+div > p {
+  margin: 20px 0;
+}
+
+button {
+  margin-top: 10px;
+}
+.maincon{
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}

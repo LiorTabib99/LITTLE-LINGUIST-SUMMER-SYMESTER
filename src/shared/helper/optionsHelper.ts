@@ -12,7 +12,7 @@ export function generateOptions(
   while (options.size < numberOfOptions) {
     //doubling the number of words and returns
     //the number of words according to the category length
-    //and show the incorrect answers
+      
     const rendomWord =
       avalibaleWords[Math.floor(Math.random() * avalibaleWords.length)];
     options.add(rendomWord);

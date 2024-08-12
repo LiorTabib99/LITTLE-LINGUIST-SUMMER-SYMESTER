@@ -5,7 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { routes } from './app.routes';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,7 +16,7 @@ import { routes } from './app.routes';
 export class AppComponent implements OnInit {
   showTitle = true; //הראה את כותרת העמוד
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private location: Location) {}
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
@@ -70,4 +70,9 @@ export class AppComponent implements OnInit {
       headerTitle: 'Play - Word Sorting',
     },
   };
+
+
+  goBack(): void {
+    this.location.back();
+  }
 }

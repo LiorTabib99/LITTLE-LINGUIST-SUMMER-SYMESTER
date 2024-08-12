@@ -21,7 +21,8 @@ export class MixLettersComponent implements OnInit {
   gameType: string | null = null;
   categoryName: string | null = null;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.gameType = this.route.snapshot.paramMap.get('gameType');
@@ -29,5 +30,29 @@ export class MixLettersComponent implements OnInit {
       this.categoryName = params['category'] || null;
     });
   }
+
+  
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
