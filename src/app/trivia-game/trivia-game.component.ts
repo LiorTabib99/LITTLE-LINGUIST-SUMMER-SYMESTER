@@ -1,110 +1,107 @@
-import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TriviaGameService } from '../services/triviaGame.service';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Question } from '../../shared/model/question';
+import { TriviaGameService } from '../services/triviaGame.service';
 import { pointsScoreService } from '../services/pointsScore.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
+
 @Component({
   selector: 'app-trivia-game',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule,MatCardModule , CommonModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+  ],
   templateUrl: './trivia-game.component.html',
-  styleUrl: './trivia-game.component.css',
+  styleUrls: ['./trivia-game.component.css']
 })
 export class TriviaGameComponent implements OnInit {
-  gameType: string | null = null;
-  categoryName: string | null = null;
   categoryId: number | null = null;
-  questions: Question[] = [];
+  gameType: string | null = null;
 
-  currentQuestionsIndex = 0;
+  questions: Question[] = [];
+  currentQuestionIndex = 0;
   score = 0;
-  feedBack = '';
-currentQuestion: any;
+  feedback = '';
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private triviaService: TriviaGameService,
-    private scoreService: pointsScoreService
+    private scoreService: pointsScoreService,
+    private router: Router,
+    private route: ActivatedRoute, // Inject ActivatedRoute
+    public dialog: MatDialog // Add MatDialog
+
   ) {}
 
   ngOnInit(): void {
-    // this.gameType = this.route.snapshot.paramMap.get('gameType');
-    // this.route.queryParams.subscribe((params) => {
-    //   this.categoryName = params['category'] || null;
-    // });
-
-    this.route.queryParams.subscribe((parameter) => {
-      this.categoryId = +parameter['cateoryId'] || null;
-      this.gameType = parameter['gameType'] || null;
+    this.route.queryParams.subscribe(params => {
+      this.categoryId = +params['categoryId'] || null;
+      this.gameType = params['gameType'] || null;
 
       if (this.categoryId) {
-        this.questions = this.triviaService.getQuestionsByCategoryId(
-          this.categoryId
-        );
+        this.questions = this.triviaService.getQuestionsByCategoryId(this.categoryId);
       }
     });
 
-    this.score =0;
-
-  }
-
-
-
-  get currectQuestion(){
-    return this.questions[this.currentQuestionsIndex]
-  }
-
-  endGame(){
-    this.feedBack = `Game over, your score is ${this.score}`
-    if(this.gameType){
-      this.scoreService.addedGamePlayed
-      (
-        this.gameType,
-        this.score
-      )
-    }
-  }
-
-  resetGame(){
-    this.currentQuestionsIndex = 0;
     this.score = 0;
-    this.feedBack = "";
+    console.log('GameType:', this.gameType, 'CategoryId:', this.categoryId);
   }
 
+  get currentQuestion() {
+    return this.questions[this.currentQuestionIndex];
+  }
 
+  selectOption(option: string) {
+    if (option === this.currentQuestion.correctAnswer) {
+      this.score++;
+      this.feedback = 'Correct!';
+    } else {
+      this.feedback = 'Try again!';
+    }
+    setTimeout(() => this.nextQuestion(), 1000);
+  }
 
-  nextQuestion(){
-    this.currentQuestionsIndex++
-    if(this.currentQuestionsIndex>= this.questions.length){
-      this.endGame()
-    }else{
-      this.feedBack = ""
+  nextQuestion() {
+    this.currentQuestionIndex++;
+    if (this.currentQuestionIndex >= this.questions.length) {
+      this.endGame();
+    } else {
+      this.feedback = '';
     }
   }
 
+  endGame() {
+    this.feedback = `Game over! Your score is ${this.score}.`;
 
-  selectOption(option:string){
-    if(option === this.currectQuestion.correctAnswer){
-      this.score++
-      this.feedBack = "Correct!"
-    }else{
-      this.feedBack = "Wrong,try again!"
+    if (this.gameType) {
+      this.scoreService.addedGamePlayed(this.gameType, this.score);
     }
 
-    setTimeout(()=>this.nextQuestion(),1000)
+    this.scoreService.updateScore(this.score);
   }
 
-  goToDashboard(){
-    this.router.navigate(["/main"])
+  resetGame() {
+    this.currentQuestionIndex = 0;
+    this.score = 0;
+    this.feedback = '';
+  }
+  openExitDialog(): void {
+    const dialogRef = this.dialog.open(ExitGameDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.goToDashboard();
+      }
+    });
   }
 
-
-
-
+ 
+  goToDashboard() {
+    this.router.navigate(['/']);
+  }
 }
