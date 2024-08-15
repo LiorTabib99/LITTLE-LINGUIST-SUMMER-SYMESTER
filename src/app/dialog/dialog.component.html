@@ -4,7 +4,7 @@
   <mat-form-field appearance="fill">
     <label *ngIf="!selectedCategory"> Choose Category </label>
 
-    <mat-select (selectionChange)="OnCategoryChange($event)">
+    <mat-select (selectionChange)="onCategoryChange($event)">
       <mat-option *ngFor="let category of categories" [value]="category.id">
         {{ category.name }}
       </mat-option>
@@ -27,7 +27,7 @@
 <div mat-dialog-actions>
   <button mat-button (click)="onNonClick()">Close</button>
 
-  <button mat-button (click)="OnPlayClick()" [disabled]="!selectedCategory">
+  <button mat-button (click)="onPlayClick()" [disabled]="!selectedCategory">
     Play
   </button>
 </div>

@@ -16,7 +16,7 @@ import { WordSorterComponent } from '../word-sorter/word-sorter.component';
     MatDialogModule,
     MatButtonModule,
     CommonModule,
-    MAT_DIALOG_DATA,
+    
     MixLettersComponent,
     MatSelectModule,
     TriviaGameComponent,
