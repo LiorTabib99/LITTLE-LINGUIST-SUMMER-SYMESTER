@@ -12,13 +12,9 @@ import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.co
 @Component({
   selector: 'app-trivia-game',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-  ],
+  imports: [CommonModule, MatButtonModule, MatCardModule],
   templateUrl: './trivia-game.component.html',
-  styleUrls: ['./trivia-game.component.css']
+  styleUrls: ['./trivia-game.component.css'],
 })
 export class TriviaGameComponent implements OnInit {
   categoryId: number | null = null;
@@ -35,17 +31,21 @@ export class TriviaGameComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute, // Inject ActivatedRoute
     public dialog: MatDialog // Add MatDialog
-
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.categoryId = +params['categoryId'] || null;
-      this.gameType = params['gameType'] || null;
-
-      if (this.categoryId) {
-        this.questions = this.triviaService.getQuestionsByCategoryId(this.categoryId);
+    this.route.queryParams.subscribe((params) => {
+      const categoryId = +params['categoryId'];
+      this.categoryId = categoryId;
+      if (this.categoryId >= 0) {
+        this.questions = this.triviaService.getQuestionsByCategoryId(
+          this.categoryId
+        );
+      } else {
+        console.error('Invalid categoryId');
       }
+
+      this.gameType = params['gameType'] || null;
     });
 
     this.score = 0;
@@ -93,15 +93,14 @@ export class TriviaGameComponent implements OnInit {
   openExitDialog(): void {
     const dialogRef = this.dialog.open(ExitGameDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.goToDashboard();
       }
     });
   }
 
- 
   goToDashboard() {
     this.router.navigate(['/']);
-  }
+  }
 }
