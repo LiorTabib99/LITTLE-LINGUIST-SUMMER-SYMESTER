@@ -1,2 +1,39 @@
+<!-- <h1 *ngIf="categoryName">Mixed Letters - {{ categoryName }}</h1> -->
+
+
+
 <h1 *ngIf="categoryName">Mixed Letters - {{ categoryName }}</h1>
 
+ <p></p>
+
+ Coin symbol
+<mat-icon>attach_money</mat-icon> 
+
+<!-- Text input bar  -->
+ <input matInput placeholder="Enter text" [(ngModel)]="inputText"> 
+
+<!-- Buttons -->
+<div>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+  <button mat-raised-button color="warn" (click)="onReset()">Reset</button>
+</div>
+
+
+
+<!-- <h1 *ngIf="categoryName">Mixed Letters - {{ categoryName }}</h1>
+
+<p *ngIf="words.length > 0">
+  {{ words.join(', ') }}
+</p> -->
+
+<!-- Coin symbol -->
+<!-- <mat-icon>attach_money</mat-icon> -->
+
+<!-- Text input bar -->
+<!-- <input matInput placeholder="Enter text" [(ngModel)]="inputText"> -->
+
+<!-- Buttons -->
+<!-- <div>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+  <button mat-raised-button color="warn" (click)="onReset()">Reset</button>
+</div> -->

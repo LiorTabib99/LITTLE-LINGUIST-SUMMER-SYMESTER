@@ -1,6 +1,7 @@
+
+
 // import { CommonModule } from '@angular/common';
-// import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-// import { gameProfile } from '../../shared/model/gameProfile';
+// import { Component, OnInit } from '@angular/core';
 // import { MatButtonModule } from '@angular/material/button';
 // import { MatIconModule } from '@angular/material/icon';
 // import { MatMenuModule } from '@angular/material/menu';
@@ -12,39 +13,36 @@
 // import { GameCardComponent } from '../game-card/game-card.component';
 // import { HeaderComponent } from '../header/header.component';
 // import { MatCardModule } from '@angular/material/card';
-// import { DialogComponent } from '../dialog/dialog.component';
 // import { pointsScoreService } from '../services/pointsScore.service';
-
-
-
 // @Component({
 //   selector: 'app-lets-play',
 //   standalone: true,
 //   imports: [
-//     GameCardComponent,
-//     MatToolbarModule ,
+//     CommonModule,
+//     MatToolbarModule,
 //     WordSorterComponent,
 //     MixLettersComponent,
-//     FooterComponent,MatCardModule ,
-//     RouterModule,MatMenuModule,
-//     MatIconModule,HeaderComponent,
-//     MatButtonModule,CommonModule,DialogComponent
+//     FooterComponent,
+//     MatCardModule,
+//     RouterModule,
+//     MatMenuModule,
+//     MatIconModule,
+//     MatButtonModule,
+//     HeaderComponent,
+//     GameCardComponent
 //   ],
 //   templateUrl: './lets-play.component.html',
-//   styleUrl: './lets-play.component.css'
+//   styleUrls: ['./lets-play.component.css'] // Fixed typo here from styleUrl to styleUrls
 // })
 // export class LetsPlayComponent implements OnInit {
-//  score : number = 0;
-//  constructor(private pointsScoreService: pointsScoreService){
-//  }
+//   score: number = 0;
+
+//   constructor(private pointsScoreService: pointsScoreService) {}
+
 //   ngOnInit(): void {
-//     this.score = this.pointsScoreService.getCurrentScore()
-
-
+//     this.score = this.pointsScoreService.getCurrentScore(); // Retrieve the score from the service
 //   }
- 
 // }
-
 
 
 
@@ -63,6 +61,7 @@ import { GameCardComponent } from '../game-card/game-card.component';
 import { HeaderComponent } from '../header/header.component';
 import { MatCardModule } from '@angular/material/card';
 import { pointsScoreService } from '../services/pointsScore.service';
+
 @Component({
   selector: 'app-lets-play',
   standalone: true,
@@ -81,7 +80,7 @@ import { pointsScoreService } from '../services/pointsScore.service';
     GameCardComponent
   ],
   templateUrl: './lets-play.component.html',
-  styleUrls: ['./lets-play.component.css'] // Fixed typo here from styleUrl to styleUrls
+  styleUrls: ['./lets-play.component.css']
 })
 export class LetsPlayComponent implements OnInit {
   score: number = 0;
@@ -92,7 +91,3 @@ export class LetsPlayComponent implements OnInit {
     this.score = this.pointsScoreService.getCurrentScore(); // Retrieve the score from the service
   }
 }
-
-
-
-
