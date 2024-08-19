@@ -5,6 +5,7 @@ import { categories } from './../../shared/data/categories';
 import { Injectable } from '@angular/core';
 import { Category } from '../../shared/model/category';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -69,4 +70,6 @@ export class CategoriesService {
     this.setCategories(categoriesMap);
     this.setNextId(++category.id);
   }
+
+
 }

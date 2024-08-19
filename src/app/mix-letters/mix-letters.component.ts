@@ -49,6 +49,7 @@ import { CategoriesService } from '../services/categories.service';
 import { MatDialog } from '@angular/material/dialog';
 // import { wordStatus } from '../../shared/model/wordStatus';
 // import { hebrewWord } from '../../shared/model/hebrewWord';
+import {Input} from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 @Component({
@@ -60,12 +61,14 @@ import { Router } from '@angular/router';
     CommonModule,
     FormsModule,  // Added FormsModule for ngModel binding
     MatProgressBarModule,
-
   ],
   templateUrl: './mix-letters.component.html',
   styleUrls: ['./mix-letters.component.css'],  // Changed styleUrl to styleUrls
 })
 export class MixLettersComponent implements OnInit {
+  isLoading = true;
+  index = 1;
+  mixLetter : string = ''
   gameType: string | null = null;
   categoryName: string | null = null;
   inputText: string = '';  // Added inputText to bind to the input field
@@ -74,6 +77,7 @@ export class MixLettersComponent implements OnInit {
     private categoriesService:CategoriesService,
     private router:Router ,
     private dialog : MatDialog
+    
 
   ) {}
 
@@ -89,26 +93,13 @@ export class MixLettersComponent implements OnInit {
     // Add your submit logic here
   }
 
+  // פונקציה שקוראת לשירות למחוק את כל הנתונים
   onReset(): void {
-    this.inputText = '';
+    this.inputText = ''; // איפוס שדה הטקסט
   }
+  
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
