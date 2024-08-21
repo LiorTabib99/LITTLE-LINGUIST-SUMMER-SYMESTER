@@ -56,11 +56,6 @@ div{
   
 }
 
-.mat-card-word-sorter{
-  max-width: 300px;
-  background-color: yellow;
-  
-}
 
 .mat-card-word-sorter .mat-card,
 .mat-card-word-sorter mat-card-title,
@@ -70,6 +65,19 @@ div{
   font-size: 149.54%;
 }
 
+
+.mat-card-matching-game{
+  max-width: 300px;
+  background-color: #fbff00;
+}
+
+.mat-card-matching-game .mat-card,
+.mat-card-matching-game mat-card-title,
+.mat-card-matching-game mat-card-subtitle {
+  background-color: #fbff00;
+  color: #000000;
+  font-size: 149.54%;
+}
 
 
 mat-card-title {
