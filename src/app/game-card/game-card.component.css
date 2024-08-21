@@ -56,6 +56,12 @@ div{
   
 }
 
+.mat-card-word-sorter{
+  max-width: 300px;
+  background-color: yellow;
+  
+}
+
 .mat-card-word-sorter .mat-card,
 .mat-card-word-sorter mat-card-title,
 .mat-card-word-sorter mat-card-subtitle {

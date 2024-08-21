@@ -13,5 +13,11 @@ export const gameCards = [
         title: 'Word Sorter',
         description: 'Generate the game description',
         class: 'mat-card-word-sorter'
+      },
+
+      {
+        title: 'Matching-Game',
+        description: 'Match between the the English and Hebrew words',
+        class: 'mat-card-matching-game'
       }
 ];

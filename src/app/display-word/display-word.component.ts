@@ -13,16 +13,16 @@ import { NgClass } from '@angular/common';
 export class DisplayWordComponent {
 
  @Input() word: string = '';
- @Input() wordStatus: wordStatus = 0;
+// @Input() wordStatus: wordStatus = 0;
 
- getWordStyle() {
-  switch (this.wordStatus) {
-    case wordStatus.Selected;
-      return 'selected';
-    case wordStatus.Disabled;
-      return 'disabled';
-    default:
-      return '';
-  }
- }
+//  getWordStyle() {
+//   switch (this.wordStatus) {
+//     case wordStatus.Selected;
+//       return 'selected';
+//     case wordStatus.Disabled;
+//       return 'disabled';
+//     default:
+//       return '';
+//   }
+//  }
 }

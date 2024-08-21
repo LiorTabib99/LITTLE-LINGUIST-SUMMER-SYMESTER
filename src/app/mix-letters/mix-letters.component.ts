@@ -37,7 +37,7 @@
 
 
 
-
+import { Category } from '../../shared/model/category';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -103,3 +103,72 @@ export class MixLettersComponent implements OnInit {
 
 
 
+
+// import { Component, OnInit } from '@angular/core';
+// import { ActivatedRoute } from '@angular/router';
+// import { Router } from '@angular/router';
+// import { CategoriesService } from '../services/categories.service';
+// import { MatDialog } from '@angular/material/dialog';
+// import { Category } from '../../shared/model/category';
+
+// @Component({
+//   selector: 'app-mix-letters',
+//   standalone: true,
+//   templateUrl: './mix-letters.component.html',
+//   styleUrls: ['./mix-letters.component.css'],
+// })
+// export class MixLettersComponent implements OnInit {
+//   isLoading = true;
+//   index = 1;
+//   mixLetter: string = '';
+//   gameType: string | null = null;
+//   categoryName: string | null = null;
+//   inputText: string = '';
+//   hebrewWord: string = '';
+//   scrambledEnglishWord: string = '';
+
+//   constructor(
+//     private route: ActivatedRoute,
+//     private categoriesService: CategoriesService,
+//     private router: Router,
+//     private dialog: MatDialog
+//   ) {}
+
+//   ngOnInit(): void {
+//     this.gameType = this.route.snapshot.paramMap.get('gameType');
+//     this.route.queryParams.subscribe((params) => {
+//       this.categoryName = params['category'] || null;
+//       this.loadWords();
+//     });
+//   }
+
+//   private loadWords(): void {
+//     if (this.categoryName) {
+//       const category = this.categoriesService
+//         .list()
+//         .find((cat) => cat.name === this.categoryName);
+
+//       if (category && category.words.length > 0) {
+//         const word = category.words[this.index % category.words.length];
+//         this.hebrewWord = word.hebrew;
+//         this.scrambledEnglishWord = this.scrambleWord(word.english);
+//       }
+//     }
+//   }
+
+//   private scrambleWord(word: string): string {
+//     return word
+//       .split('')
+//       .sort(() => Math.random() - 0.5)
+//       .join('');
+//   }
+
+//   onSubmit(): void {
+//     console.log('Submitted:', this.inputText);
+//     // Add your submit logic here
+//   }
+
+//   onReset(): void {
+//     this.inputText = '';
+//   }
+// }
