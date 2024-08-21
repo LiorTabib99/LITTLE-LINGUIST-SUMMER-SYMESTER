@@ -40,6 +40,7 @@ import { WordSorterComponent } from './word-sorter/word-sorter.component';
 import { MixLettersComponent } from './mix-letters/mix-letters.component';
 import { TriviaGameComponent } from './trivia-game/trivia-game.component';
 import { LetsPlayComponent } from './lets-play/lets-play.component';
+import { MatchingGameComponent } from './matching-game/matching-game.component';
 
 export const routes: Routes = [
   { path: 'letsPlay', component: LetsPlayComponent },
@@ -54,4 +55,5 @@ export const routes: Routes = [
   { path: 'word-sorting-game', component: WordSorterComponent },
   { path: 'main', component: DashboardComponent },
   { path: 'trivia-game', component: TriviaGameComponent },
+  {path : 'matching-game', component: MatchingGameComponent}
 ];
