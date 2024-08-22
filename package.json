@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "firebase:build-deploy": "npm run firebase:build && npm run firebase:deploy",
+    "firebase:build": "ng build",
+    "firebase:deploy": "firebase deploy"
+
   },
   "private": true,
   "dependencies": {
