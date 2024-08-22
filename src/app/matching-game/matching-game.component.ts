@@ -16,10 +16,11 @@ import { CorrectDialogComponent } from '../correct-dialog/correct-dialog.compone
 import { IncorrectDialogComponent } from '../incorrect-dialog/incorrect-dialog.component';
 import { GameResultComponent } from '../game-result/game-result.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
+import { DialogComponent } from '../dialog/dialog.component';
 @Component({
   selector: 'app-word-sorter',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, CommonModule, MatProgressBarModule],
+  imports: [MatButtonModule, MatIconModule, CommonModule, MatProgressBarModule,DialogComponent],
   templateUrl: './matching-game.component.html',
   styleUrl: './matching-game.component.css'
 })

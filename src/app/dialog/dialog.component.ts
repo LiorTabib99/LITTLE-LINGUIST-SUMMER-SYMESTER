@@ -61,12 +61,10 @@ export class DialogComponent {
           },
         });
       }
-      // if (route === 'Matching-game') {
-      //   // In case the category has less then 5 words, show error message unless you can continue
-      //   if (this.selectedCategory.words.length >= 5) {
-      //     this.route.navigate('Matching-game')
-      //   }
-      // }
+      // In case the category has less then 5 words, show error message unless you can continue
+      if (this.selectedCategory.words.length >= 5) {
+        this.router.navigate(["/matching-game"])
+      }
     }
   }
 
