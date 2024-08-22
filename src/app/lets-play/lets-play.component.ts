@@ -13,6 +13,7 @@ import { GameCardComponent } from '../game-card/game-card.component';
 import { HeaderComponent } from '../header/header.component';
 import { MatCardModule } from '@angular/material/card';
 import { pointsScoreService } from '../services/pointsScore.service';
+import { MatchingGameComponent } from '../matching-game/matching-game.component';
 
 @Component({
   selector: 'app-lets-play',
@@ -29,7 +30,8 @@ import { pointsScoreService } from '../services/pointsScore.service';
     MatIconModule,
     MatButtonModule,
     HeaderComponent,
-    GameCardComponent
+    GameCardComponent,
+    MatchingGameComponent
   ],
   templateUrl: './lets-play.component.html',
   styleUrls: ['./lets-play.component.css']
