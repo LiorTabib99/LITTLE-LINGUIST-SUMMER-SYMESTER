@@ -17,10 +17,12 @@ import { IncorrectDialogComponent } from '../incorrect-dialog/incorrect-dialog.c
 import { GameResultComponent } from '../game-result/game-result.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { DialogComponent } from '../dialog/dialog.component';
+import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-word-sorter',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, CommonModule, MatProgressBarModule,DialogComponent],
+  imports: [MatButtonModule, MatIconModule, CommonModule,
+    MatCardModule, MatProgressBarModule,DialogComponent],
   templateUrl: './matching-game.component.html',
   styleUrl: './matching-game.component.css'
 })
