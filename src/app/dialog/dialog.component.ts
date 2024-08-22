@@ -46,10 +46,10 @@ export class DialogComponent {
   onPlayClick(): void {
     if (this.selectedCategory) {
       const gameRoutes: { [key: string]: string } = {
-        Trivia: '/trivia-game',
+        'Trivia': '/trivia-game',
         'Mixed Letters': '/mixLetter',
         'Word Sorter': '/word-sorting-game',
-        'Matching-game': '/matching-game',
+        'Matching-Game': '/matching-game',
       };
       const route = gameRoutes[this.data.gameType];
       if (route) {
