@@ -52,6 +52,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {Input} from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-mix-letters',
   standalone: true,

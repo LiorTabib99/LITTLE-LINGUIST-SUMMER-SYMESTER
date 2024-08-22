@@ -6,14 +6,18 @@ import { HeaderComponent } from './header/header.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { routes } from './app.routes';
 import { Location } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, HeaderComponent],
+  imports: [CommonModule, RouterModule, FooterComponent,MatIconModule,HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   showTitle = true; //הראה את כותרת העמוד
 
   constructor(private router: Router, private location: Location) {}
@@ -71,8 +75,4 @@ export class AppComponent implements OnInit {
     },
   };
 
-
-  goBack(): void {
-    this.location.back();
-  }
 }
