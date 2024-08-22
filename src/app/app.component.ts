@@ -72,7 +72,10 @@ export class AppComponent implements OnInit {
     '/word-sorting-game': {
       showTitle: true,
       headerTitle: 'Play - Word Sorting',
+      
+      
     },
   };
+
 
 }
