@@ -1,4 +1,4 @@
-<div class="header-container">
+<!-- <div class="header-container">
   <button mat-button class="exitButton" (click)="openExitDialog()">
     <mat-icon>arrow_back</mat-icon>
   </button>
@@ -18,7 +18,7 @@
   </button>
 </div>
 
-<div class="words-container">
+<div  class="words-container">
   <div class="english-words">
     <h2>English Words</h2>
     <div
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="hebrew-words">
+  <div  class="hebrew-words">
     <h2>Hebrew Words</h2>
     <div
       *ngFor="let hebrewWord of hebrewWords"
@@ -53,4 +53,96 @@
       </mat-card>
     </div>
   </div>
+
+
+
+</div>
+<div class="feedback" *ngIf="feedback">
+  {{ feedback }}
+    
+</div>
+<div class="ifgoback">
+  <button
+    *ngIf="showBackButton"
+    mat-raised-button
+    color="primary"
+    (click)="navigateToCategorySelection()"
+  >
+    Go Back to Category Selection
+  </button>
+    
+</div> -->
+
+
+
+
+<div *ngIf="!feedback">
+  <div class="header-container">
+    <button mat-button class="exitButton" (click)="openExitDialog()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <h1 class="matching-game-title">
+      Matching Game - {{ categoryName }}
+    </h1>
+    <div class="status-bar">
+      <span>Score: {{ score }}</span>
+      <span>Grade: {{ grade }}</span>
+    </div>
+    <button
+      mat-raised-button
+      color="warn"
+      class="reset-button"
+      (click)="resetGame()"
+    >
+      Reset Game
+    </button>
+  </div>
+
+  <div class="words-container">
+    <div class="english-words">
+      <h2>English Words</h2>
+      <div
+        *ngFor="let englishWord of englishWords"
+        (click)="selectedEnglishWord(englishWord)"
+        [ngClass]="{
+          selected:
+            (selectedEnglishWords && selectedEnglishWords.word) ==
+            englishWord.word,
+          correct: englishWord.status === wordStatus.Correct,
+          disabled: englishWord.status === wordStatus.Disabled
+        }"
+      >
+        <mat-card>{{ englishWord.word }}</mat-card>
+      </div>
+    </div>
+
+    <div class="hebrew-words">
+      <h2>Hebrew Words</h2>
+      <div
+        *ngFor="let hebrewWord of hebrewWords"
+        (click)="matchWord(hebrewWord)"
+        [ngClass]="{
+          correct: hebrewWord.status === wordStatus.Correct,
+          disabled: hebrewWord.status === wordStatus.Disabled
+        }"
+      >
+        <mat-card>{{ hebrewWord.translated }}</mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feedback" *ngIf="feedback">
+  {{ feedback }}
+</div>
+
+<div class="ifgoback" *ngIf="showBackButton">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="navigateToCategorySelection()"
+  >
+    Go Back to Category Selection
+  </button>
 </div>

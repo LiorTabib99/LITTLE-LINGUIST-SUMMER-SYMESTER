@@ -29,3 +29,9 @@
 .results-table .incorrect {
   background-color: #e9a5ab; /* Light red for incorrect */
 }
+
+
+.new-game-button{
+  align-items: center;
+  justify-content: center;
+}

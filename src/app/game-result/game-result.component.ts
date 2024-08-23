@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatchingGameComponent } from '../matching-game/matching-game.component';
 @Component({
   selector: 'app-game-result',
   standalone: true,
@@ -14,10 +15,11 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrl: './game-result.component.css'
 })
 export class GameResultComponent {
-  displayColums : string[] = ["englishWord", "hebreWord","status"];
-  wordPairs : {englishWord: string, hebreWord: string, status: string}[] = []
+  displayColums : string[] = ["englishWord", "hebrewWord","status"];
+  wordPairs : {englishWord: string, hebrewWord: string, status: string, categoryName: string}[] = []
   grade : number = 100;
   message :string = ""
+  categoryName = ""
   
   
 
@@ -25,8 +27,9 @@ export class GameResultComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<GameResultComponent>) {
     if(data){
-      this.wordPairs = this.wordPairs || [];
-      this.grade = data.grade || 100
+      this.wordPairs = data.wordPairs || [];
+      this.grade = data.grade || 100;
+      this.categoryName = data.categoryName
       this.setMessage()
     }else{
       console.log("error, invalid or missing data for game result", data)
@@ -46,10 +49,9 @@ export class GameResultComponent {
 
 
   //closing this specific dialog and return to the menu
-  closeDialog(): void{
+  newGameButton(): void{
     this.dialogRef.close(
     )
-    this.router.navigate(["/main"])
   }
 
 

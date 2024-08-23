@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Game result title</h2>
+<h2 mat-dialog-title>Game result title -{{categoryName}}</h2>
 
 <mat-dialog-content>
   <div class="results-summary">
@@ -35,10 +35,12 @@
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          correct: element.status === 'Correct',
-          incorrect: element.status === 'Incorrect'
+          correct: element.status === 'correct',
+          incorrect: element.status === 'incorrect'
         }"
-      ></td>
+      >
+        {{ element.status }}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayColums"></tr>
@@ -47,5 +49,5 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">Close</button>
+  <button mat-button class="new-game-button" (click)="newGameButton()">New Game</button>
 </mat-dialog-actions>
