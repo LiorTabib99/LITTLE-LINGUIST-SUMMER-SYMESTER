@@ -22,12 +22,34 @@
 <div class="words-container">
   <div class="english-words">
     <h2>English Words</h2>
-    <div *ngFor="let englishWord of englishWords" (click)="selectedEnglishWord(englishWord)">
-
+    <div
+      *ngFor="let englishWord of englishWords"
+      (click)="selectedEnglishWord(englishWord)"
+      [ngClass]="{
+        selected:
+          (selectedEnglishWords && selectedEnglishWords.word) ==
+          englishWord.word,
+        correct: englishWord.status === wordStatus.Correct,
+        disabled: englishWord.status === wordStatus.Disabled
+      }"
+    >
+      <mat-card>
+        {{ englishWord.word }}
+      </mat-card>
     </div>
   </div>
 
   <div class="hebrew-words">
     <h2>Hebrew Words</h2>
+    <div
+      *ngfor="let hebreWord of hebreWords"
+      (click)="matchWord(hebreWord)"
+      [ngClass]="{'correct': hebreWord.status === wordStatus.Correct,
+      'disabled': hebreWord.status === wordStatus.Disabled}">
+    <mat-card>
+      {{hebreWord.translated}}
+    </mat-card>
+  
+  </div>
   </div>
 </div>

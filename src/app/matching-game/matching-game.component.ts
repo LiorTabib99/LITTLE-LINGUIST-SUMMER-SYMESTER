@@ -102,7 +102,7 @@ export class MatchingGameComponent implements OnInit {
   }
 
   
-  selectedEnglishWord(word : {word: string,status: wordStatus,attemptsLeft: number}){
+  selectedEnglishWord(word : {word: string, status: wordStatus,attemptsLeft: number}){
     if(word.status === wordStatus.Normal){
       this.selectedEnglishWords = word
     }
