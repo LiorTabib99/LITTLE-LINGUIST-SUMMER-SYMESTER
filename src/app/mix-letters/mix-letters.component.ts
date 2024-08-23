@@ -15,6 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { TranslatedWord } from '../../shared/model/translated-word';
+import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 
 
 @Component({
@@ -135,9 +136,14 @@ export class MixLettersComponent implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.location.back(); // חזרה לדף הקודם
+   //connects to the exit game dialog component
+   openExitDialog() : void {
+    const dialogRef = this.dialog.open(ExitGameDialogComponent)
+    dialogRef.afterClosed().subscribe(result=>{
+      this.router.navigate(["/main"])
+    })
   }
+
 
   progressBarLength(): void {
     const totalWords = this.englishWords.length;

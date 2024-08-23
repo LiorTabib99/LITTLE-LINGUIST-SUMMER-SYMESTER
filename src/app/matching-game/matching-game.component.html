@@ -1,6 +1,6 @@
 <div class="header-container">
   <button mat-button class="exitButton" (click)="openExitDialog()">
-    Exit Game
+    <mat-icon>arrow_back</mat-icon>
   </button>
 
   <h1 class="matching-game-title">Matching Game-{{ categoryName }}</h1>
@@ -23,7 +23,7 @@
   <div class="english-words">
     <h2>English Words</h2>
     <div *ngFor="let englishWord of englishWords" (click)="selectedEnglishWord(englishWord)">
-      
+
     </div>
   </div>
 

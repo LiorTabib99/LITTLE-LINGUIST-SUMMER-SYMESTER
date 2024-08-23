@@ -18,7 +18,7 @@
 <h1 *ngIf="categoryName">Mix Letters - {{ categoryName }}</h1>
 
 <!-- כפתור לחזרה לדף הקודם -->
-<button mat-icon-button (click)="goBack()">
+<button mat-button class="exitButton" (click)="openExitDialog()">
   <mat-icon>arrow_back</mat-icon>
 </button>
 

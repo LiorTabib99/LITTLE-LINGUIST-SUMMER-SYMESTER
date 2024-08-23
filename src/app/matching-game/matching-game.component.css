@@ -1,0 +1,13 @@
+.exitButton {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .exitButton:hover {
+    background-color: #bebcbc;
+  }

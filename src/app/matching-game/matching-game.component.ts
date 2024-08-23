@@ -57,7 +57,7 @@ export class MatchingGameComponent implements OnInit {
     private categoryService: CategoriesService,
     private pointScore: pointsScoreService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

@@ -62,9 +62,9 @@ export class DialogComponent {
         });
       }
       // In case the category has less then 5 words, show error message unless you can continue
-      if (this.selectedCategory.words.length >= 5) {
-        this.router.navigate(["/matching-game"])
-      }
+      // if (this.selectedCategory.words.length >= 5) {
+      //   this.router.navigate(["/matching-game"])
+      // }
     }
   }
 
