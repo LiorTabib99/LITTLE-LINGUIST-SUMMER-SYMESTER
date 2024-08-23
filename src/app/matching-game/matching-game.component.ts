@@ -96,8 +96,16 @@ export class MatchingGameComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {});
   }
 
+
   private mixWordsArray<T>(array: T[]): T[] {
     return array.sort(() => Math.random() - 0.5);
+  }
+
+  
+  selectedEnglishWord(word : {word: string,status: wordStatus,attemptsLeft: number}){
+    if(word.status === wordStatus.Normal){
+      this.selectedEnglishWords = word
+    }
   }
 
   //connects to the correct dialog component
