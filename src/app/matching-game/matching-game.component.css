@@ -11,3 +11,70 @@
   .exitButton:hover {
     background-color: #bebcbc;
   }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .exit-button {
+    align-self: flex-start;
+  }
+  
+  .status-bar {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px; 
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  .words-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .english-words, .hebrew-words {
+    width: 45%;
+  }
+  
+  .english-words mat-card, .hebrew-words mat-card {
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+  }
+  
+  .selected {
+    /* background-color: lightblue; */
+    /* border: 2px solid blue; */
+    color: blue;
+  }
+  
+  .correct {
+    background-color: rgb(0, 255, 68);
+    color: rgb(0, 255, 68); /* Ensure text is readable on green background */
+    cursor: not-allowed; /* Indicate non-interactivity */
+  }
+  
+  .disabled {
+    background-color: rgba(255, 255, 255, 0.386);
+    cursor: not-allowed; /* Indicate non-interactivity */
+  }
+  
+  .feedback {
+    margin: 20px;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .ifgoback {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .reset-button {
+    margin-top: 10px;
+  }

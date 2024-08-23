@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { wordStatus } from '../../shared/model/wordStatus';
 import { hebrewWord } from '../../shared/model/hebrewWord';
-import { CorrectDialogComponent } from '../correct-dialog/correct-dialog.component';
-import { IncorrectDialogComponent } from '../incorrect-dialog/incorrect-dialog.component';
+import { MatchingGameCorrectDialogComponent } from '../matching-game-correct-dialog/matching-game-correct-dialog.component';
+import { MatchingGameIncorrectDialogComponent } from '../matching-game-incorrect-dialog/matching-game-incorrect-dialog.component';
 import { GameResultComponent } from '../game-result/game-result.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -67,6 +67,7 @@ export class MatchingGameComponent implements OnInit {
     );
     if (categoryId >= 0) {
       const cateogry = this.categoryService.get(categoryId);
+      this.categoryName = cateogry?.name
       if (cateogry && cateogry.words.length >= 5) {
         this.englishWords = this.mixWordsArray(
           cateogry.words.map((word) => ({
@@ -110,7 +111,13 @@ export class MatchingGameComponent implements OnInit {
 
   //connects to the correct dialog component
   openCorrectAnswerDialog(): void {
-    this.dialog.open(CorrectDialogComponent);
+    this.dialog.open(MatchingGameCorrectDialogComponent, {data:{message : "Great Job!"}});
+  }
+
+
+   //connects to the correct dialog component
+   openIncorretAnswerDialog(): void {
+    this.dialog.open(MatchingGameIncorrectDialogComponent, {data:{message : "Incorrect,Give it another try"}});
   }
 
    //connects to the exit game dialog component
@@ -156,6 +163,7 @@ export class MatchingGameComponent implements OnInit {
       } else {
         // Handle incorrect match
         this.grade -= 8; // Decrease grade by 8 for incorrect match
+        this.openIncorretAnswerDialog()
   
 
 

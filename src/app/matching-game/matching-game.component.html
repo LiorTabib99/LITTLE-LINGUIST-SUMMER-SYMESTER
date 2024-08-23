@@ -3,11 +3,10 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
 
-  <h1 class="matching-game-title">Matching Game-{{ categoryName }}</h1>
+  <h1 class="matching-game-title">Matching Game - {{ categoryName }}</h1>
   <div class="status-bar">
-    <span> Score: {{ score }} </span>
-
-    <span> Grade: {{ grade }} </span>
+    <span>Score: {{ score }}</span>
+    <span>Grade: {{ grade }}</span>
   </div>
   <button
     mat-raised-button
@@ -42,14 +41,16 @@
   <div class="hebrew-words">
     <h2>Hebrew Words</h2>
     <div
-      *ngfor="let hebreWord of hebreWords"
-      (click)="matchWord(hebreWord)"
-      [ngClass]="{'correct': hebreWord.status === wordStatus.Correct,
-      'disabled': hebreWord.status === wordStatus.Disabled}">
-    <mat-card>
-      {{hebreWord.translated}}
-    </mat-card>
-  
-  </div>
+      *ngFor="let hebrewWord of hebrewWords"
+      (click)="matchWord(hebrewWord)"
+      [ngClass]="{
+        correct: hebrewWord.status === wordStatus.Correct,
+        disabled: hebrewWord.status === wordStatus.Disabled
+      }"
+    >
+      <mat-card>
+        {{ hebrewWord.translated }}
+      </mat-card>
+    </div>
   </div>
 </div>

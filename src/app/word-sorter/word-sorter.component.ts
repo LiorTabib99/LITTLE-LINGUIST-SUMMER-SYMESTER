@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { wordStatus } from '../../shared/model/wordStatus';
 import { hebrewWord } from '../../shared/model/hebrewWord';
 import { CorrectDialogComponent } from '../correct-dialog/correct-dialog.component';
-import { IncorrectDialogComponent } from '../incorrect-dialog/incorrect-dialog.component';
+
 import { GameResultComponent } from '../game-result/game-result.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 @Component({
