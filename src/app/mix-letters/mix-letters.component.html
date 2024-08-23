@@ -15,12 +15,51 @@
   <button mat-raised-button color="warn" (click)="onReset()">Reset</button>
 </div> -->
 
+<!-- <h1 *ngIf="categoryName">Mix Letters - {{ categoryName }}</h1> -->
+
+<!-- כפתור לחזרה לדף הקודם -->
+<!-- <button mat-button class="exitButton" (click)="openExitDialog()">
+  <mat-icon>arrow_back</mat-icon>
+</button> -->
+
+
+<!-- <p>{{ hebrewWord }}</p> -->
+
+<!-- <p>{{ scrambledEnglishWord }}</p> -->
+
+<!-- 
+<input matInput placeholder="הכנס טקסט כאן" [(ngModel)]="inputText" />
+
+
+<div>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+  <button mat-raised-button color="warn" (click)="onReset()">Reset</button>
+</div>
+
+
+<mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+
+
+<mat-icon>attach_money</mat-icon> -->
+
+
+
+
+
+
+
+
+
+
 <h1 *ngIf="categoryName">Mix Letters - {{ categoryName }}</h1>
 
 <!-- כפתור לחזרה לדף הקודם -->
 <button mat-button class="exitButton" (click)="openExitDialog()">
   <mat-icon>arrow_back</mat-icon>
 </button>
+
+<!-- אייקון של מטבע -->
+<mat-icon>attach_money</mat-icon>
 
 <!-- הצגת המילה בעברית -->
 <p>{{ hebrewWord }}</p>
@@ -40,5 +79,8 @@
 <!-- פס התקדמות -->
 <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
 
-<!-- אייקון של מטבע -->
-<mat-icon>attach_money</mat-icon>
+
+
+<!-- משוב אם אין מספיק מילים בקטגוריה -->
+<p *ngIf="feedback">{{ feedback }}</p>
+
