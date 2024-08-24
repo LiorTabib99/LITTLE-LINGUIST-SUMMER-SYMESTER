@@ -43,14 +43,6 @@
 <mat-icon>attach_money</mat-icon> -->
 
 
-
-
-
-
-
-
-
-
 <h1 *ngIf="categoryName">Mix Letters - {{ categoryName }}</h1>
 
 <!-- כפתור לחזרה לדף הקודם -->
@@ -61,11 +53,13 @@
 <!-- אייקון של מטבע -->
 <mat-icon>attach_money</mat-icon>
 
-<!-- הצגת המילה בעברית -->
-<p>{{ hebrewWord }}</p>
 
 <!-- הצגת המילה באנגלית בערבוב אקראי -->
 <p>{{ scrambledEnglishWord }}</p>
+
+<!-- הצגת המילה בעברית -->
+<p>{{ hebrewWord }}</p>
+
 
 <!-- שדה להזנת טקסט -->
 <input matInput placeholder="הכנס טקסט כאן" [(ngModel)]="inputText" />
@@ -79,8 +73,5 @@
 <!-- פס התקדמות -->
 <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
 
-
-
 <!-- משוב אם אין מספיק מילים בקטגוריה -->
 <p *ngIf="feedback">{{ feedback }}</p>
-
