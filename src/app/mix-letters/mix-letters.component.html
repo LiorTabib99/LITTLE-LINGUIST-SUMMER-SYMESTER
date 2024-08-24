@@ -24,7 +24,9 @@
 </div>
 
 <!-- פס התקדמות -->
-<mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+<div>
+  <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+</div>
 
 <!-- משוב אם אין מספיק מילים בקטגוריה -->
 <p *ngIf="feedback">{{ feedback }}</p>

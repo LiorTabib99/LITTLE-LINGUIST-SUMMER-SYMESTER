@@ -66,43 +66,7 @@ export class MatchingGameComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  // ngOnInit(): void {
-  //   //navigate to the cateogry id from queryParamMap and take it
-  //   const categoryId = Number(
-  //     this.route.snapshot.queryParamMap.get('categoryId')
-  //   );
-  //   if (categoryId >= 0) {
-  //     const cateogry = this.categoryService.get(categoryId);
-  //     this.categoryName = cateogry?.name;
-  //     if (cateogry && cateogry.words.length >= 5) {
-  //       this.englishWords = this.mixWordsArray(
-  //         cateogry.words.map((word) => ({
-  //           word: word.origin,
-  //           status: wordStatus.Normal,
-  //           attemptsLeft: 4,
-  //         }))
-  //       );
-  //       this.hebrewWords = this.mixWordsArray(
-  //         cateogry.words.map((word) => ({
-  //           origin: word.origin,
-  //           translated: word.target,
-  //           status: wordStatus.Normal,
-  //           guess: word.guess,
-  //           attemptsLeft: 4,
-  //         }))
-  //       );
-  //     } else {
-  //       this.feedback =
-  //         'The selected category need to have atleast five words,please select different category';
-  //       this.showBackButton = true;
-  //     }
-  //   } else {
-  //     this.feedback = 'This is no a selected cateogory';
-  //     this.showBackButton = true;
-  //   }
-  //   this.route.queryParams.subscribe((params) => {});
-  // }
-
+  
 
   ngOnInit(): void {
     const categoryId = Number(this.route.snapshot.queryParamMap.get('categoryId'));
