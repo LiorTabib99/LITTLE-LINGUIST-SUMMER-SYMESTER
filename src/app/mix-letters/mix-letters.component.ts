@@ -227,4 +227,53 @@ export class MixLettersComponent implements OnInit {
   }
 
   }
+
+
+
+  //handle the first cateogry and start the game to a new game
+  handleSpecialCategory(): void{
+
+    const defualtCateogry = this.categoryService.get(0);
+
+    if(defualtCateogry){
+      this.words = defualtCateogry.words;
+      this.totalQuestions = this.words.length;
+      this.newGame();
+    }else{
+      this.message = "Default cateogry wan't found"
+    }
+
+  }
+
+  
+
+
+
+  newGame() : void{
+    this.attempts =0;
+    this.currentQuestion = 0;
+    this.currentWordIndex = 0;
+    this.loadWord();
+  }
+
+
+  
+  loadWord() : void{
+    this.currentWord = this.words[this.currentWordIndex]
+    this.mixedword =this.scrambelredWord(this.currentWord.origin.split('')).join(' ')
+    this.guessInput = ""
+    this.message = ""
+  }
+
+
+
+  scrambelredWord(array:string[]): string[] {
+    for(let i=array.length-1;i>0; i-- ){
+      const j = Math.floor(Math.random() *(i+1))
+      [array[i],array[j]] =[array[j],array[i]]
+    }
+    return array
+  }
+
+
 }
