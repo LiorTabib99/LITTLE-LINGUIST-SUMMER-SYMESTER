@@ -1,35 +1,3 @@
-<!-- <h1 *ngIf="categoryName">Mix Letters - {{ categoryName }}</h1>
-
-
-<button mat-button class="exitButton" (click)="openExitDialog()">
-  <mat-icon>arrow_back</mat-icon>
-</button>
-
-
-<mat-icon>attach_money</mat-icon>
-
-
-<p>{{ scrambledEnglishWord }}</p>
-
-
-<p>{{ hebrewWord }}</p>
-
-
-<input matInput placeholder="הכנס טקסט כאן" [(ngModel)]="inputText" />
-
-
-<div>
-  <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
-  <button mat-raised-button color="warn" (click)="onReset()">Reset</button>
-</div>
-
-<div>
-  <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-</div>
-
-
-<p *ngIf="feedback">{{ feedback }}</p> -->
-
 <div class="header-container">
   <button mat-icon-button class="exit-button" (click)="openExitDialog()">
     <mat-icon>exit_to_app</mat-icon>
@@ -43,32 +11,52 @@
     <span>{{ grade }}</span>
   </div>
 
-
   <mat-card class="game-card-details">
     <h1>Mix Letters - {{ categoryName }}</h1>
-    <p class="hebrewWord">{{currentWord.target}}</p>
-    <p class="scrambledEnglishWord">{{mixedword}}</p>
+    <p class="hebrewWord">{{ currentWord.target }}</p>
+    <p class="scrambledEnglishWord">{{ mixedword }}</p>
     <mat-form-field class="guess-field">
-      <input matInput placeholder="enter a word" [(ngModel)]="guessInput">
+      <input matInput placeholder="enter a word" [(ngModel)]="guessInput" />
     </mat-form-field>
     <div class="controls">
-      <button class="submit-button" mat-raised-button color="primary" (click)="checkGuess()">Submit</button>
-      <button class="reset-button" mat-raised-button color="warm" (click)="resetGame()">Reset</button>
+      <button
+        class="submit-button"
+        mat-raised-button
+        color="primary"
+        (click)="checkGuess()"
+      >
+        Submit
+      </button>
+      <button
+        class="reset-button"
+        mat-raised-button
+        color="warm"
+        (click)="resetGame()"
+      >
+        Reset
+      </button>
     </div>
 
-    <p class="feedback-message">{{message}}</p>
+    <p class="feedback-message">{{ message }}</p>
     <!--progress bar -->
     <div class="progress-container">
-     
-    </div>
-
-    
-    <mat-progress-bar mode="determinate" [value]="proccess">
-      <div class="progress-info" >
-        <mat-icon>crop_din</mat-icon>
-        <span class="icon-number">{{totalQuestions}}</span>
+      <div class="progress-info">
+        <div class="icon-box">
+          <mat-icon>crop_din</mat-icon>
+          <span class="icon-number">{{ currentQuestion + 1 }}</span>
+        </div>
       </div>
-    </mat-progress-bar>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="proccess"
+      ></mat-progress-bar>
+      <div class="progress-info">
+        <div class="icon-box">
+          <mat-icon>crop_din</mat-icon>
+          <span class="icon-number">{{ totalQuestions }}</span>
+        </div>
+      </div>
+            
+    </div>
   </mat-card>
-
 </div>
