@@ -140,7 +140,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CategoriesService } from '../services/categories.service';
 import { wordStatus } from '../../shared/model/wordStatus';
 import { hebrewWord } from '../../shared/model/hebrewWord';
@@ -153,6 +153,8 @@ import { pointsScoreService } from '../services/pointsScore.service';
 import { MatchingGameCorrectDialogComponent } from '../matching-game-correct-dialog/matching-game-correct-dialog.component';
 import { MatchingGameIncorrectDialogComponent } from '../matching-game-incorrect-dialog/matching-game-incorrect-dialog.component';
 import { EndGameMixedLettersComponent } from '../end-game-mixed-letters/end-game-mixed-letters.component';
+import { AnimationDriver } from '@angular/animations/browser';
+import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 @Component({
   selector: 'app-mix-letters',
   standalone: true,
@@ -184,6 +186,7 @@ export class MixLettersComponent implements OnInit {
   categoryName: string = '';
   totalQuestions: number = 0;
   currentQuestion: number = 0;
+  private dialogConfig: MatDialogConfig = { width: '700px', height: '700px' };
 
   constructor(
     private route: ActivatedRoute,
@@ -233,6 +236,7 @@ export class MixLettersComponent implements OnInit {
     }
   }
 
+  //Will create a new game
   newGame(): void {
     this.attempts = 0;
     this.currentQuestion = 0;
@@ -269,6 +273,7 @@ export class MixLettersComponent implements OnInit {
       isCorrect: isCorrect,
     });
     if (isCorrect) {
+      this.attempts++;
       this.message = 'Correct';
       this.dialog.open(MatchingGameCorrectDialogComponent, {
         data: { message: 'Correct' },
@@ -284,7 +289,7 @@ export class MixLettersComponent implements OnInit {
           message: 'inCorrect',
         },
       });
-      if (this.grade <= 0) {
+      if (this.grade <= 0 || this.attempts === 3) {
         this.grade = 0;
         this.endGame();
       }
@@ -293,13 +298,59 @@ export class MixLettersComponent implements OnInit {
 
   endGame(): void {
     this.scorceService.addedGamePlayed('Mixed Letters', this.score);
-    this.message = 'Congratulations, we have completed the game';
-    this.dialog.open(EndGameMixedLettersComponent)
+    this.message = `Congratulations, we have completed ${
+      this.currentQuestion + 1
+    } of ${this.totalQuestions}`;
+    const dialogRef = this.dialog.open(EndGameMixedLettersComponent, {
+      ...this.dialogConfig,
+      data: {
+        grade: this.grade,
+        score: this.score,
+        answers: this.answers,
+        message: this.message,
+        categoryName: this.categoryName,
+      },
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.resetGame();
+    });
   }
 
+  //Will reset thee game to a new game
+  resetGame() : void {
+    this.newGame()
+  }
+
+
+  //checks if the lengeth of the words on the array
   nextWord(): void {
-
-
+    this.currentWordIndex++
+    if(this.currentWordIndex < this.words.length){
+      this.loadWord()
+    }else{
+      this.endGame()
+    }
   }
+
+  //exiting the game
+  openExitDialog() : void{
+    const dialogRef = this.dialog.open(ExitGameDialogComponent)
+    dialogRef.afterClosed().subscribe((result)=>{
+      if(result){
+        this.router.navigate(["/main"])
+      }
+    })
+  }
+
+  //returning true if it is hebrew word 
+  isHebrewWord(word: string):boolean{
+    return /[\u0590-\u05FF]/.test(word);
+  }
+
+  get proccess():number{
+    return (((this.currentQuestion)/this.totalQuestions)*100)
+  }
+
+
 
 }

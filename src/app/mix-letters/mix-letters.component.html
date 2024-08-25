@@ -1,32 +1,41 @@
-<h1 *ngIf="categoryName">Mix Letters - {{ categoryName }}</h1>
+<!-- <h1 *ngIf="categoryName">Mix Letters - {{ categoryName }}</h1>
 
-<!-- כפתור לחזרה לדף הקודם -->
+
 <button mat-button class="exitButton" (click)="openExitDialog()">
   <mat-icon>arrow_back</mat-icon>
 </button>
 
-<!-- אייקון של מטבע -->
+
 <mat-icon>attach_money</mat-icon>
 
-<!-- הצגת המילה באנגלית בערבוב אקראי -->
+
 <p>{{ scrambledEnglishWord }}</p>
 
-<!-- הצגת המילה בעברית -->
+
 <p>{{ hebrewWord }}</p>
 
-<!-- שדה להזנת טקסט -->
+
 <input matInput placeholder="הכנס טקסט כאן" [(ngModel)]="inputText" />
 
-<!-- כפתורים לאישור ואיפוס -->
+
 <div>
   <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
   <button mat-raised-button color="warn" (click)="onReset()">Reset</button>
 </div>
 
-<!-- פס התקדמות -->
 <div>
   <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
 </div>
 
-<!-- משוב אם אין מספיק מילים בקטגוריה -->
-<p *ngIf="feedback">{{ feedback }}</p>
+
+<p *ngIf="feedback">{{ feedback }}</p> -->
+
+
+<h1>Mix Letters - {{ categoryName }}</h1>
+
+<div class="header-container">
+  <button mat-icon-button class="exit-button" (click)="openExitDialog()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</div>
+
