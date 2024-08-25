@@ -59,13 +59,16 @@
     <p class="feedback-message">{{message}}</p>
     <!--progress bar -->
     <div class="progress-container">
-      <div class="progress-info" >
-        <mat-icon>crop_din</mat-icon>
-        <span class="icon-number">{{currentQuestion+1}}</span>
-      </div>
+     
     </div>
 
-    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    
+    <mat-progress-bar mode="determinate" [value]="proccess">
+      <div class="progress-info" >
+        <mat-icon>crop_din</mat-icon>
+        <span class="icon-number">{{totalQuestions}}</span>
+      </div>
+    </mat-progress-bar>
   </mat-card>
 
 </div>
