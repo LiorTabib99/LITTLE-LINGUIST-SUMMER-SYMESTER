@@ -1,22 +1,49 @@
- <!-- <h1 *ngIf="categoryName">Word Sorter - {{categoryName}}</h1>
-
-
-<mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
- -->
- <button mat-button class="exitButton" (click)="openExitDialog()">
-    <mat-icon>arrow_back</mat-icon>
+<!-- Back button -->
+<div class="header-container">
+  <button mat-icon-button class="exitButton" (click)="openExitDialog()">
+    <mat-icon>exit_to_app</mat-icon>
   </button>
+  <h1 *ngIf="categoryName">Word Sorter - {{ categoryName }}</h1>
 
- <mat-icon>attach_money</mat-icon>
+  <div class="status-bar">
+    <mat-icon>monetization_on</mat-icon>
+    <span>{{ score }}</span>
 
+    <mat-icon style="color: rgb(234, 171, 94)">grade</mat-icon>
+    <span>{{ grade }}</span>
+  </div>
 
- <!-- <h1 *ngIf="categoryName">Word Sorter - {{ categoryName }}</h1>
- <p *ngIf="categoryName"></p> -->
- 
- <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+  <p *ngIf="selectedEnglishWords">
+    Is word "{{ selectedEnglishWords.word }}" part of the "{{ categoryName }}"
+    category?
+  </p>
 
-<!-- 
-<h1 *ngIf="categoryName">Word Sorter - {{ categoryName }}</h1>
-<p *ngIf="categoryName">The word in this category is part of the "{{ categoryName }}" category.</p>
+  <!-- Progress bar -->
+  <div class="progress-container">
+    <div class="progress-info">
+      <div class="icon-box">
+        <mat-icon>crop_din</mat-icon>
+        <span class="icon-number">{{ currentQuestion + 1 }}</span>
+      </div>
+    </div>
+    <mat-progress-bar mode="determinate" [value]="proccess"></mat-progress-bar>
+    <div class="progress-info">
+      <div class="icon-box">
+        <mat-icon>crop_din</mat-icon>
+        <span class="icon-number">{{ totalQuestions }}</span>
+      </div>
+    </div>
+          
+  </div>
+  <!-- Question about the word being part of the category -->
+  <p *ngIf="selectedEnglishWords">
+    Is word "{{ selectedEnglishWords.word }}" part of the "{{ categoryName }}"
+    category?
+  </p>
 
-<mat-progress-bar mode="determinate" value="40"></mat-progress-bar> -->
+  <!-- Yes and No buttons -->
+  <div *ngIf="selectedEnglishWords">
+    <button mat-button color="primary">Yes</button>
+    <button mat-button color="warn" (click)="resetSelectedWord()">No</button>
+  </div>
+</div>

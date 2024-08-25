@@ -1,4 +1,4 @@
-import { Component, numberAttribute } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
@@ -13,9 +13,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { wordStatus } from '../../shared/model/wordStatus';
 import { hebrewWord } from '../../shared/model/hebrewWord';
 import { CorrectDialogComponent } from '../correct-dialog/correct-dialog.component';
-
 import { GameResultComponent } from '../game-result/game-result.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
+
 @Component({
   selector: 'app-word-sorter',
   standalone: true,
@@ -24,30 +24,18 @@ import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.co
   styleUrl: './word-sorter.component.css',
 })
 export class WordSorterComponent implements OnInit {
-  englishWords: { word: string; status: wordStatus; attemptsLeft: number }[] =
-    [];
-
+  englishWords: { word: string; status: wordStatus; attemptsLeft: number }[] = [];
   hebrewWords: hebrewWord[] = [];
-
   feedback = '';
-
   grade = 100;
-
   score = 0;
-
   showBackButton = false;
-
-  selectedEnglishWords: {
-    word: string;
-    status: wordStatus;
-    attemptsLeft: number;
-  } | null = null;
-
+  selectedEnglishWords: { word: string; status: wordStatus; attemptsLeft: number } | null = null;
   wordStatus = wordStatus;
-  categoryName: any;
-
+  categoryName: string = '';
   progress = 0;
-  
+  totalQuestions: number = 0;
+  currentQuestion: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,10 +46,8 @@ export class WordSorterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //navigate to the cateogry id from queryParamMap and take it
-    const categoryId = Number(
-      this.route.snapshot.queryParamMap.get('categoryId')
-    );
+    // שליפת מזהה הקטגוריה מ- queryParamMap
+    const categoryId = Number(this.route.snapshot.queryParamMap.get('categoryId'));
     if (categoryId >= 0) {
       const cateogry = this.categoryService.get(categoryId);
       if (cateogry && cateogry.words.length >= 5) {
@@ -82,12 +68,11 @@ export class WordSorterComponent implements OnInit {
           }))
         );
       } else {
-        this.feedback =
-          'The selected category need to have atleast five words,please select different category';
+        this.feedback = 'הקטגוריה שנבחרה צריכה להכיל לפחות חמש מילים, אנא בחר קטגוריה אחרת';
         this.showBackButton = true;
       }
     } else {
-      this.feedback = 'This is no a selected cateogory';
+      this.feedback = 'לא נבחרה קטגוריה';
       this.showBackButton = true;
     }
     this.route.queryParams.subscribe((params) => {});
@@ -97,61 +82,46 @@ export class WordSorterComponent implements OnInit {
     return array.sort(() => Math.random() - 0.5);
   }
 
-  //connects to the correct dialog component
+  // התחברות לקומפוננטת הדיאלוג לתשובה נכונה
   openCorrectAnswerDialog(): void {
     this.dialog.open(CorrectDialogComponent);
   }
 
-   //connects to the exit game dialog component
-  openExitDialog() : void {
-    const dialogRef = this.dialog.open(ExitGameDialogComponent)
-    dialogRef.afterClosed().subscribe(result=>{
-      this.router.navigate(["/main"])
-    })
+  // התחברות לקומפוננטת הדיאלוג לסיום משחק
+  openExitDialog(): void {
+    const dialogRef = this.dialog.open(ExitGameDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.router.navigate(['/main']);
+    });
   }
 
+  // ניווט לקטגוריה שנבחרה
   navigationToSelectedCateogry(): void {
-      this.router.navigate(["/letsPlay"])
+    this.router.navigate(['/letsPlay']);
   }
-
-
-
 
   matchWord(hebrewWord: hebrewWord) {
-    //checking if selectedEnglishWords is not null and if it was selected
-    if (this.selectedEnglishWords !== null) { // Explicit null check
+    if (this.selectedEnglishWords !== null) { // בדיקת null מפורשת
       const { word, status, attemptsLeft } = this.selectedEnglishWords;
       const matchedWord = this.hebrewWords.find(
-        item => item.translated === 
-        hebrewWord.translated &&
-        item.origin === word
+        item => item.translated === hebrewWord.translated && item.origin === word
       );
-  
-      //checking the selected word is matching
+
       if (matchedWord) {
-        // Handle correct match
-        this.selectedEnglishWords.status = wordStatus.Correct;
+        this.selectedEnglishWords!.status = wordStatus.Correct;
         matchedWord.status = wordStatus.Correct;
-        this.score++; // Increase score for correct match
+        this.score++;
         this.selectedEnglishWords = null;
         this.openCorrectAnswerDialog();
-  
-        // Check if all words are used
+
         if (this.englishWords.every(word => word.status !== wordStatus.Normal)) {
           this.endGame();
         }
-
-        //otherwise the game continues
       } else {
-        // Handle incorrect match
-        this.grade -= 8; // Decrease grade by 8 for incorrect match
-  
+        this.grade -= 8;
 
-
-        //checking if the grade equells to 0 so the game is over
         if (this.grade <= 0) {
           this.grade = 0;
-          // Disable all words when grade reaches 0
           this.englishWords.forEach(word => {
             word.status = wordStatus.Disabled;
             word.attemptsLeft = 0;
@@ -163,13 +133,11 @@ export class WordSorterComponent implements OnInit {
           return;
         }
 
-        //it will decreace attempts of the selected words that I chose
         this.selectedEnglishWords.attemptsLeft--;
-  
+
         if (this.selectedEnglishWords.attemptsLeft <= 0) {
           this.selectedEnglishWords.status = wordStatus.Disabled;
-  
-          // Disable the corresponding Hebrew word once we choose the correct word
+
           this.hebrewWords.forEach(hebrew => {
             if (hebrew.origin === this.selectedEnglishWords?.word) {
               hebrew.status = wordStatus.Disabled;
@@ -177,11 +145,9 @@ export class WordSorterComponent implements OnInit {
           });
         }
 
-        
-        this.feedback = `Incorrect! Grade remaining: ${this.grade}`;
+        this.feedback =` ${this.grade}`;
         this.selectedEnglishWords = null;
-  
-        // Check if all English words are disabled
+
         if (this.englishWords.every(word => word.status === wordStatus.Disabled)) {
           this.endGame();
         } else {
@@ -191,33 +157,24 @@ export class WordSorterComponent implements OnInit {
     }
   }
 
-
   endGame() {
-
-    this.feedback = `This game is over your final score is:${this.score}`;
+    this.feedback =` המשחק הסתיים! הציון הסופי שלך הוא: ${this.score}`;
+    // this.feedback = המשחק הסתיים! הציון הסופי שלך הוא: ${this.score};
     this.pointScore.addedGamePlayed('Word sorter', this.score);
 
     const dataResult = this.englishWords.map((englishWord) => {
-      const hebrewWord = this.hebrewWords.find((hebrewWord) => {
-        hebrewWord.origin === englishWord.word;
-      });
+      const hebrewWord = this.hebrewWords.find(hebrewWord => hebrewWord.origin === englishWord.word);
       return {
         englishWord: englishWord.word,
         hebrewWord: hebrewWord ? hebrewWord.translated : 'NaN',
-        //checking if the string is correct or incorrect
-        status:
-          englishWord.status === wordStatus.CorrectAnswer
-            ? 'correct'
-            : 'incorrect',
+        status: englishWord.status === wordStatus.Correct ? 'נכון' : 'שגוי',
       };
     });
 
     this.dialog.open(GameResultComponent, {
-      data: { score: this.score, grade: this.grade, wordParis: dataResult },
+      data: { score: this.score, grade: this.grade, wordPairs: dataResult },
     });
   }
-
-
 
   resetGame(): void {
     this.grade = 100;
@@ -239,8 +196,11 @@ export class WordSorterComponent implements OnInit {
     this.hebrewWords = this.mixWordsArray(this.hebrewWords);
   }
 
-
-
+  // איפוס המילה שנבחרה כאשר לוחצים על "לא"
+  resetSelectedWord(): void {
+    this.selectedEnglishWords = null;
+    this.feedback = '';
+  }
 
   exitDialog() {
     const dialogRef = this.dialog.open(ExitGameDialogComponent);
@@ -251,16 +211,15 @@ export class WordSorterComponent implements OnInit {
     });
   }
 
+  // progressBarLength(): void {
+  //   const totalWords = this.englishWords.length;
+  //   const matchWords = this.englishWords.filter(word => word.status == wordStatus.Correct).length;
+  //   this.progress = (matchWords / totalWords) * 100;
+  // }
 
 
-  progressBarLength() : void{
-    const totalWords= this.englishWords.length
-    const matchWords = this.englishWords.filter(word=>
-      word.status == wordStatus.Correct
-    ).length
-    this.progress = ((matchWords/totalWords) * 100)
+  get proccess(): number {
+    return (this.currentQuestion / this.totalQuestions) * 100;
   }
-  
-
 
 }
