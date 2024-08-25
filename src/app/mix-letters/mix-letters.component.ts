@@ -155,6 +155,8 @@ import { MatchingGameIncorrectDialogComponent } from '../matching-game-incorrect
 import { EndGameMixedLettersComponent } from '../end-game-mixed-letters/end-game-mixed-letters.component';
 import { AnimationDriver } from '@angular/animations/browser';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @Component({
   selector: 'app-mix-letters',
   standalone: true,
@@ -163,7 +165,7 @@ import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.co
     MatButtonModule,
     MatIconModule,
     MatProgressBarModule,
-    FormsModule,
+    FormsModule,MatCardModule,MatFormFieldModule
   ],
   templateUrl: './mix-letters.component.html',
   styleUrls: ['./mix-letters.component.css'],
@@ -212,6 +214,7 @@ export class MixLettersComponent implements OnInit {
         if (cateogry) {
           this.words = cateogry.words;
           this.categoryName = cateogry.name;
+          console.log(this.categoryName);
           this.totalQuestions = this.words.length;
           this.newGame();
         } else {
@@ -228,6 +231,7 @@ export class MixLettersComponent implements OnInit {
     const defualtCateogry = this.categoryService.get(0);
 
     if (defualtCateogry) {
+      this.categoryName = defualtCateogry.name;
       this.words = defualtCateogry.words;
       this.totalQuestions = this.words.length;
       this.newGame();
@@ -317,40 +321,36 @@ export class MixLettersComponent implements OnInit {
   }
 
   //Will reset thee game to a new game
-  resetGame() : void {
-    this.newGame()
+  resetGame(): void {
+    this.newGame();
   }
-
 
   //checks if the lengeth of the words on the array
   nextWord(): void {
-    this.currentWordIndex++
-    if(this.currentWordIndex < this.words.length){
-      this.loadWord()
-    }else{
-      this.endGame()
+    this.currentWordIndex++;
+    if (this.currentWordIndex < this.words.length) {
+      this.loadWord();
+    } else {
+      this.endGame();
     }
   }
 
   //exiting the game
-  openExitDialog() : void{
-    const dialogRef = this.dialog.open(ExitGameDialogComponent)
-    dialogRef.afterClosed().subscribe((result)=>{
-      if(result){
-        this.router.navigate(["/main"])
+  openExitDialog(): void {
+    const dialogRef = this.dialog.open(ExitGameDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.router.navigate(['/main']);
       }
-    })
+    });
   }
 
-  //returning true if it is hebrew word 
-  isHebrewWord(word: string):boolean{
+  //returning true if it is hebrew word
+  isHebrewWord(word: string): boolean {
     return /[\u0590-\u05FF]/.test(word);
   }
 
-  get proccess():number{
-    return (((this.currentQuestion)/this.totalQuestions)*100)
+  get proccess(): number {
+    return (this.currentQuestion / this.totalQuestions) * 100;
   }
-
-
-
 }

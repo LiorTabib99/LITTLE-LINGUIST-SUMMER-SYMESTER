@@ -30,12 +30,42 @@
 
 <p *ngIf="feedback">{{ feedback }}</p> -->
 
-
-<h1>Mix Letters - {{ categoryName }}</h1>
-
 <div class="header-container">
   <button mat-icon-button class="exit-button" (click)="openExitDialog()">
     <mat-icon>exit_to_app</mat-icon>
   </button>
-</div>
 
+  <div class="status-bar">
+    <mat-icon>monetization_on</mat-icon>
+    <span>{{ score }}</span>
+
+    <mat-icon style="color: rgb(234, 171, 94)">grade</mat-icon>
+    <span>{{ grade }}</span>
+  </div>
+
+
+  <mat-card class="game-card-details">
+    <h1>Mix Letters - {{ categoryName }}</h1>
+    <p class="hebrewWord">{{currentWord.target}}</p>
+    <p class="scrambledEnglishWord">{{mixedword}}</p>
+    <mat-form-field class="guess-field">
+      <input matInput placeholder="enter a word" [(ngModel)]="guessInput">
+    </mat-form-field>
+    <div class="controls">
+      <button class="submit-button" mat-raised-button color="primary" (click)="checkGuess()">Submit</button>
+      <button class="reset-button" mat-raised-button color="warm" (click)="resetGame()">Reset</button>
+    </div>
+
+    <p class="feedback-message">{{message}}</p>
+    <!--progress bar -->
+    <div class="progress-container">
+      <div class="progress-info" >
+        <mat-icon>crop_din</mat-icon>
+        <span class="icon-number">{{currentQuestion+1}}</span>
+      </div>
+    </div>
+
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+  </mat-card>
+
+</div>
