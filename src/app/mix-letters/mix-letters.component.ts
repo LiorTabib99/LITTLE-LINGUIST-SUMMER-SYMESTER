@@ -136,9 +136,6 @@
 //   }
 // }
 
-
-
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -147,14 +144,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { CategoriesService } from '../services/categories.service';
 import { wordStatus } from '../../shared/model/wordStatus';
 import { hebrewWord } from '../../shared/model/hebrewWord';
-import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 import { TranslatedWord } from '../../shared/model/translated-word';
 import { pointsScoreService } from '../services/pointsScore.service';
-
+import { MatchingGameCorrectDialogComponent } from '../matching-game-correct-dialog/matching-game-correct-dialog.component';
+import { MatchingGameIncorrectDialogComponent } from '../matching-game-incorrect-dialog/matching-game-incorrect-dialog.component';
+import { EndGameMixedLettersComponent } from '../end-game-mixed-letters/end-game-mixed-letters.component';
 @Component({
   selector: 'app-mix-letters',
   standalone: true,
@@ -168,112 +166,140 @@ import { pointsScoreService } from '../services/pointsScore.service';
   templateUrl: './mix-letters.component.html',
   styleUrls: ['./mix-letters.component.css'],
 })
-
-
 export class MixLettersComponent implements OnInit {
+  words: TranslatedWord[] = [];
+  currentWordIndex: number = 0;
+  currentWord: TranslatedWord = {
+    origin: '',
+    target: '',
+    guess: '',
+  };
+  mixedword: string = '';
+  guessInput: string = '';
+  message: string = '';
+  attempts: number = 0;
+  score: number = 0;
+  grade: number = 0;
+  answers: any[] = [];
+  categoryName: string = '';
+  totalQuestions: number = 0;
+  currentQuestion: number = 0;
 
-  words : TranslatedWord[] =[]
-  currentWordIndex : number =0;
-  currentWord :TranslatedWord = {
-    origin: '', target: '',
-    guess: ''
-  }
-  mixedword :string = '';
-  guessInput :string = '';
-  message : string = '';
-  attempts : number = 0;
-  score :number =0;
-  grade : number =0;
-  answers : any[] = []
-  categoryName : string = '';
-  totalQuestions :number =0;
-  currentQuestion : number = 0
-
-
-  
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoriesService,
-    private pointScore: pointsScoreService,
+    private scorceService: pointsScoreService,
     private router: Router,
     private dialog: MatDialog
   ) {}
 
-  
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params)=>{
-      const categoryId =+params["categoryId"]
-      this.loadWordsFromCategory(categoryId)
-    })
+    this.route.queryParams.subscribe((params) => {
+      const categoryId = +params['categoryId'];
+      this.loadWordsFromCategory(categoryId);
+    });
   }
 
-  loadWordsFromCategory(categoryId: number) : void{
-    if(categoryId>=0){
-     if(categoryId===0){
-      this.handleSpecialCategory()
-     }else{
-      const cateogry = this.categoryService.get(categoryId)
-      if(cateogry){
-        this.words =cateogry.words;
-        this.categoryName =cateogry.name;
-        this.totalQuestions =this.words.length;
-        this.newGame();
-      }else{
-        this.message = "category not found";
+  loadWordsFromCategory(categoryId: number): void {
+    if (categoryId >= 0) {
+      if (categoryId === 0) {
+        this.handleSpecialCategory();
+      } else {
+        const cateogry = this.categoryService.get(categoryId);
+        if (cateogry) {
+          this.words = cateogry.words;
+          this.categoryName = cateogry.name;
+          this.totalQuestions = this.words.length;
+          this.newGame();
+        } else {
+          this.message = 'category not found';
+        }
       }
-     }
-  }else{
-    this.message = "Invalid cateogryId"
+    } else {
+      this.message = 'Invalid cateogryId';
+    }
   }
-
-  }
-
-
 
   //handle the first cateogry and start the game to a new game
-  handleSpecialCategory(): void{
-
+  handleSpecialCategory(): void {
     const defualtCateogry = this.categoryService.get(0);
 
-    if(defualtCateogry){
+    if (defualtCateogry) {
       this.words = defualtCateogry.words;
       this.totalQuestions = this.words.length;
       this.newGame();
-    }else{
-      this.message = "Default cateogry wan't found"
+    } else {
+      this.message = "Default cateogry wan't found";
     }
-
   }
 
-  
-
-
-
-  newGame() : void{
-    this.attempts =0;
+  newGame(): void {
+    this.attempts = 0;
     this.currentQuestion = 0;
     this.currentWordIndex = 0;
     this.loadWord();
   }
 
-
-  
-  loadWord() : void{
-    this.currentWord = this.words[this.currentWordIndex]
-    this.mixedword =this.scrambelredWord(this.currentWord.origin.split('')).join(' ')
-    this.guessInput = ""
-    this.message = ""
+  loadWord(): void {
+    this.currentWord = this.words[this.currentWordIndex];
+    this.mixedword = this.scrambelredWord(
+      this.currentWord.origin.split('')
+    ).join(' ');
+    this.guessInput = '';
+    this.message = '';
   }
 
-
-
-  scrambelredWord(array:string[]): string[] {
-    for(let i=array.length-1;i>0; i-- ){
-      const j = Math.floor(Math.random() *(i+1))
-      [array[i],array[j]] =[array[j],array[i]]
+  scrambelredWord(array: string[]): string[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-    return array
+    return array;
   }
 
+  checkGuess(): void {
+    this.attempts++;
+    this.currentQuestion++;
+    const isCorrect =
+      this.guessInput.toLowerCase() === this.currentWord.origin.toLowerCase();
+    this.answers.push({
+      //global to the all word  on this word
+      question: this.mixedword.replace(/ /g, ''),
+      answer: this.guessInput,
+      isCorrect: isCorrect,
+    });
+    if (isCorrect) {
+      this.message = 'Correct';
+      this.dialog.open(MatchingGameCorrectDialogComponent, {
+        data: { message: 'Correct' },
+      });
+      this.score++;
+      this.scorceService.updateScore(this.score);
+      this.nextWord();
+    } else {
+      this.grade -= 8;
+      this.message = 'Try again';
+      this.dialog.open(MatchingGameIncorrectDialogComponent, {
+        data: {
+          message: 'inCorrect',
+        },
+      });
+      if (this.grade <= 0) {
+        this.grade = 0;
+        this.endGame();
+      }
+    }
+  }
+
+  endGame(): void {
+    this.scorceService.addedGamePlayed('Mixed Letters', this.score);
+    this.message = 'Congratulations, we have completed the game';
+    this.dialog.open(EndGameMixedLettersComponent)
+  }
+
+  nextWord(): void {
+
+
+  }
 
 }
