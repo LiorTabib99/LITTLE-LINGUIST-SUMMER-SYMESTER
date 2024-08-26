@@ -11,22 +11,17 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { wordStatus } from '../../shared/model/wordStatus';
 import { hebrewWord } from '../../shared/model/hebrewWord';
-import { TranslatedWord } from '../../shared/model/translated-word';
+import { TranslatedWord } from '../../shared/model/translatedWord';
 @Component({
   selector: 'app-mixed-letters-results',
   standalone: true,
-  imports: [ MatButtonModule,
-    MatIconModule,
-    CommonModule,
-    FormsModule],
+  imports: [MatButtonModule, MatIconModule, CommonModule, FormsModule],
   templateUrl: './mixed-letters-results.component.html',
-  styleUrl: './mixed-letters-results.component.css'
+  styleUrl: './mixed-letters-results.component.css',
 })
 export class MixedLettersResultsComponent implements OnInit {
   gameType: string | null = null;
   categoryName: string | null = null;
-
-
 
   constructor(private route: ActivatedRoute) {}
 
@@ -37,5 +32,3 @@ export class MixedLettersResultsComponent implements OnInit {
     });
   }
 }
-
-

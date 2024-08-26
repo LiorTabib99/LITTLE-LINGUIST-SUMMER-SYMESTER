@@ -1,12 +1,12 @@
 import { Language } from './language';
 import { Question } from './question';
-import { TranslatedWord } from './translated-word';
+import { TranslatedWord } from './translatedWord';
 
 export class Category {
   lastUpdateDate = new Date();
   words: TranslatedWord[] = [];
-  questions : Question[] = []
-  
+  questions: Question[] = [];
+
   constructor(
     public id: number,
     public name: string,

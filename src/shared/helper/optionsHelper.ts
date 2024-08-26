@@ -3,7 +3,7 @@ export function generateOptions(
   numberOfOptions: number,
   words: string[]
 ) {
-  const options = new Set<String>();
+  const options = new Set<string>();
 
   options.add(correctAnswer);
 
@@ -27,7 +27,7 @@ export function generateOptions(
 
 //declre a function which return array of questions
 // mix with a random order
-function shufleArray(array: any[]) {
+function shufleArray(array: string[]) {
   for (let i = Array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];

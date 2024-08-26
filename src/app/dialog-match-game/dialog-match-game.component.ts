@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-dialog-match-game',
   standalone: true,
-  imports: [],
+  imports: [MatCardModule],
   templateUrl: './dialog-match-game.component.html',
   styleUrl: './dialog-match-game.component.css'
 })

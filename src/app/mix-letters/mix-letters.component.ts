@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { Component, OnInit } from '@angular/core';
 // import { ActivatedRoute } from '@angular/router';
 // import { Router } from '@angular/router';
@@ -142,18 +143,18 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CategoriesService } from '../services/categories.service';
-import { wordStatus } from '../../shared/model/wordStatus';
-import { hebrewWord } from '../../shared/model/hebrewWord';
+// import { wordStatus } from '../../shared/model/wordStatus';
+// import { hebrewWord } from '../../shared/model/hebrewWord';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
-import { TranslatedWord } from '../../shared/model/translated-word';
+import { TranslatedWord } from '../../shared/model/translatedWord';
 import { pointsScoreService } from '../services/pointsScore.service';
-import { MatchingGameCorrectDialogComponent } from '../matching-game-correct-dialog/matching-game-correct-dialog.component';
+import { MatchingGameCorrectDialogComponent } from '../matching-game-correct-answers/matching-game-correct-dialog.component';
 import { MatchingGameIncorrectDialogComponent } from '../matching-game-incorrect-dialog/matching-game-incorrect-dialog.component';
 import { EndGameMixedLettersComponent } from '../end-game-mixed-letters/end-game-mixed-letters.component';
-import { AnimationDriver } from '@angular/animations/browser';
+// import { AnimationDriver } from '@angular/animations/browser';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -165,7 +166,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatButtonModule,
     MatIconModule,
     MatProgressBarModule,
-    FormsModule,MatCardModule,MatFormFieldModule
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
   ],
   templateUrl: './mix-letters.component.html',
   styleUrls: ['./mix-letters.component.css'],
