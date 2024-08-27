@@ -28,4 +28,8 @@ export class GamesInfoService {
       'mixed-words-game/category/:id'
     ),
   ];
+
+  list() : gameProfile[] {
+    return this.games
+  }
 }

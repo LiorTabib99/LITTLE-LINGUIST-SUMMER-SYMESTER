@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { gameCards } from '../../shared/model/gameCards';
-
+import { GamesInfoService } from '../services/gamesInfo.service';
 @Component({
   selector: 'app-game-card',
   standalone: true,
@@ -16,7 +16,7 @@ import { gameCards } from '../../shared/model/gameCards';
 export class GameCardComponent {
   gameCards = gameCards;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog,) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   openDialog(card: any): void {
