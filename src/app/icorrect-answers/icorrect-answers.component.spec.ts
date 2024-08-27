@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CorrectDialogComponent } from './correct-dialog.component';
+import { IcorrectAnswersComponent } from './icorrect-answers.component';
 
-describe('CorrectDialogComponent', () => {
-  let component: CorrectDialogComponent;
-  let fixture: ComponentFixture<CorrectDialogComponent>;
+describe('IcorrectAnswersComponent', () => {
+  let component: IcorrectAnswersComponent;
+  let fixture: ComponentFixture<IcorrectAnswersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CorrectDialogComponent]
+      imports: [IcorrectAnswersComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(CorrectDialogComponent);
+    fixture = TestBed.createComponent(IcorrectAnswersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

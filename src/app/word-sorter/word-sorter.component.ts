@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { wordStatus } from '../../shared/model/wordStatus';
 import { hebrewWord } from '../../shared/model/hebrewWord';
-import { CorrectDialogComponent } from '../correct-dialog/correct-dialog.component';
+import { CorrectAnswersComponent } from '../correct-answers/correct-answers.component';
+import { IcorrectAnswersComponent } from '../icorrect-answers/icorrect-answers.component';
 import { GameResultComponent } from '../game-result/game-result.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 
@@ -24,13 +25,18 @@ import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.co
   styleUrl: './word-sorter.component.css',
 })
 export class WordSorterComponent implements OnInit {
-  englishWords: { word: string; status: wordStatus; attemptsLeft: number }[] = [];
+  englishWords: { word: string; status: wordStatus; attemptsLeft: number }[] =
+    [];
   hebrewWords: hebrewWord[] = [];
   feedback = '';
   grade = 100;
   score = 0;
   showBackButton = false;
-  selectedEnglishWords: { word: string; status: wordStatus; attemptsLeft: number } | null = null;
+  selectedEnglishWords: {
+    word: string;
+    status: wordStatus;
+    attemptsLeft: number;
+  } | null = null;
   wordStatus = wordStatus;
   categoryName: string = '';
   progress = 0;
@@ -47,7 +53,9 @@ export class WordSorterComponent implements OnInit {
 
   ngOnInit(): void {
     // שליפת מזהה הקטגוריה מ- queryParamMap
-    const categoryId = Number(this.route.snapshot.queryParamMap.get('categoryId'));
+    const categoryId = Number(
+      this.route.snapshot.queryParamMap.get('categoryId')
+    );
     if (categoryId >= 0) {
       const cateogry = this.categoryService.get(categoryId);
       if (cateogry && cateogry.words.length >= 5) {
@@ -68,7 +76,8 @@ export class WordSorterComponent implements OnInit {
           }))
         );
       } else {
-        this.feedback = 'הקטגוריה שנבחרה צריכה להכיל לפחות חמש מילים, אנא בחר קטגוריה אחרת';
+        this.feedback =
+          'הקטגוריה שנבחרה צריכה להכיל לפחות חמש מילים, אנא בחר קטגוריה אחרת';
         this.showBackButton = true;
       }
     } else {
@@ -84,8 +93,8 @@ export class WordSorterComponent implements OnInit {
   }
 
   // התחברות לקומפוננטת הדיאלוג לתשובה נכונה
-  openCorrectAnswerDialog(): void {
-    this.dialog.open(CorrectDialogComponent);
+  openCorrectAnswersMessage(): void {
+    this.dialog.open(CorrectAnswersComponent);
   }
 
   // התחברות לקומפוננטת הדיאלוג לסיום משחק
@@ -103,11 +112,13 @@ export class WordSorterComponent implements OnInit {
   }
 
   matchWord(hebrewWord: hebrewWord) {
-    if (this.selectedEnglishWords !== null) { // בדיקת null מפורשת
+    if (this.selectedEnglishWords !== null) {
+      // בדיקת null מפורשת
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { word, status, attemptsLeft } = this.selectedEnglishWords;
       const matchedWord = this.hebrewWords.find(
-        item => item.translated === hebrewWord.translated && item.origin === word
+        (item) =>
+          item.translated === hebrewWord.translated && item.origin === word
       );
 
       if (matchedWord) {
@@ -115,9 +126,11 @@ export class WordSorterComponent implements OnInit {
         matchedWord.status = wordStatus.Correct;
         this.score++;
         this.selectedEnglishWords = null;
-        this.openCorrectAnswerDialog();
+        this.openCorrectAnswersMessage();
 
-        if (this.englishWords.every(word => word.status !== wordStatus.Normal)) {
+        if (
+          this.englishWords.every((word) => word.status !== wordStatus.Normal)
+        ) {
           this.endGame();
         }
       } else {
@@ -125,11 +138,11 @@ export class WordSorterComponent implements OnInit {
 
         if (this.grade <= 0) {
           this.grade = 0;
-          this.englishWords.forEach(word => {
+          this.englishWords.forEach((word) => {
             word.status = wordStatus.Disabled;
             word.attemptsLeft = 0;
           });
-          this.hebrewWords.forEach(hebrew => {
+          this.hebrewWords.forEach((hebrew) => {
             hebrew.status = wordStatus.Disabled;
           });
           this.endGame();
@@ -141,32 +154,41 @@ export class WordSorterComponent implements OnInit {
         if (this.selectedEnglishWords.attemptsLeft <= 0) {
           this.selectedEnglishWords.status = wordStatus.Disabled;
 
-          this.hebrewWords.forEach(hebrew => {
+          this.hebrewWords.forEach((hebrew) => {
             if (hebrew.origin === this.selectedEnglishWords?.word) {
               hebrew.status = wordStatus.Disabled;
             }
           });
         }
 
-        this.feedback =` ${this.grade}`;
+        this.feedback = ` ${this.grade}`;
         this.selectedEnglishWords = null;
 
-        if (this.englishWords.every(word => word.status === wordStatus.Disabled)) {
+        if (
+          this.englishWords.every((word) => word.status === wordStatus.Disabled)
+        ) {
           this.endGame();
         } else {
-          this.openCorrectAnswerDialog();
+          this.opeIncorrectAnswersMessage();
         }
       }
     }
   }
 
+  opeIncorrectAnswersMessage(): void{
+    this.dialog.open(IcorrectAnswersComponent);
+  }
+
+
   endGame() {
-    this.feedback =` המשחק הסתיים! הציון הסופי שלך הוא: ${this.score}`;
+    this.feedback = ` המשחק הסתיים! הציון הסופי שלך הוא: ${this.score}`;
     // this.feedback = המשחק הסתיים! הציון הסופי שלך הוא: ${this.score};
     this.pointScore.addedGamePlayed('Word sorter', this.score);
 
     const dataResult = this.englishWords.map((englishWord) => {
-      const hebrewWord = this.hebrewWords.find(hebrewWord => hebrewWord.origin === englishWord.word);
+      const hebrewWord = this.hebrewWords.find(
+        (hebrewWord) => hebrewWord.origin === englishWord.word
+      );
       return {
         englishWord: englishWord.word,
         hebrewWord: hebrewWord ? hebrewWord.translated : 'NaN',
@@ -214,11 +236,7 @@ export class WordSorterComponent implements OnInit {
     });
   }
 
- 
-
-
   get proccess(): number {
     return (this.currentQuestion / this.totalQuestions) * 100;
   }
-
 }
