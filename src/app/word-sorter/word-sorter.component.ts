@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslatedWord } from '../../shared/model/translated-word';
+// import { TranslatedWord } from '../../shared/model/translatedWord';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CategoriesService } from '../services/categories.service';
 import { pointsScoreService } from '../services/pointsScore.service';
@@ -75,6 +75,7 @@ export class WordSorterComponent implements OnInit {
       this.feedback = 'לא נבחרה קטגוריה';
       this.showBackButton = true;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.route.queryParams.subscribe((params) => {});
   }
 
@@ -90,6 +91,7 @@ export class WordSorterComponent implements OnInit {
   // התחברות לקומפוננטת הדיאלוג לסיום משחק
   openExitDialog(): void {
     const dialogRef = this.dialog.open(ExitGameDialogComponent);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     dialogRef.afterClosed().subscribe((result) => {
       this.router.navigate(['/main']);
     });
@@ -102,6 +104,7 @@ export class WordSorterComponent implements OnInit {
 
   matchWord(hebrewWord: hebrewWord) {
     if (this.selectedEnglishWords !== null) { // בדיקת null מפורשת
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { word, status, attemptsLeft } = this.selectedEnglishWords;
       const matchedWord = this.hebrewWords.find(
         item => item.translated === hebrewWord.translated && item.origin === word
@@ -211,11 +214,7 @@ export class WordSorterComponent implements OnInit {
     });
   }
 
-  // progressBarLength(): void {
-  //   const totalWords = this.englishWords.length;
-  //   const matchWords = this.englishWords.filter(word => word.status == wordStatus.Correct).length;
-  //   this.progress = (matchWords / totalWords) * 100;
-  // }
+ 
 
 
   get proccess(): number {

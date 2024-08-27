@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
-
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+// import { MatTableDataSource } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { DialogModule } from '@angular/cdk/dialog';
@@ -15,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './end-game-mixed-letters.component.css',
 })
 export class EndGameMixedLettersComponent {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSocre: any[];
   displayedColumns: string[] = ['question', 'answer', 'isCorrect'];
   categoryName: string = '';

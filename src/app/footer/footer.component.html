@@ -1,11 +1,9 @@
 <div class="footer-container">
-    <span class="example-spacer"></span>
-    <div>
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>help_outline</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="'/help'">help</button>
-      </mat-menu>
-    </div>
+  <span class="example-spacer"></span>
+  <div>
+    <!-- Update: Added routerLink to navigate directly to the help page -->
+    <button mat-icon-button routerLink="/help">
+      <mat-icon>help_outline</mat-icon>
+    </button>
   </div>
+</div>

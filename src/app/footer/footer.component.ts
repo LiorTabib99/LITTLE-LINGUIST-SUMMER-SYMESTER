@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-
+// import { HelpComponent } from '../help/help.component';
 
 @Component({
   selector: 'app-footer',
@@ -19,4 +19,6 @@ import { RouterModule } from '@angular/router';
   styleUrl: './footer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FooterComponent { }
+export class FooterComponent {
+
+}

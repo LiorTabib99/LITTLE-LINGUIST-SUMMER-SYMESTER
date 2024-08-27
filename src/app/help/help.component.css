@@ -1,3 +1,50 @@
-:host {
-  display: block;
+
+.div-continar {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
 }
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    margin: 5.5px;
+    text-align: center;
+    border-radius: 4px;
+    
+}
+
+h1 {
+margin: 0;
+}
+
+.game {
+    background: #fff;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 242, 0);
+
+}
+
+h2 {
+    color: #ea0505;
+    margin-top: 0;
+    text-align: left;
+}
+
+p {
+    line-height: 1.6;
+    text-align: left;
+}
+

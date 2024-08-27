@@ -24,12 +24,14 @@ export class gameProfile {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TranslateGasme = new gameProfile(
   111,
   'Translate Game',
   'Translate words',
   'translate-game/category/:id'
 );
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SortWords = new gameProfile(
   222,
   'Sort words Game',
@@ -37,6 +39,7 @@ const SortWords = new gameProfile(
   'word-sorting-game/category/:id'
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MixedWordsGame = new gameProfile(
   333,
   'Mixed words Game',

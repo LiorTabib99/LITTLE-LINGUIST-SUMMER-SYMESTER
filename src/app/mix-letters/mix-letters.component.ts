@@ -151,7 +151,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 import { TranslatedWord } from '../../shared/model/translatedWord';
 import { pointsScoreService } from '../services/pointsScore.service';
-import { MatchingGameCorrectDialogComponent } from '../matching-game-correct-answers/matching-game-correct-dialog.component';
+import { MatchingGameCorrectDialogComponent } from '../matching-game-correct-dialog/matching-game-correct-dialog.component';
 import { MatchingGameIncorrectDialogComponent } from '../matching-game-incorrect-dialog/matching-game-incorrect-dialog.component';
 import { EndGameMixedLettersComponent } from '../end-game-mixed-letters/end-game-mixed-letters.component';
 // import { AnimationDriver } from '@angular/animations/browser';
