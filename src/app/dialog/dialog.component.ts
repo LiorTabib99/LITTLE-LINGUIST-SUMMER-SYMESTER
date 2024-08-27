@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Category } from '../../shared/model/category';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Router, RouterLink } from '@angular/router';
 import { CategoriesService } from '../services/categories.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dialog',
@@ -29,13 +31,15 @@ export class DialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { gameType: string },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    @Inject(MAT_DIALOG_DATA) public data: { gameId: number,gameCard : any },
     private categoriesService: CategoriesService,
     private router: Router
   ) {
     this.categories = this.categoriesService.list();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCategoryChange(event: any): void {
     const categoryId = event.value;
     this.selectedCategoryId = categoryId;
@@ -45,26 +49,15 @@ export class DialogComponent {
 
   onPlayClick(): void {
     if (this.selectedCategory) {
-      const gameRoutes: { [key: string]: string } = {
-        'Trivia': '/trivia-game',
-        'Mixed Letters': '/mixLetter',
-        'Word Sorter': '/word-sorting-game',
-        'Matching-Game': '/matching-game',
-      };
-      const route = gameRoutes[this.data.gameType];
-      if (route) {
-        this.dialogRef.close();
-        this.router.navigate([route], {
-          queryParams: {
-            categoryId: this.selectedCategoryId,
-            gameType: this.data.gameType,
-          },
-        });
-      }
-      // In case the category has less then 5 words, show error message unless you can continue
-      // if (this.selectedCategory.words.length >= 5) {
-      //   this.router.navigate(["/matching-game"])
-      // }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { route } = this.data.gameCard;
+      this.dialogRef.close()
+      this,this.router.navigate([route], {
+        queryParams : {
+         categoryId :this.selectedCategoryId,
+         gameType :this.data.gameCard.title 
+        }
+      })
     }
   }
 

@@ -55,14 +55,13 @@
   }
   
   .correct {
-    background-color: rgb(0, 255, 68);
-    color: rgb(0, 255, 68); /* Ensure text is readable on green background */
+    color: rgb(8, 0, 255); /* Ensure text is readable on green background */
     cursor: not-allowed; /* Indicate non-interactivity */
   }
   
   .disabled {
-    background-color: rgba(255, 255, 255, 0.386);
     cursor: not-allowed; /* Indicate non-interactivity */
+    color: rgb(61, 61, 66); /* Ensure text is readable on green background */
   }
   
   .feedback {

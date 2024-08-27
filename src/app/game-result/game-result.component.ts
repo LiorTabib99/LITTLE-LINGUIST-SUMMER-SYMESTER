@@ -1,11 +1,15 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Component, inject } from '@angular/core';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Dialog } from '@angular/cdk/dialog';
 import { Inject } from '@angular/core';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { MAT_DIALOG_DATA,MatDialog,MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { MatchingGameComponent } from '../matching-game/matching-game.component';
 @Component({
   selector: 'app-game-result',
@@ -24,6 +28,7 @@ export class GameResultComponent {
   
 
   constructor(private router: Router, 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<GameResultComponent>) {
     if(data){
@@ -42,7 +47,17 @@ export class GameResultComponent {
       this.message = "Excellent"
     }else if(this.grade>=60){
        this.message = "Good"
-    }else{
+    }else if(this.grade<50){
+       this.message = "Good"
+       this.grade =40
+    }else if(this.grade===50){
+      this.message = 'Good';
+      this.grade = 50;
+    }
+
+    //continue
+    
+    else{
       this.message ="Bad,try again"
     }
   } 

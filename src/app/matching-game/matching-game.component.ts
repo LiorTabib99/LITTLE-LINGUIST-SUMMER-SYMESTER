@@ -141,8 +141,9 @@ export class MatchingGameComponent implements OnInit {
       );
 
       if (matchedWord) {
-        this.selectedEnglishWords.status = wordStatus.Correct;
-        matchedWord.status = wordStatus.Correct;
+        //would have th eoption to click twice one the word
+        this.selectedEnglishWords.status = wordStatus.Disabled;
+        matchedWord.status = wordStatus.Disabled;
         this.score++; // Increase score for correct match
         this.selectedEnglishWords = null;
         this.openCorrectAnswers();
@@ -206,7 +207,7 @@ export class MatchingGameComponent implements OnInit {
         englishWord: englishWord.word,
         hebrewWord: hebrewWord ? hebrewWord.translated : 'NaN',
         status:
-          englishWord.status === wordStatus.Correct ? 'Correct' : 'Incorrect',
+          englishWord.status === wordStatus.Disabled ? 'Correct' : 'Incorrect',
       };
     });
 

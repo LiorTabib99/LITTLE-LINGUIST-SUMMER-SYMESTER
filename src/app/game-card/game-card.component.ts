@@ -18,11 +18,12 @@ export class GameCardComponent {
 
   constructor(private dialog: MatDialog) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   openDialog(card: any): void {
     this.dialog.open(DialogComponent, {
       width: '400px',
       height: '300px',
-      data: { gameType: card.title },
+      data: { gameId: card.id,gameCard : card },
     });
   }
 }

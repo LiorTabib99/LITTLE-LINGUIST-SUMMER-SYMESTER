@@ -122,8 +122,8 @@ export class WordSorterComponent implements OnInit {
       );
 
       if (matchedWord) {
-        this.selectedEnglishWords!.status = wordStatus.Correct;
-        matchedWord.status = wordStatus.Correct;
+        this.selectedEnglishWords!.status = wordStatus.Disabled;
+        matchedWord.status = wordStatus.Disabled;
         this.score++;
         this.selectedEnglishWords = null;
         this.openCorrectAnswersMessage();
@@ -192,7 +192,7 @@ export class WordSorterComponent implements OnInit {
       return {
         englishWord: englishWord.word,
         hebrewWord: hebrewWord ? hebrewWord.translated : 'NaN',
-        status: englishWord.status === wordStatus.Correct ? 'נכון' : 'שגוי',
+        status: englishWord.status === wordStatus.Disabled ? 'נכון' : 'שגוי',
       };
     });
 
