@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CategoriesService } from '../services/categories.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Title } from '@angular/platform-browser';
 
 @Component({

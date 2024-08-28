@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { gameCards } from '../../shared/model/gameCards';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GamesInfoService } from '../services/gamesInfo.service';
 @Component({
   selector: 'app-game-card',

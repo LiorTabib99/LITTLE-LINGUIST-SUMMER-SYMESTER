@@ -11,3 +11,13 @@ p {
   color: black;
 }
 
+
+.score-bar{
+  justify-content: right;
+ 
+  padding-left: 97.8%;
+}
+
+.exitButton{
+ 
+}

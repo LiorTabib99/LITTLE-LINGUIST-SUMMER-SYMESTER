@@ -3,14 +3,11 @@
   <button mat-icon-button class="exitButton" (click)="openExitDialog()">
     <mat-icon>exit_to_app</mat-icon>
   </button>
-  <h1 *ngIf="categoryName">Word Sorter - {{ categoryName }}</h1>
+  <h1 class="categoryName">Word Sorter - {{ categoryName }}</h1>
 
-  <div class="status-bar">
+  <div class="score-bar">
     <mat-icon>monetization_on</mat-icon>
     <span>{{ score }}</span>
-
-    <mat-icon style="color: rgb(234, 171, 94)">grade</mat-icon>
-    <span>{{ grade }}</span>
   </div>
 
   <p *ngIf="selectedEnglishWords">
