@@ -18,6 +18,48 @@ p {
   padding-left: 97.8%;
 }
 
+.status-bar span {
+  margin: 0 10px; /* Space between status items */
+}
+
 .exitButton{
  
+}
+
+
+
+.progress-container{
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+
+.icon-box {
+  position: relative;
+  display: inline-flex; /* Ensure proper alignment */
+  width: 36px; /* Set a fixed width */
+  height: 36px; /* Set a fixed height */
+}
+
+.icon-box mat-icon {
+  font-size: 36px; /* Ensure the icon fits the container */
+  width: 100%; /* Fill the container */
+  height: 100%; /* Fill the container */
+  color: grey;
+}
+
+.icon-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px; /* Adjust text size as needed */
+  font-weight: bold; /* Make the number bold for better visibility */
+  color: rgb(92, 90, 90); /* Adjust color for better contrast */
+}
+
+.game-card-details{
+  align-items: center;
 }

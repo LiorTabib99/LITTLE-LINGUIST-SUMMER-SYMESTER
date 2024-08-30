@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CategoriesService } from '../services/categories.service';
-// import { wordStatus } from '../../shared/model/wordStatus';
-// import { hebrewWord } from '../../shared/model/hebrewWord';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -13,12 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { TranslatedWord } from '../../shared/model/translatedWord';
 import { pointsScoreService } from '../services/pointsScore.service';
 import { CorrectAnswersComponent } from '../correct-answers/correct-answers.component';
-import { IcorrectAnswersComponent } from '../icorrect-answers/icorrect-answers.component';
-import { EndGameMixedLettersComponent } from '../end-game-mixed-letters/end-game-mixed-letters.component';
-// import { AnimationDriver } from '@angular/animations/browser';
+// import { IcorrectAnswersComponent } from '../icorrect-answers/icorrect-answers.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { gameResultData } from '../../shared/model/gameResultData';
+import { GamesResultService } from '../services/gameResults.service';
+
 @Component({
   selector: 'app-mix-letters',
   standalone: true,
@@ -42,7 +41,7 @@ export class MixLettersComponent implements OnInit {
     target: '',
     guess: '',
   };
-  mixedword: string = '';
+  mixedWord: string = '';
   guessInput: string = '';
   message: string = '';
   attempts: number = 0;
@@ -53,14 +52,20 @@ export class MixLettersComponent implements OnInit {
   categoryName: string = '';
   totalQuestions: number = 0;
   currentQuestion: number = 0;
-  private dialogConfig: MatDialogConfig = { width: '700px', height: '700px' };
+
+  attemptsLeft: { [key: string]: number } = {}; // Tracks attempts left for each word
+
+  // Tracks words that have been answered
+  answeredWords: Set<string> = new Set();
+  guess: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoriesService,
     private scorceService: pointsScoreService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private gamesResultService: GamesResultService
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +86,7 @@ export class MixLettersComponent implements OnInit {
           this.categoryName = cateogry.name;
           console.log(this.categoryName);
           this.totalQuestions = this.words.length;
+          this.initializeAttempts();
           this.newGame();
         } else {
           this.message = 'category not found';
@@ -94,15 +100,21 @@ export class MixLettersComponent implements OnInit {
   //handle the first cateogry and start the game to a new game
   handleSpecialCategory(): void {
     const defualtCateogry = this.categoryService.get(0);
-
     if (defualtCateogry) {
       this.categoryName = defualtCateogry.name;
       this.words = defualtCateogry.words;
       this.totalQuestions = this.words.length;
+      this.initializeAttempts();
       this.newGame();
     } else {
       this.message = "Default cateogry wan't found";
     }
+  }
+
+  initializeAttempts(): void {
+    this.words.forEach((word) => {
+      this.attemptsLeft[word.origin] = 3;
+    });
   }
 
   //Will create a new game
@@ -115,7 +127,7 @@ export class MixLettersComponent implements OnInit {
 
   loadWord(): void {
     this.currentWord = this.words[this.currentWordIndex];
-    this.mixedword = this.scrambelredWord(
+    this.mixedWord = this.scrambelredWord(
       this.currentWord.origin.split('')
     ).join(' ');
     this.guessInput = '';
@@ -131,58 +143,84 @@ export class MixLettersComponent implements OnInit {
   }
 
   checkGuess(): void {
-    this.attempts++;
-    this.currentQuestion++;
     const isCorrect =
-      this.guessInput.toLowerCase() === this.currentWord.origin.toLowerCase();
-    this.answers.push({
-      //global to the all word  on this word
-      question: this.mixedword.replace(/ /g, ''),
-      answer: this.guessInput,
-      isCorrect: isCorrect,
-    });
-    if (isCorrect) {
-      this.attempts++;
-      this.message = 'Correct';
-      this.dialog.open(CorrectAnswersComponent, {
-        data: { message: 'Correct' },
-      });
-      this.score++;
-      this.scorceService.updateScore(this.score);
-      this.nextWord();
-    } else {
-      this.grade -= 8;
-      this.message = 'Try again';
-      this.dialog.open(IcorrectAnswersComponent, {
-        data: {
-          message: 'inCorrect',
-        },
-      });
-      if (this.grade <= 0 || this.attempts === 3) {
-        this.grade = 0;
-        this.endGame();
+      this.guess.toLowerCase() === this.currentWord.origin.toLowerCase();
+
+    if (!this.answeredWords.has(this.currentWord.origin)) {
+      // Check if this word has already been answered
+      if (isCorrect) {
+        this.currentQuestion++;
+        this.answeredWords.add(this.currentWord.origin); // Mark word as answered
+        this.message = 'Correct! 🎉';
+        this.dialog.open(CorrectAnswersComponent, {
+          data: {
+            message: 'Correct! 🎉',
+            origin: this.currentWord.origin,
+            target: this.currentWord.target,
+          },
+        });
+        this.score++;
+        this.scorceService.updateScore(this.score);
+        this.answers.push({
+          // Push answer
+          question: this.mixedWord.replace(/ /g, ''),
+          answer: this.currentWord.origin,
+          isCorrect: true,
+          origin: this.currentWord.origin,
+          target: this.currentWord.target,
+        });
+        this.nextWord();
+      } else {
+        this.attemptsLeft[this.currentWord.origin]--;
+        this.grade -= 8;
+        this.message = 'Try Again!';
+
+        if (this.attemptsLeft[this.currentWord.origin] <= 0) {
+          this.answeredWords.add(this.currentWord.origin); // Mark word as answered after all attempts
+          this.answers.push({
+            // Push answer after all attempts
+            question: this.mixedWord.replace(/ /g, ''),
+            answer: this.currentWord.origin,
+            isCorrect: false,
+            origin: this.currentWord.origin,
+            target: this.currentWord.target,
+          });
+          this.currentQuestion++;
+        }
+
+        this.dialog.open, {
+          data: {
+            message: 'Incorrect! Try Again!',
+            origin: this.currentWord.origin,
+            target: this.currentWord.target,
+            width: ""
+          },
+        };
+
+        if (this.grade <= 0) {
+          this.grade = 0;
+          this.endGame();
+        }
       }
+    }
+
+    if (this.attemptsLeft[this.currentWord.origin] <= 0) {
+      this.nextWord();
     }
   }
 
   endGame(): void {
     this.scorceService.addedGamePlayed('Mixed Letters', this.score);
-    this.message = `Congratulations, we have completed ${
-      this.currentQuestion + 1
-    } of ${this.totalQuestions}`;
-    const dialogRef = this.dialog.open(EndGameMixedLettersComponent, {
-      ...this.dialogConfig,
-      data: {
-        grade: this.grade,
-        score: this.score,
-        answers: this.answers,
-        message: this.message,
-        categoryName: this.categoryName,
-      },
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.resetGame();
-    });
+    this.message = `You translared ${this.currentQuestion} out of ${this.totalQuestions} words correctly`;
+    const gameResultsData: gameResultData = {
+      message: this.message,
+      answers: this.answers,
+      grade: this.grade,
+      score: this.score,
+      categoryName: this.categoryName,
+    };
+    this.gamesResultService.setResultData(gameResultsData);
+    this.router.navigate(['/mix-letters-results']);
   }
 
   //Will reset thee game to a new game

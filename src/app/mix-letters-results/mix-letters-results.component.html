@@ -1,11 +1,24 @@
-<!-- <h1 *ngIf="categoryName">{{ categoryName }}- Results</h1>
 <div class="header-container">
-  <button mat-icon-button class="exit-button" (click)="openExitDialog()">
-    <mat-icon>exit_to_app</mat-icon>
-  </button>
 
-  <div class="status-bar">
-    <h1>Grade: {{ grade }} </h1>
+  <h1>Mixed Letters {{ categoryName }}- Results</h1>
+</div>
+
+<div class="grade-message">
+    <p>Grade: {{ grade }} </p>
+    <p>{{message}}</p>
+</div>
+
+<div class="table-container">
+  <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" let="ele">
+    <ng-container matColumnDef="question" >
+      <!-- <td>Origin : {{elemet.question}}</td> -->
+    </ng-container>
+  </table>
+</div>
+
+
+  <!-- <div class="status-bar">
+  
   </div>
 
   <div class="game-card-details">
@@ -23,5 +36,8 @@
         </div>
       </div>
     </div>
-  </div>
-</div> -->
+  </div> -->
+
+
+
+

@@ -175,10 +175,9 @@ export class WordSorterComponent implements OnInit {
     }
   }
 
-  opeIncorrectAnswersMessage(): void{
+  opeIncorrectAnswersMessage(): void {
     this.dialog.open(IcorrectAnswersComponent);
   }
-
 
   endGame() {
     this.feedback = ` המשחק הסתיים! הציון הסופי שלך הוא: ${this.score}`;

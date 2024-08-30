@@ -16,7 +16,7 @@
   </p>
 
   <!-- Progress bar -->
-  <div class="progress-container">
+  <!-- <div class="progress-container">
     <div class="progress-info">
       <div class="icon-box">
         <mat-icon>crop_din</mat-icon>
@@ -31,16 +31,39 @@
       </div>
     </div>
           
-  </div>
+  </div> -->
+
+<div class="progress-container">
+      <div class="progress-info">
+        <div class="icon-box">
+          <mat-icon>crop_din</mat-icon>
+          <span class="icon-number">{{ currentQuestion + 1 }}</span>
+        </div>
+      </div>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="proccess"
+      ></mat-progress-bar>
+      <div class="progress-info">
+        <div class="icon-box">
+          <mat-icon>crop_din</mat-icon>
+          <span class="icon-number">{{ totalQuestions }}</span>
+        </div>
+      </div>
+            
+    </div>
+
+
+
   <!-- Question about the word being part of the category -->
-  <p *ngIf="selectedEnglishWords">
+  <!-- <p *ngIf="selectedEnglishWords">
     Is word "{{ selectedEnglishWords.word }}" part of the "{{ categoryName }}"
     category?
-  </p>
+  </p> -->
 
   <!-- Yes and No buttons -->
   <div *ngIf="selectedEnglishWords">
-    <button mat-button color="primary">Yes</button>
+    <!-- <button mat-button color="primary" (click)="matchWord()">Yes</button> -->
     <button mat-button color="warn" (click)="resetSelectedWord()">No</button>
   </div>
 </div>
