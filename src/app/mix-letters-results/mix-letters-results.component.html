@@ -12,12 +12,12 @@
         <!-- Added container for table styling -->
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <!-- Question Column -->
-            <ng-container matColumnDef="question">
+            <ng-container matColumnDef="origin">
                 <td mat-cell *matCellDef="let element">{{element.target}}</td>
             </ng-container>
 
             <!-- Answer Column -->
-            <ng-container matColumnDef="answer">
+            <ng-container matColumnDef="target">
                 <td mat-cell *matCellDef="let element">{{element.origin}}</td>
             </ng-container>
 

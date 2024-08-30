@@ -28,6 +28,7 @@ export class pointsScoreService {
     if (gamePlayedHistory) {
       this.gamePlayed = 
       JSON.parse(gamePlayedHistory)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((record: any) => 
         ({
         ...record,
@@ -59,8 +60,7 @@ export class pointsScoreService {
     const gamePlayed : gamePlayed = 
     {gameType,score,date:new Date()} 
     this.gamePlayed.push(gamePlayed)
-    localStorage.setItem
-    ('gameHistory', JSON.stringify(this.gamePlayed))
+    localStorage.setItem('gameHistory', JSON.stringify(this.gamePlayed))
   }
 
   //Will show the current score

@@ -1,0 +1,51 @@
+table {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mat-dialog-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mat-dialog-content {
+  width: 100%;
+  max-width: 700px;
+}
+.table-container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.mat-table {
+  width: 100%;
+}
+.mat-header-cell,
+.mat-cell {
+  text-align: center;
+}
+
+.scoreandgrade {
+  display: flex;
+  justify-content: center;
+}
+.header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.mes-con {
+  display: flex;
+  justify-content: center;
+}
+.btndiv {
+  margin: 30px;
+  display: flex;
+  justify-content: center;
+}

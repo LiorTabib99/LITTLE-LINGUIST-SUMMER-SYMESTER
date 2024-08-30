@@ -2,7 +2,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesService } from '../services/categories.service';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { pointsScoreService } from '../services/pointsScore.service';
 import { CorrectAnswersComponent } from '../correct-answers/correct-answers.component';
 import { IcorrectAnswersComponent } from '../icorrect-answers/icorrect-answers.component';
@@ -31,7 +31,6 @@ import { GamesResultService } from '../services/gameResults.service';
     MatIconModule,
   ],
 })
-
 export class MixLettersComponent implements OnInit {
   words: TranslatedWord[] = []; // Array to store TranslatedWord objects
   currentWordIndex: number = 0;
@@ -48,12 +47,13 @@ export class MixLettersComponent implements OnInit {
   currentQuestion: number = 0; // Index of the current question
   attemptsLeft: { [key: string]: number } = {}; // Tracks attempts left for each word
   answeredWords: Set<string> = new Set(); // Tracks words that have been answered
-  
+  currectAnswers = 0;
+
   constructor(
     private route: ActivatedRoute,
     private categoriesService: CategoriesService,
     private dialog: MatDialog,
-    private scoreService:pointsScoreService,
+    private scoreService: pointsScoreService,
     private router: Router,
     private gameResultService: GamesResultService
   ) {}
@@ -63,7 +63,8 @@ export class MixLettersComponent implements OnInit {
       const categoryId = +params['categoryId'];
       this.loadWordsFromCategory(categoryId);
     });
-    this.score = this.scoreService.getCurrentScore();
+    // this.score = this.scoreService.getCurrentScore();
+    this.score =0;
   }
 
   loadWordsFromCategory(categoryId: number): void {
@@ -100,7 +101,7 @@ export class MixLettersComponent implements OnInit {
   }
 
   initializeAttempts(): void {
-    this.words.forEach(word => {
+    this.words.forEach((word) => {
       this.attemptsLeft[word.origin] = 3; // Set 3 attempts for each word
     });
   }
@@ -112,6 +113,7 @@ export class MixLettersComponent implements OnInit {
     this.answers = [];
     this.answeredWords.clear();
     this.message = '';
+    this.score = 0
     this.loadWord();
   }
 
@@ -131,29 +133,32 @@ export class MixLettersComponent implements OnInit {
   }
 
   checkGuess(): void {
-    const isCorrect = this.guessInput.toLowerCase() === this.currentWord.origin.toLowerCase();
+    const isCorrect =
+      this.guessInput.toLowerCase() === this.currentWord.origin.toLowerCase();
 
     if (!this.answeredWords.has(this.currentWord.origin)) {
       // Check if this word has already been answered
       if (isCorrect) {
-        this.currentQuestion++
+        this.currentQuestion++;
+        this.currectAnswers++
         this.answeredWords.add(this.currentWord.origin); // Mark word as answered
         this.message = 'Correct! 🎉';
         this.dialog.open(CorrectAnswersComponent, {
           data: {
             message: 'Correct! 🎉',
             origin: this.currentWord.origin,
-            target: this.currentWord.target
+            target: this.currentWord.target,
           },
         });
         this.score++;
         this.scoreService.updateScore(this.score);
-        this.answers.push({ // Push answer
+        this.answers.push({
+          // Push answer
           question: this.mixedword.replace(/ /g, ''),
           answer: this.currentWord.origin,
           isCorrect: true,
           origin: this.currentWord.origin,
-          target: this.currentWord.target
+          target: this.currentWord.target,
         });
         this.nextWord();
       } else {
@@ -163,21 +168,22 @@ export class MixLettersComponent implements OnInit {
 
         if (this.attemptsLeft[this.currentWord.origin] <= 0) {
           this.answeredWords.add(this.currentWord.origin); // Mark word as answered after all attempts
-          this.answers.push({ // Push answer after all attempts
+          this.answers.push({
+            // Push answer after all attempts
             question: this.mixedword.replace(/ /g, ''),
             answer: this.currentWord.origin,
             isCorrect: false,
             origin: this.currentWord.origin,
-            target: this.currentWord.target
+            target: this.currentWord.target,
           });
-          this.currentQuestion++
+          this.currentQuestion++;
         }
 
         this.dialog.open(IcorrectAnswersComponent, {
           data: {
             message: 'Incorrect! Try Again!',
             origin: this.currentWord.origin,
-            target: this.currentWord.target
+            target: this.currentWord.target,
           },
         });
 
@@ -208,13 +214,13 @@ export class MixLettersComponent implements OnInit {
 
   endGame(): void {
     this.scoreService.addedGamePlayed('Mixed Letters', this.score);
-    this.message = `You translared ${this.currentQuestion} out of ${this.totalQuestions} words correctly`;
+    this.message = `You translared ${this.currectAnswers} out of ${this.totalQuestions} words correctly`;
     const gameResultData: gameResultData = {
       message: this.message,
       answers: this.answers,
       grade: this.grade,
       score: this.score,
-      categoryName: this.categoryName
+      categoryName: this.categoryName,
     };
     this.gameResultService.setResultData(gameResultData);
     this.router.navigate(['/mix-letters-results']);
@@ -235,11 +241,7 @@ export class MixLettersComponent implements OnInit {
   }
 
   get proccess(): number {
-    return (this.currentQuestion / this.totalQuestions) * 100;
-}
+    return (this.currentQuestion / this.totalQuestions) * 100;
+  }
 
 }
-
-
-
-
