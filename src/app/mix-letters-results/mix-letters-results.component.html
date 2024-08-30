@@ -1,42 +1,41 @@
 <div class="header-container">
-
-  <h1>Mixed Letters {{ categoryName }}- Results</h1>
+    <h2 mat-dialog-title>Mixed Letter - {{categoryName}} - result</h2>
 </div>
-
-<div class="grade-message">
-    <p>Grade: {{ grade }} </p>
-    <p>{{message}}</p>
-</div>
-
-<div class="table-container">
-  <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" let="ele">
-    <ng-container matColumnDef="question" >
-      <!-- <td>Origin : {{elemet.question}}</td> -->
-    </ng-container>
-  </table>
-</div>
-
-
-  <!-- <div class="status-bar">
-  
-  </div>
-
-  <div class="game-card-details">
-    <h1>Mix Letters - {{ categoryName }}-Results</h1>
-    <p></p>
-    <p class="hebrewWord">{{ currentWord.target }}</p>
-    <p class="target">{{  }}</p>
-
-    <p class="feedback-message">{{ message }}</p>
-
-    <div class="progress-container">
-      <div class="progress-info">
-        <div class="icon-box">
-          <mat-icon>crop_din</mat-icon>
-        </div>
-      </div>
+<div mat-dialog-content>
+    <div class="scoreandgrade">
+        <p>Grade: {{grade}}</p>
     </div>
-  </div> -->
+    <div class="mes-con">
+        <p>{{message}}</p>
+    </div>
+    <div class="table-container">
+        <!-- Added container for table styling -->
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Question Column -->
+            <ng-container matColumnDef="question">
+                <td mat-cell *matCellDef="let element">{{element.target}}</td>
+            </ng-container>
+
+            <!-- Answer Column -->
+            <ng-container matColumnDef="answer">
+                <td mat-cell *matCellDef="let element">{{element.origin}}</td>
+            </ng-container>
+
+            <!-- Is Correct Column -->
+            <ng-container matColumnDef="isCorrect">
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon>{{ element.isCorrect ? 'check_circle' : 'cancel' }}</mat-icon>
+                </td>
+            </ng-container>
+
+            <!-- Row Definition -->
+            <tr mat-row *matRowDef="let row; columns: displayColums;"></tr>
+        </table>
+    </div>
+</div>
+<div mat-dialog-actions class="btndiv">
+    <button mat-button (click)="onClose()">New Game</button>
+</div>
 
 
 
