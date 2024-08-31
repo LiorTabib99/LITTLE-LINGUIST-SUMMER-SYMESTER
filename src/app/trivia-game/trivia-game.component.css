@@ -1,10 +1,11 @@
 h1 {
-    text-align: center;
-    font-size: 45px;
-    margin-top: 36px;
-  }
-  /* Make sure the body takes up the full height and uses Flexbox to center its content */
-html, body {
+  text-align: center;
+  font-size: 45px;
+  margin-top: 36px;
+}
+/* Make sure the body takes up the full height and uses Flexbox to center its content */
+html,
+body {
   height: 100%;
   margin: 0;
   display: flex;
@@ -61,8 +62,8 @@ div > p {
 button {
   margin-top: 10px;
 }
-.maincon{
+.maincon {
   display: flex;
   width: 100vw;
-  justify-content: center;
+  justify-content: center;
 }

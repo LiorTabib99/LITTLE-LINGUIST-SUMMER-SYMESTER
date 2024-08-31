@@ -41,7 +41,10 @@ export class MixLettersResultsComponent implements OnInit {
   }
 
   onClose(): void {
-    this.router.navigate(['/mixLetter']);
+    
+    this.router.navigate(['/letsPlay']);
     
   }
+
+  
 }
