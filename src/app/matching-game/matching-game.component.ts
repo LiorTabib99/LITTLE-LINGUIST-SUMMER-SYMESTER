@@ -85,7 +85,7 @@ export class MatchingGameComponent implements OnInit {
       } else {
         // Insufficient words, show feedback and back button only
         this.feedback =
-          'The selected category needs to have at least five words. Please select a different category.';
+          'To use this game, a cateogry must contain a minimum of five words.';
         this.showBackButton = true;
       }
     } else {
@@ -123,7 +123,7 @@ export class MatchingGameComponent implements OnInit {
   openExitDialog(): void {
     const dialogRef = this.dialog.open(ExitGameDialogComponent);
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['/main']);
+      this.router.navigate(['/letsPlay']);
     });
   }
 
@@ -248,7 +248,7 @@ export class MatchingGameComponent implements OnInit {
     const dialogRef = this.dialog.open(ExitGameDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.router.navigate(['/main']);
+        this.router.navigate(['/letsPlay']);
       }
     });
   }

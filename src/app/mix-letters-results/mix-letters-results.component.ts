@@ -15,7 +15,7 @@ import { pointsScoreService } from '../services/pointsScore.service';
   styleUrl: './mix-letters-results.component.css',
 })
 export class MixLettersResultsComponent implements OnInit {
-  displayColums: string[] = ['origin', 'target', 'isCorrect'];
+  displayColums: string[] = ['origin', 'target','guess' ,'isCorrect'];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource: any[] = [];
   message: string = '';
