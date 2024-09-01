@@ -1,61 +1,54 @@
-<!-- 
-  <div class="header-container">
-    <button mat-button class="exitButton" (click)="openExitDialog()">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
+<h2 mat-dialog-title>Matching game -{{ categoryName }}-Results</h2>
 
+<mat-dialog-content>
+  <div class="results-summary">
+    <p>Grade:{{ grade }}</p>
 
-    <h1 class="matching-game-title"> {{ categoryName }}-Results</h1>
-    <div class="status-bar">
-    <span>Grade: {{ grade }}</span>
-
-    
-     
-    
-    </div>
-    <button
-      mat-raised-button
-      color="warn"
-      class="reset-button"
-      (click)="resetGame()"
-    >
-      New Game 
-    </button>
+    <p>
+      {{ message }}
+    </p>
   </div>
 
-  <div class="words-container">
-    <div class="english-words">
-      <h2>English Words</h2>
-      <div
-        *ngFor="let englishWord of englishWords"
-        (click)="selectedEnglishWord(englishWord)"
+  <table class="results-table-wordPairs" mat-table [dataSource]="wordPairs">
+    <!-- englishWordCloum -->
+    <ng-container matColumnDef="englishWord">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        origin: {{ element.englishWord }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hebrewWord">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        target : {{ element.hebrewWord }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td
+        mat-cell
+        *matCellDef="let element"
         [ngClass]="{
-          selected:
-            (selectedEnglishWords && selectedEnglishWords.word) ==
-            englishWord.word,
-          correct: englishWord.status === wordStatus.Correct,
-          disabled: englishWord.status === wordStatus.Disabled
+          correct: element.status === 'Correct',
+          incorrect: element.status === 'Incorrect'
         }"
       >
-        <mat-card>{{ englishWord.word }}</mat-card>
-      </div>
-    </div>
+        <!-- Corrected condition for the mat-icon -->
+        <mat-icon>{{
+          element.status === "Correct" ? "check_circle" : "cancel"
+        }}</mat-icon>
+      </td>
+    </ng-container>
 
-    <div class="hebrew-words">
-      <h2>Hebrew Words</h2>
-      <div
-        *ngFor="let hebrewWord of hebrewWords"
-        (click)="matchWord(hebrewWord)"
-        [ngClass]="{
-          correct: hebrewWord.status === wordStatus.Correct,
-          disabled: hebrewWord.status === wordStatus.Disabled
-        }"
-      >
-        <mat-card>{{ hebrewWord.translated }}</mat-card>
-      </div>
-    </div>
-  </div>
-</div>
+    <tr mat-header-row *matHeaderRowDef="displayColums"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayColums"></tr>
+  </table>
+</mat-dialog-content>
 
-
- -->
+<mat-dialog-actions>
+  <button mat-button class="new-game-button" (click)="newGameButton()">
+    New Game
+  </button>
+</mat-dialog-actions>
