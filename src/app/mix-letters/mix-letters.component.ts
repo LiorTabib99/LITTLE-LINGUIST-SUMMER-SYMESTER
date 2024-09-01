@@ -17,7 +17,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { gameResultData } from '../../shared/model/gameResultData';
 import { GamesResultService } from '../services/gameResults.service';
 
-
 @Component({
   selector: 'app-mixed-letters-game',
   templateUrl: './mix-letters.component.html',
@@ -47,7 +46,7 @@ export class MixLettersComponent implements OnInit {
   categoryName: string = ''; // שם הקטגוריה הנבחרת
   totalQuestions: number = 0; // סך כל השאלות במשחק
   currentQuestion: number = 0; // אינדקס השאלה הנוכחית
-  pointsForQuestion: number = 10; // נקודות לכל שאלה
+  pointsForQuestion: number = 0; // נקודות לכל שאלה
   totalScoure: number = 0;
   attemptsLeft: number = 1; // מספר הניסיונות שנותרו לכל מילה
   answeredWords: Set<string> = new Set(); // מעקב אחר מילים שנענו
@@ -78,31 +77,33 @@ export class MixLettersComponent implements OnInit {
         const category = this.categoriesService.get(categoryId);
         if (category) {
           if (category.words.length === 0) {
-            this.message = 'הקטגוריה ריקה. אין מילים להצגה!';
+            this.message = 'The category is empty. No words to display!';
             return;
           }
           this.words = category.words;
-          this.categoryName = category.name; // הגדרת שם הקטגוריה
+          this.categoryName = category.name; // Setting the category name
           this.totalQuestions = this.words.length;
+          this.pointsForQuestion = 100 / this.words.length;
           this.newGame();
         } else {
-          this.message = 'קטגוריה לא נמצאה!';
+          this.message = 'Category not found!';
         }
       }
     } else {
-      this.message = 'מזהה קטגוריה לא תקין!';
+      this.message = 'Invalid category ID!';
     }
   }
 
   handleSpecialCategory(): void {
     const defaultCategory = this.categoriesService.get(0);
-    this.categoryName = defaultCategory!.name
+    this.categoryName = defaultCategory!.name;
     if (defaultCategory) {
       this.words = defaultCategory.words;
       this.totalQuestions = this.words.length;
+      this.pointsForQuestion = 100 / this.words.length;
       this.newGame();
     } else {
-      this.message = 'קטגוריית ברירת המחדל לא נמצאה!';
+      this.message = 'Default category not found!';
     }
   }
 
@@ -142,10 +143,10 @@ export class MixLettersComponent implements OnInit {
         this.currectAnswers++;
         this.grade += this.pointsForQuestion;
         this.answeredWords.add(this.currentWord.origin);
-        this.message = 'נכון! 🎉';
+        this.message = 'Correct! 🎉';
         this.dialog.open(CorrectAnswersComponent, {
           data: {
-            message: 'נכון! 🎉',
+            message: 'Correct! 🎉',
             origin: this.currentWord.origin,
             target: this.currentWord.target,
           },
@@ -164,8 +165,8 @@ export class MixLettersComponent implements OnInit {
         this.nextWord();
       } else {
         this.attemptsLeft--;
-        this.grade += this.pointsForQuestion;
-        this.message = 'נסה שוב!';
+        this.grade -= 2;
+        this.message = 'Try again!';
         if (this.attemptsLeft <= 0) {
           this.answeredWords.add(this.currentWord.origin);
           this.answers.push({
@@ -179,7 +180,7 @@ export class MixLettersComponent implements OnInit {
         }
         this.dialog.open(IcorrectAnswersComponent, {
           data: {
-            message: 'לא נכון! נסה שוב!',
+            message: 'Incorrect,try again!',
             origin: this.currentWord.origin,
             target: this.currentWord.target,
           },
@@ -212,11 +213,11 @@ export class MixLettersComponent implements OnInit {
 
   endGame(): void {
     this.scoreService.addedGamePlayed('Mixed Letters', this.score);
-    this.message = `תרגמת בהצלחה ${this.currectAnswers} מתוך ${this.totalQuestions} מילים נכון;`;
+    this.message = `You translated ${this.currectAnswers} out of ${this.totalQuestions} words correctly `;
     const gameResultData: gameResultData = {
       message: this.message,
       answers: this.answers,
-      grade: this.score,
+      grade: this.grade,
       score: this.score,
       categoryName: this.categoryName,
     };
