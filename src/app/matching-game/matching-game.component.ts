@@ -16,6 +16,7 @@ import { GameResultComponent } from '../game-result/game-result.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { DialogComponent } from '../dialog/dialog.component';
+
 @Component({
   selector: 'app-word-sorter',
   standalone: true,
@@ -37,14 +38,15 @@ export class MatchingGameComponent implements OnInit {
   feedback = '';
   grade = 100;
   score = 0;
-  showBackButton = false; // Flag to control visibility of the back button
+  showBackButton = false;
   selectedEnglishWords: {
     word: string;
     status: wordStatus;
     attemptsLeft: number;
   } | null = null;
   wordStatus = wordStatus;
-  categoryName: string = ''; // שימו לב שהגדרתי את categoryName כמחרוזת ריקה
+  categoryName: string = '';
+  categoryHasEnoughWords = false; // משתנה בוליאני חדש לבדיקת האם יש מספיק מילים בקטגוריה
 
   progress = 0;
 
@@ -62,10 +64,10 @@ export class MatchingGameComponent implements OnInit {
     );
     if (categoryId >= 0) {
       const category = this.categoryService.get(categoryId);
-      this.categoryName = category?.name || 'Unknown Category'; // שימוש בערך ברירת מחדל במקרה ששם הקטגוריה undefined
+      this.categoryName = category?.name || 'Unknown Category';
 
       if (category && category.words.length >= 5) {
-        // Load the game words as usual
+        this.categoryHasEnoughWords = true; // עדכון משתנה כאשר יש מספיק מילים
         this.englishWords = this.mixWordsArray(
           category.words.map((word) => ({
             word: word.origin,
@@ -83,9 +85,9 @@ export class MatchingGameComponent implements OnInit {
           }))
         );
       } else {
-        // Insufficient words, show feedback and back button only
+        this.categoryHasEnoughWords = false; // פחות מחמש מילים, משחק לא יופעל
         this.feedback =
-          'To use this game, a cateogry must contain a minimum of five words.';
+          'To use this game, a category must contain a minimum of five words.';
         this.showBackButton = true;
       }
     } else {
@@ -205,52 +207,29 @@ export class MatchingGameComponent implements OnInit {
       });
       return {
         englishWord: englishWord.word,
-        hebrewWord: hebrewWord ? hebrewWord.translated : 'NaN',
-        status:
-          englishWord.status === wordStatus.Disabled ? 'Correct' : 'Incorrect',
+        hebrewWord: hebrewWord?.translated || '',
+        isMatched: englishWord.status === wordStatus.Disabled,
       };
     });
 
-    const dialogRef = this.dialog.open(GameResultComponent, {
+    this.dialog.open(GameResultComponent, {
       data: {
-        score: this.score,
+        title: 'Word Sorter Results',
+        resultList: dataResult,
         grade: this.grade,
-        wordPairs: dataResult,
-        categoryName: this.categoryName,
       },
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.resetGame();
-    });
+
+    this.resetGame();
   }
 
-  resetGame(): void {
-    this.grade = 100;
-    this.score = 0;
-    this.englishWords = this.englishWords.map((word) => ({
-      ...word,
-      status: wordStatus.Normal,
-      attemptsLeft: 3,
-    }));
-    this.hebrewWords = this.hebrewWords.map((word) => ({
-      ...word,
-      status: wordStatus.Normal,
-      attemptsLeft: 3,
-    }));
-
+  resetGame() {
+    this.englishWords = [];
+    this.hebrewWords = [];
     this.selectedEnglishWords = null;
     this.feedback = '';
-    this.englishWords = this.mixWordsArray(this.englishWords);
-    this.hebrewWords = this.mixWordsArray(this.hebrewWords);
-  }
-
-  exitDialog() {
-    const dialogRef = this.dialog.open(ExitGameDialogComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.router.navigate(['/letsPlay']);
-      }
-    });
+    this.score = 0;
+    this.grade = 100;
   }
 
   navigateToCategorySelection() {

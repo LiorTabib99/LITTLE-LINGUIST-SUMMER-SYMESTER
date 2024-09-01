@@ -1,68 +1,74 @@
-<div class="header-container">
-  <button mat-button class="exit-button" (click)="openExitDialog()">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
+<div *ngIf="categoryHasEnoughWords; else insufficientWords">
+  <div class="header-container">
+    <button mat-button class="exit-button" (click)="openExitDialog()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
 
-  <div class="money-coin">
-    <mat-icon>monetization_on {{ score }} </mat-icon>
-  </div>
-
-  <div class="status-bar">
-    <span>: {{ score }}</span>
-  </div>
-
-  <button
-    mat-raised-button
-    color="warn"
-    class="reset-button"
-    (click)="resetGame()"
-  >
-    Reset Game
-  </button>
-</div>
-
-<div class="words-container">
-  <div class="english-words">
-    <h3>English Words</h3>
-    <div *ngFor="let word of englishWords" 
-         tabindex="0"
-         (click)="selectedEnglishWord(word)"
-         (keyup.enter)="selectedEnglishWord(word)"
-         (keyup.space)="selectedEnglishWord(word)"
-      [ngClass]="{
-        selected:selectedEnglishWords && selectedEnglishWords.word === word.word,
-        correct: word.status === wordStatus.Disabled,
-        disabled: word.status === wordStatus.Disabled
-      }">
-      <mat-card>{{ word.word }}</mat-card>
+    <div class="money-coin">
+      <mat-icon>monetization_on</mat-icon> {{ score }}
     </div>
-  </div>
 
-  <div class="hebrew-words">
-    <h3>Hebrew Words</h3>
-    <div
-      *ngFor="let word of hebrewWords"
-      tabindex="0"
-      (click)="matchWord(word)"
-      (keyup.enter)="matchWord(word)"
-      (keyup.space)="matchWord(word)"
-      [ngClass]="{
-        correct: word.status === wordStatus.Disabled,
-        disabled: word.status === wordStatus.Disabled
-      }"
+   
+
+    <button
+      mat-raised-button
+      color="warn"
+      class="reset-button"
+      (click)="resetGame()"
     >
-      <mat-card>{{ word.translated }}</mat-card>
+      Reset Game
+    </button>
+  </div>
+
+  <h1>Matching game - {{ categoryName }}</h1>
+
+  <div class="words-container">
+    <div class="english-words">
+      <h3>English Words</h3>
+      <div
+        *ngFor="let word of englishWords"
+        tabindex="0"
+        (click)="selectedEnglishWord(word)"
+        (keyup.enter)="selectedEnglishWord(word)"
+        (keyup.space)="selectedEnglishWord(word)"
+        [ngClass]="{
+          selected: selectedEnglishWords && selectedEnglishWords.word === word.word,
+          correct: word.status === wordStatus.Disabled,
+          disabled: word.status === wordStatus.Disabled
+        }"
+      >
+        <mat-card>{{ word.word }}</mat-card>
+      </div>
+    </div>
+
+    <div class="hebrew-words">
+      <h3>Hebrew Words</h3>
+      <div
+        *ngFor="let word of hebrewWords"
+        tabindex="0"
+        (click)="matchWord(word)"
+        (keyup.enter)="matchWord(word)"
+        (keyup.space)="matchWord(word)"
+        [ngClass]="{
+          correct: word.status === wordStatus.Disabled,
+          disabled: word.status === wordStatus.Disabled
+        }"
+      >
+        <mat-card>{{ word.translated }}</mat-card>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="ifgoback">
-  <button
-    *ngIf="showBackButton"
-    mat-raised-button
-    color="primary"
-    (click)="navigateToCategorySelection()"
-  >
-    Go Back to Category Selection
-  </button>
-</div>
+<ng-template #insufficientWords>
+  <p class="feedback">{{ feedback }}</p>
+  <div class="ifgoback">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="navigateToCategorySelection()"
+    >
+      Go Back to Category Selection
+    </button>
+  </div>
+</ng-template>

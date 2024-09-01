@@ -13,6 +13,7 @@ import { WordSorterResultsComponent } from './word-sorter-results/word-sorter-re
 import { MixLettersResultsComponent } from './mix-letters-results/mix-letters-results.component';
 import { MatchingGameResultsComponent } from './matching-game-results/matching-game-results.component';
 
+
 export const routes: Routes = [
   { path: 'letsPlay', component: LetsPlayComponent },
   { path: '', redirectTo: '/main', pathMatch: 'full' }, // נתיב ברירת המחדל
@@ -28,6 +29,5 @@ export const routes: Routes = [
   { path: 'matching-game', component: MatchingGameComponent },
   { path: 'word-sorter-results', component: WordSorterResultsComponent },
   { path: 'mix-letters-results', component: MixLettersResultsComponent },
-  { path: 'matching-game-results', component: MatchingGameResultsComponent }
-  
+  { path: 'matching-game-results', component: MatchingGameResultsComponent },
 ];

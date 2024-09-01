@@ -1,5 +1,3 @@
-
-
 import { MatIconModule } from '@angular/material/icon';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { gameResultData } from '../../shared/model/gameResultData';
 import { GamesResultService } from '../services/gameResults.service';
+
 @Component({
   selector: 'app-mixed-letters-game',
   templateUrl: './mix-letters.component.html',
@@ -34,9 +33,9 @@ import { GamesResultService } from '../services/gameResults.service';
   ],
 })
 export class MixLettersComponent implements OnInit {
-  words: TranslatedWord[] = []; // Array to store TranslatedWord objects
+  words: TranslatedWord[] = []; // מערך לאחסון המילים
   currentWordIndex: number = 0;
-  currentWord: TranslatedWord = { origin: '', target: '', guess: '' }; // TranslatedWord object for the current word
+  currentWord: TranslatedWord = { origin: '', target: '', guess: '' }; // מילת המשחק הנוכחית
   mixedword: string = '';
   guessInput: string = '';
   message: string = '';
@@ -44,13 +43,13 @@ export class MixLettersComponent implements OnInit {
   grade: number = 0;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answers: any[] = [];
-  categoryName: string = '';
-  totalQuestions: number = 0; // Total number of questions
-  currentQuestion: number = 0; // Index of the current question
-  pointsForQuestion: number = 0; // this.totalQuestions;
-  totalScoure : number =0
-  attemptsLeft: number = 1; // Tracks attempts left for each word
-  answeredWords: Set<string> = new Set(); // Tracks words that have been answered
+  categoryName: string = ''; // שם הקטגוריה הנבחרת
+  totalQuestions: number = 0; // סך כל השאלות במשחק
+  currentQuestion: number = 0; // אינדקס השאלה הנוכחית
+  pointsForQuestion: number = 10; // נקודות לכל שאלה
+  totalScoure: number = 0;
+  attemptsLeft: number = 1; // מספר הניסיונות שנותרו לכל מילה
+  answeredWords: Set<string> = new Set(); // מעקב אחר מילים שנענו
   currectAnswers = 0;
 
   constructor(
@@ -67,7 +66,6 @@ export class MixLettersComponent implements OnInit {
       const categoryId = +params['categoryId'];
       this.loadWordsFromCategory(categoryId);
     });
-    // this.score = this.scoreService.getCurrentScore();
     this.score = 0;
   }
 
@@ -78,17 +76,20 @@ export class MixLettersComponent implements OnInit {
       } else {
         const category = this.categoriesService.get(categoryId);
         if (category) {
-          this.words = category.words; // Load TranslatedWord objects directly
-          this.categoryName = category.name;
-          this.totalQuestions = this.words.length; // Set the total number of questions
-          // this.initializeAttempts(); // Initialize attempts for each word
+          if (category.words.length === 0) {
+            this.message = 'הקטגוריה ריקה. אין מילים להצגה!';
+            return;
+          }
+          this.words = category.words;
+          this.categoryName = category.name; // הגדרת שם הקטגוריה
+          this.totalQuestions = this.words.length;
           this.newGame();
         } else {
-          this.message = 'Category not found!';
+          this.message = 'קטגוריה לא נמצאה!';
         }
       }
     } else {
-      this.message = 'Invalid category ID!';
+      this.message = 'מזהה קטגוריה לא תקין!';
     }
   }
 
@@ -96,22 +97,15 @@ export class MixLettersComponent implements OnInit {
     const defaultCategory = this.categoriesService.get(0);
     if (defaultCategory) {
       this.words = defaultCategory.words;
-      this.totalQuestions = this.words.length; // Set the total number of questions
-      // this.initializeAttempts(); // Initialize attempts for each word
+      this.totalQuestions = this.words.length;
       this.newGame();
     } else {
-      this.message = 'Default category not found!';
+      this.message = 'קטגוריית ברירת המחדל לא נמצאה!';
     }
   }
 
-  // initializeAttempts(): void {
-  //   this.words.forEach((word) => {
-  //     this.attemptsLeft[word.origin] = this.totalQuestions;
-  //   });
-  // }
-
   newGame(): void {
-    this.currentQuestion = 0; // Reset the current question index
+    this.currentQuestion = 0;
     this.currentWordIndex = 0;
     this.grade = 0;
     this.answers = [];
@@ -122,8 +116,8 @@ export class MixLettersComponent implements OnInit {
   }
 
   loadWord(): void {
-    this.currentWord = this.words[this.currentWordIndex]; // Set the current TranslatedWord object
-    this.mixedword = this.shuffle(this.currentWord.origin.split('')).join(' '); // Shuffle the origin word
+    this.currentWord = this.words[this.currentWordIndex];
+    this.mixedword = this.shuffle(this.currentWord.origin.split('')).join(' ');
     this.guessInput = '';
     this.message = '';
   }
@@ -141,26 +135,24 @@ export class MixLettersComponent implements OnInit {
       this.guessInput.toLowerCase() === this.currentWord.origin.toLowerCase();
 
     if (!this.answeredWords.has(this.currentWord.origin)) {
-      // Check if this word has already been answered
       if (isCorrect) {
         this.currentQuestion++;
         this.currectAnswers++;
         this.grade += this.pointsForQuestion;
-        this.answeredWords.add(this.currentWord.origin); // Mark word as answered
-        this.message = 'Correct! 🎉';
+        this.answeredWords.add(this.currentWord.origin);
+        this.message = 'נכון! 🎉';
         this.dialog.open(CorrectAnswersComponent, {
           data: {
-            message: 'Correct! 🎉',
+            message: 'נכון! 🎉',
             origin: this.currentWord.origin,
             target: this.currentWord.target,
           },
-          width: '400px', // הגדרת רוחב הדיאלוג
-          height: '300px', // הגדרת גובה הדיאלוג
+          width: '200px',
+          height: '200px',
         });
         this.score++;
         this.scoreService.updateScore(this.score);
         this.answers.push({
-          // Push answer
           question: this.mixedword.replace(/ /g, ''),
           answer: this.currentWord.origin,
           isCorrect: true,
@@ -171,13 +163,10 @@ export class MixLettersComponent implements OnInit {
       } else {
         this.attemptsLeft--;
         this.grade += this.pointsForQuestion;
-        
-        this.message = 'Try Again!';
-
+        this.message = 'נסה שוב!';
         if (this.attemptsLeft <= 0) {
-          this.answeredWords.add(this.currentWord.origin); // Mark word as answered after all attempts
+          this.answeredWords.add(this.currentWord.origin);
           this.answers.push({
-            // Push answer after all attempts
             question: this.mixedword.replace(/ /g, ''),
             answer: this.currentWord.origin,
             isCorrect: false,
@@ -186,20 +175,17 @@ export class MixLettersComponent implements OnInit {
           });
           this.currentQuestion++;
         }
-
         this.dialog.open(IcorrectAnswersComponent, {
           data: {
-            message: 'Incorrect! Try Again!',
+            message: 'לא נכון! נסה שוב!',
             origin: this.currentWord.origin,
             target: this.currentWord.target,
           },
-          width: '400px', // הגדרת רוחב הדיאלוג
-          height: '300px', // הגדרת גובה הדיאלוג
+          width: '200px',
+          height: '200px',
         });
-
         if (this.grade >= 100) {
           this.grade = 100;
-          // this.endGame();
         }
       }
     }
@@ -224,11 +210,11 @@ export class MixLettersComponent implements OnInit {
 
   endGame(): void {
     this.scoreService.addedGamePlayed('Mixed Letters', this.score);
-    this.message = `You translared ${this.currectAnswers} out of ${this.totalQuestions} words correctly`;
+    this.message = `תרגמת בהצלחה ${this.currectAnswers} מתוך ${this.totalQuestions} מילים נכון;`
     const gameResultData: gameResultData = {
       message: this.message,
       answers: this.answers,
-      grade: this.grade,
+      grade: this.score,
       score: this.score,
       categoryName: this.categoryName,
     };
@@ -242,7 +228,6 @@ export class MixLettersComponent implements OnInit {
 
   openExitDialog(): void {
     const dialogRef = this.dialog.open(ExitGameDialogComponent);
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.router.navigate(['/letsPlay']);
@@ -258,6 +243,3 @@ export class MixLettersComponent implements OnInit {
     return (this.currentQuestion / this.totalQuestions) * 100;
   }
 }
-
-
-

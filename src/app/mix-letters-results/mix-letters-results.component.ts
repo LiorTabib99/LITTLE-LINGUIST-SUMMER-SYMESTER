@@ -15,7 +15,7 @@ import { pointsScoreService } from '../services/pointsScore.service';
   styleUrl: './mix-letters-results.component.css',
 })
 export class MixLettersResultsComponent implements OnInit {
-  displayColums: string[] = ['origin', 'target','guess' ,'isCorrect'];
+  displayColums: string[] = ['origin', 'target', 'guess', 'isCorrect'];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource: any[] = [];
   message: string = '';
@@ -34,17 +34,13 @@ export class MixLettersResultsComponent implements OnInit {
       this.dataSource = data.answers;
       this.message = data.message;
       this.categoryName = data.categoryName;
-      this.grade = data.grade;
+      this.grade = data.grade; // Now using the score as grade
     } else {
       console.error('No data was found on the service');
     }
   }
 
   onClose(): void {
-    
     this.router.navigate(['/letsPlay']);
-    
   }
-
-  
 }

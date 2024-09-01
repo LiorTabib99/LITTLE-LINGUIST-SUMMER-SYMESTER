@@ -13,23 +13,13 @@
     <p class="hebrewWord">{{ currentWord.target }}</p>
     <p class="scrambledEnglishWord">{{ mixedword }}</p>
     <mat-form-field class="guess-field">
-      <input matInput placeholder="enter a word" [(ngModel)]="guessInput" />
+      <input matInput placeholder="enter a word" [(ngModel)]="guessInput"/>
     </mat-form-field>
     <div class="controls">
-      <button
-        class="submit-button"
-        mat-raised-button
-        color="primary"
-        (click)="checkGuess()"
-      >
+      <button class="submit-button" mat-raised-button color="primary" (click)="checkGuess()">
         Submit
       </button>
-      <button
-        class="reset-button"
-        mat-raised-button
-        color="warm"
-        (click)="resetInput()"
-      >
+      <button class="reset-button" mat-raised-button color="warm" (click)="resetInput()">
         Reset
       </button>
     </div>
@@ -41,10 +31,7 @@
           <span class="icon-number">{{ currentQuestion + 1 }}</span>
         </div>
       </div>
-      <mat-progress-bar
-        mode="determinate"
-        [value]="proccess"
-      ></mat-progress-bar>
+      <mat-progress-bar mode="determinate" [value]="proccess"></mat-progress-bar>
       <div class="progress-info">
         <div class="icon-box">
           <mat-icon>crop_din</mat-icon>
