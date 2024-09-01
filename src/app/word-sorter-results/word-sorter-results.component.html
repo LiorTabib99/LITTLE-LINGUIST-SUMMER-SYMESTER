@@ -1,127 +1,32 @@
-<!-- <div class="header-container">
-    <h2 mat-dialog-title>Word Sorter - {{categoryName}} - result</h2>
-</div>
-<div mat-dialog-content>
-    <div class="scoreandgrade">
-        <p>Grade: {{grade}}</p>
-    </div>
-    <div class="mes-con">
-        <p>{{message}}</p>
-    </div>
-    <div class="table-container">
-        <!Added container for table styling -->
-        <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-       
-            <ng-container matColumnDef="origin">
-                <td mat-cell *matCellDef="let element">{{element.target}}</td>
-            </ng-container>
-
-      
-            <ng-container matColumnDef="target">
-                <td mat-cell *matCellDef="let element">{{element.origin}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="isCorrect">
-                <td mat-cell *matCellDef="let element">
-                    <mat-icon>{{ element.isCorrect ? 'check_circle' : 'cancel' }}</mat-icon>
-                </td>
-            </ng-container>
-
-         
-            <tr mat-row *matRowDef="let row; columns: displayColums;"></tr>
-        </table>
-    </div>
-</div>
-<div mat-dialog-actions class="btndiv">
-    <button mat-button (click)="onClose()">New Game</button>
-</div>  -->
-
-
-
-
-
-<!-- <div class="header-container">
-  <h2 mat-dialog-title>Word Sorter - {{categoryName}} - result</h2>
-</div>
-<div mat-dialog-content>
-  <div class="scoreandgrade">
-    <p>Grade: {{grade}}</p>
-  </div>
-  <div class="mes-con">
-    <p>{{message}}</p>
-  </div>
-  <div class="table-container"> -->
-    <!-- Added container for table styling -->
-    <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> -->
-      <!-- Question Column -->
-      <!-- <ng-container matColumnDef="origin">
-        <th mat-header-cell *matHeaderCellDef>Origin</th>
-        <td mat-cell *matCellDef="let element">{{element.origin}}</td>
-      </ng-container> -->
-
-      <!-- Answer Column -->
-      <!-- <ng-container matColumnDef="target">
-        <th mat-header-cell *matHeaderCellDef>Target</th>
-        <td mat-cell *matCellDef="let element">{{element.target}}</td>
-      </ng-container> -->
-
-      <!-- Is Correct Column -->
-      <!-- <ng-container matColumnDef="isCorrect">
-        <th mat-header-cell *matHeaderCellDef>Is Correct</th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon>{{ element.isCorrect ? 'check_circle' : 'cancel' }}</mat-icon>
-        </td>
-      </ng-container> -->
-
-      <!-- Row Definition -->
-      <!-- <tr mat-row *matRowDef="let row; columns: displayColums;"></tr>
-    </table>
-  </div>
-</div>
-<div mat-dialog-actions class="btndiv">
-  <button mat-button (click)="onClose()">New Game</button>
-</div>
-
- -->
-
-
-<div class="header-container">
-  <h2 mat-dialog-title>Word Sorter - {{categoryName}} - result</h2>
-</div>
-<div mat-dialog-content>
-  <div class="scoreandgrade">
-    <p>Grade: {{grade}}</p>
-  </div>
-  <div class="mes-con">
-    <p>{{message}}</p>
-  </div>
-  <div class="table-container">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<!-- end-game-results-dialogsorter2.component.html -->
+<div>
+    <h2>Game Results for {{ categoryName }}</h2>
+    <table mat-table [dataSource]="dataSource" matSort>
       <!-- Origin Column -->
       <ng-container matColumnDef="origin">
-        <th mat-header-cell *matHeaderCellDef>Origin</th>
-        <td mat-cell *matCellDef="let element">{{element.origin}}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">origin :{{ element.origin }}</td>
       </ng-container>
-
-      <!-- Target Column -->
-      <ng-container matColumnDef="target">
-        <th mat-header-cell *matHeaderCellDef>Target</th>
-        <td mat-cell *matCellDef="let element">{{element.target}}</td>
+  
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">Category : {{ element.category }}</td>
       </ng-container>
+  
+      <!-- Guess Column -->
+      <ng-container matColumnDef="guess">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element"><mat-icon>{{ element.guess ? 'check_circle' : 'cancel' }}</mat-icon></td>
+        
 
-      <!-- Is Correct Column -->
-      <ng-container matColumnDef="isCorrect">
-        <th mat-header-cell *matHeaderCellDef>Is Correct</th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon>{{ element.isCorrect ? 'check_circle' : 'cancel' }}</mat-icon>
-        </td>
       </ng-container>
-
-      <!-- Row Definition -->
-      <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+  
+      <!-- Table Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-</div>
-<div mat-dialog-actions class="btndiv">
-  <button mat-button (click)="onClose()">New Game</button>
-</div>
+  
+  <!-- Add a close button -->
+  <button mat-button (click)="chooseNewGame()">New Game</button>

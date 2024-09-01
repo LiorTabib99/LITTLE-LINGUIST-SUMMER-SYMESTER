@@ -40,7 +40,7 @@ export class WordSorterComponent implements OnInit {
   correctAnswers: number = 0;
   categoryName: string = '';
   message: string = '';
-  totalQuestions: number = 10; // Total number of questions
+  totalQuestions: number = 6; // Total number of questions
   correctlyGuessedIndices: Set<number> = new Set(); // To track correctly guessed words
   attemptsMap: Map<
     number,
@@ -87,15 +87,15 @@ export class WordSorterComponent implements OnInit {
             allCategories,
             categoryId
           );
-        
+
           if (this.randomCategory) {
             const currentCategoryWords = this.getWordsFromCategory(
               this.currentCategory,
-              5
+              3
             );
             const randomCategoryWords = this.getWordsFromCategory(
               this.randomCategory,
-              5
+              3
             );
 
             this.words = [
@@ -167,8 +167,49 @@ export class WordSorterComponent implements OnInit {
   }
 
   private handleSpecialCategory(): void {
-    // Implement your logic for categoryId 0 if needed
-    console.log('Handling special category with ID 0');
+    // Fetch the special category with ID 0
+    const specialCategory = this.categoriesService.get(0);
+
+    if (specialCategory) {
+      this.currentCategory = specialCategory;
+      // Load a random category for comparison
+      const allCategories = this.categoriesService.list();
+      this.randomCategory = this.getRandomCategory(allCategories, 0);
+
+      if (this.randomCategory) {
+        const currentCategoryWords = this.getWordsFromCategory(
+          this.currentCategory,
+          3
+        );
+        const randomCategoryWords = this.getWordsFromCategory(
+          this.randomCategory,
+          3
+        );
+
+        this.words = [
+          ...currentCategoryWords.map((word, index) =>
+            this.convertToWord(word, index + 1, this.currentCategory!.name)
+          ),
+          ...randomCategoryWords.map((word, index) =>
+            this.convertToWord(
+              word,
+              index + 1 + currentCategoryWords.length,
+              this.randomCategory!.name
+            )
+          ),
+        ];
+        this.pointsForScore = 100 / this.words.length;
+        this.words = this.shuffleArray(this.words); // Shuffle words to randomize order
+        this.categoryName = this.currentCategory.name ?? '';
+        this.resetGame(); // Initialize a new game
+      } else {
+        this.message = 'Random category not found!';
+        console.error('Random category not found');
+      }
+    } else {
+      this.message = 'Special category not found!';
+      console.error('Special category not found');
+    }
   }
 
   resetGame(): void {
@@ -224,7 +265,7 @@ export class WordSorterComponent implements OnInit {
     } else {
       if (trackingData) {
         trackingData.attempts--; // Decrease attempts
-         this.grade -= 2;
+        this.grade -= 2;
         if (trackingData.attempts <= 0) {
           trackingData.status = 'incorrect'; // Update status to incorrect after 3 attempts
           this.grade -= 10;
@@ -253,6 +294,7 @@ export class WordSorterComponent implements OnInit {
   }
 
   endGame(): void {
+    this.message = `You classified ${this.correctAnswers} out of ${this.totalQuestions} words correctly `;
     // Format the results according to GameResultData
     const results = this.words.map((word) => {
       const trackingData = this.attemptsMap.get(word.id);
@@ -281,10 +323,9 @@ export class WordSorterComponent implements OnInit {
 
   openExitDialog(): void {
     const dialogRef = this.dialog.open(ExitGameDialogComponent);
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.router.navigate(['/letplay']); // Navigate to the main page if confirmed
+        this.router.navigate(['/letsPlay']);
       }
     });
   }
@@ -292,12 +333,16 @@ export class WordSorterComponent implements OnInit {
   openCorrectAnswerDialog(): void {
     this.dialog.open(CorrectAnswersComponent, {
       data: { message: 'Correct!' },
+      width: '200px',
+      height: '200px',
     });
   }
 
   openIncorrectAnswerDialog(): void {
     this.dialog.open(IcorrectAnswersComponent, {
       data: { message: 'Incorrect!' },
+      width: '200px',
+      height: '200px',
     });
   }
 

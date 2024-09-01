@@ -1,0 +1,24 @@
+.game-result-container{
+    width: 800px;
+    margin: 20px auto; /* Centers the container and adds vertical margin */
+    padding: 16px;
+    border: 1px solid #ccc; /* Optional: Add a border for visual separation */
+    border-radius: 8px; /* Optional: Rounded corners for a cleaner look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow for depth */
+  }
+  
+  .mat-table {
+    width: 100%; /* Ensure the table takes the full width of its container */
+  }
+  
+  .mat-header-cell, .mat-cell {
+    text-align: left; /* Adjust text alignment as needed */
+  }
+  
+  button {
+    display: block; /* Ensure the button is a block element */
+    margin-top: 20px; /* Adds spacing above the button */
+  }
+  .container{
+    width: 800px;
+  }
