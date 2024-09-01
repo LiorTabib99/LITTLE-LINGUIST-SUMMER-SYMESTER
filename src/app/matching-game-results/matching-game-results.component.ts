@@ -43,7 +43,9 @@ export class MatchingGameResultsComponent implements OnInit {
     }
   }
 
+ 
   private setMessage() {
+    
     if (this.grade > 90) {
       this.message = ` %${this.grade} Excellent`;
       this.grade = 100;
@@ -78,6 +80,7 @@ export class MatchingGameResultsComponent implements OnInit {
       this.message = 'Bad, try again';
       this.grade = 0;
     }
+   
   }
 
   roundGradeDown(grade: number): number {

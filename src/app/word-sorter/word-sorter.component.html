@@ -1,78 +1,40 @@
-<!-- Back button -->
-<!-- <div class="header-container">
-  <button mat-icon-button class="exitButton" (click)="openExitDialog()">
-    <mat-icon>exit_to_app</mat-icon>
-  </button>
-  <h1 class="categoryName" *ngIf="categoryName">
-    Word Sorter - {{ categoryName }}
-  </h1>
-
-  <div class="score-bar">
-    <mat-icon>monetization_on</mat-icon>
-    <span>{{ score }}</span>
-  </div>
-
-  <p *ngIf="selectedEnglishWords && categoryName">
-    Is word {{ selectedEnglishWords.word }} part of the
-    {{ categoryName }} category?
-  </p> -->
-
-
-  <!-- Progress bar -->
-  <!-- <div class="progress-container">
-    <div class="progress-info">
-      <div class="icon-box">
-        <mat-icon>crop_din</mat-icon>
-        <span class="icon-number">{{ currentQuestion + 1 }}</span>
-      </div>
-    </div>
-    <mat-progress-bar mode="determinate" [value]="proccess"></mat-progress-bar>
-    <div class="progress-info">
-      <div class="icon-box">
-        <mat-icon>crop_din</mat-icon>
-        <span class="icon-number">{{ totalQuestions }}</span>
-      </div>
-    </div>
-  </div> -->
-
-
-
-   <!-- Yes and No buttons -->
-  <!-- <div >
-    <button mat-button (click)="matchWord()">Yes</button>  
-    <button mat-button color="warn" (click)="unMacthWord()">No</button>
-  </div>
-
-</div> -->
-
-
+<!-- Display the question card if there are words and the current question index is valid -->
 <div class="header-container">
-  <button mat-icon-button class="exitButton" (click)="openExitDialog()">
+  <!-- Exit Game Button -->
+  <button mat-icon-button class="exit-button" (click)="openExitDialog()">
     <mat-icon>exit_to_app</mat-icon>
   </button>
-  <h1 class="categoryName" *ngIf="categoryName">
-    Word Sorter - {{ categoryName }}
-  </h1>
-
-  <div class="score-bar">
+  <!-- Score and Grade Status Bar -->
+  <div class="status-bar">
     <mat-icon>monetization_on</mat-icon>
     <span>{{ score }}</span>
   </div>
+</div>
 
-  <p *ngIf="selectedEnglishWords && categoryName">
-    Is word {{ selectedEnglishWords.word }} part of the
-    {{ categoryName }} category?
-  </p>
+<div class="game-container">
+  <mat-card *ngIf="words.length > 0 && currentQuestionIndex < words.length">
+    <h1>Mixed Letters - {{ categoryName }}</h1>
+    <mat-card-content>
+      <!-- Question text with current word and category -->
+      <p>
+        Does the word "{{ words[currentQuestionIndex]!.text }}" belong to the
+        category "{{ categoryName }}"?
+      </p>
+      <!-- Buttons for user to provide answer -->
+      <button mat-button (click)="checkAnswer(true)">Yes</button>
+      <button mat-button (click)="checkAnswer(false)">No</button>
+    </mat-card-content>
+  </mat-card>
 
-  <!-- Progress bar -->
+  <!-- Progress bar showing the current progress -->
   <div class="progress-container">
     <div class="progress-info">
       <div class="icon-box">
         <mat-icon>crop_din</mat-icon>
-        <span class="icon-number">{{ currentQuestion + 1 }}</span>
+        <span class="icon-number">{{ currentQuestionIndex + 1 }}</span>
       </div>
     </div>
-    <mat-progress-bar mode="determinate" [value]="proccess"></mat-progress-bar>
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
     <div class="progress-info">
       <div class="icon-box">
         <mat-icon>crop_din</mat-icon>
@@ -80,10 +42,22 @@
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Yes and No buttons -->
-  <div>
-    <button mat-button (click)="matchWord()">Yes</button>
-    <button mat-button color="warn" (click)="unMacthWord()">No</button>
-  </div>
+<!-- Buttons for game actions -->
+<div class="action-buttons">
+  <!-- Reset Game Button -->
+  <button
+    mat-raised-button
+    (click)="resetGame()"
+    *ngIf="currentQuestionIndex < words.length && grade > 0">
+    Reset Game
+  </button>
+  <!-- End Game Button -->
+  <button
+    mat-raised-button
+    (click)="endGame()"
+    *ngIf="currentQuestionIndex >= words.length || grade <= 0">
+    End Game
+  </button>
 </div>

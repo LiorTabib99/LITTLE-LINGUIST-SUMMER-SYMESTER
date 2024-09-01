@@ -190,6 +190,10 @@ export class MixLettersComponent implements OnInit {
         if (this.grade >= 100) {
           this.grade = 100;
         }
+        if (this.grade < 0) {
+          this.message = 'Bad, try again';
+          this.grade = 0;
+        }
       }
     }
 

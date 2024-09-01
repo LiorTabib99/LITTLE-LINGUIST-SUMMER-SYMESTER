@@ -73,6 +73,10 @@ export class MixLettersResultsComponent implements OnInit {
       this.message = 'Bad, try again';
       this.grade = 0;
     }
+    if (this.grade < 0) {
+      this.message = 'Bad, try again';
+      this.grade = 0;
+    }
   }
 
   roundGradeDown(grade: number): number {

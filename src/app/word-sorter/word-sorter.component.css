@@ -1,65 +1,115 @@
-h1 {
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Card styling */
+mat-card {
+  max-width: 600px;
+  width: 100%;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Card content styling */
+mat-card-content {
   text-align: center;
-  font-size: 45px;
-  color: black;
 }
 
-
-p {
-  text-align: center;
-  font-size: 45px;
-  color: black;
+/* Buttons */
+button {
+  margin: 10px;
 }
 
-
-.score-bar{
-  justify-content: right;
- 
-  padding-left: 97.8%;
+/* Progress bar */
+mat-progress-bar {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
-.status-bar span {
-  margin: 0 10px; /* Space between status items */
+/* End Game Button */
+button[mat-raised-button] {
+  margin-top: 20px;
+  background-color: #3f51b5;
+  color: #fff;
 }
 
-.exitButton{
- 
-}
-
-
-
-.progress-container{
+/* Progress Container */
+.progress-container {
   display: flex;
   align-items: flex-end;
   flex-direction: row;
   align-items: baseline;
 }
 
-
+/* Icon Box */
 .icon-box {
   position: relative;
-  display: inline-flex; /* Ensure proper alignment */
-  width: 36px; /* Set a fixed width */
-  height: 36px; /* Set a fixed height */
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
 }
 
+/* Icon inside Icon Box */
 .icon-box mat-icon {
-  font-size: 36px; /* Ensure the icon fits the container */
-  width: 100%; /* Fill the container */
-  height: 100%; /* Fill the container */
+  font-size: 36px;
+  width: 100%;
+  height: 100%;
   color: grey;
 }
 
+/* Icon Number */
 .icon-number {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 16px; /* Adjust text size as needed */
-  font-weight: bold; /* Make the number bold for better visibility */
-  color: rgb(92, 90, 90); /* Adjust color for better contrast */
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(92, 90, 90);
 }
 
-.game-card-details{
+/* Progress Bar Styling */
+mat-progress-bar {
+  min-width: 200px;
+  width: 100%;
+  height: 32px; /* Increased height for better visibility */
+  margin-top: 20px;
+}
+
+/* Header Container */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* Exit Button */
+.exit-button {
+  align-self: flex-start;
+}
+
+/* Status Bar */
+.status-bar {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 18px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Status Bar Span */
+.status-bar span {
+  margin: 0 10px;
+}
+.game-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
