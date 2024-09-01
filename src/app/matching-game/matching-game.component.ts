@@ -103,6 +103,7 @@ export class MatchingGameComponent implements OnInit {
       this.feedback = 'No category selected.';
       this.showBackButton = true;
     }
+    
   }
 
   private mixWordsArray<T>(array: T[]): T[] {
@@ -123,12 +124,18 @@ export class MatchingGameComponent implements OnInit {
   openCorrectAnswers(): void {
     this.dialog.open(CorrectAnswersComponent, {
       data: { message: 'Great Job!' },
+      width: '200px',
+      height: '200px',
     });
+
+    
   }
 
   openIncorretAnswers(): void {
     this.dialog.open(IcorrectAnswersComponent, {
       data: { message: 'Incorrect, Give it another try' },
+      width: '200px',
+      height: '200px',
     });
   }
 

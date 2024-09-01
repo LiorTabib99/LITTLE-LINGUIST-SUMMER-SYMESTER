@@ -17,6 +17,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { gameResultData } from '../../shared/model/gameResultData';
 import { GamesResultService } from '../services/gameResults.service';
 
+
 @Component({
   selector: 'app-mixed-letters-game',
   templateUrl: './mix-letters.component.html',
@@ -95,6 +96,7 @@ export class MixLettersComponent implements OnInit {
 
   handleSpecialCategory(): void {
     const defaultCategory = this.categoriesService.get(0);
+    this.categoryName = defaultCategory!.name
     if (defaultCategory) {
       this.words = defaultCategory.words;
       this.totalQuestions = this.words.length;
@@ -210,7 +212,7 @@ export class MixLettersComponent implements OnInit {
 
   endGame(): void {
     this.scoreService.addedGamePlayed('Mixed Letters', this.score);
-    this.message = `תרגמת בהצלחה ${this.currectAnswers} מתוך ${this.totalQuestions} מילים נכון;`
+    this.message = `תרגמת בהצלחה ${this.currectAnswers} מתוך ${this.totalQuestions} מילים נכון;`;
     const gameResultData: gameResultData = {
       message: this.message,
       answers: this.answers,
