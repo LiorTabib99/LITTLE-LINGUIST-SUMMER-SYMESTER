@@ -41,7 +41,7 @@ export class MatchingGameComponent implements OnInit {
   }[] = [];
   hebrewWords: hebrewWord[] = [];
   feedback = '';
-  grade = 16;
+  grade = 0;
   score = 0;
   showBackButton = false;
   selectedEnglishWords: {
@@ -53,7 +53,7 @@ export class MatchingGameComponent implements OnInit {
   wordStatus = wordStatus;
   categoryName: string = '';
   categoryHasEnoughWords = false; // משתנה בוליאני חדש לבדיקת האם יש מספיק מילים בקטגוריה
-
+  pointsForScore : number = 0
   progress = 0;
 
   constructor(
@@ -92,6 +92,7 @@ export class MatchingGameComponent implements OnInit {
             attemptsLeft: 3,
           }))
         );
+        this.pointsForScore = 100/this.englishWords.length
       } else {
         this.categoryHasEnoughWords = false; // פחות מחמש מילים, משחק לא יופעל
         this.feedback =
@@ -159,6 +160,7 @@ matchWord(hebrewWord: hebrewWord) {
         this.score++; // Increase score for correct match
         this.selectedEnglishWords = null;
         this.openCorrectAnswers();
+        this.grade += this.pointsForScore
   
         // Check if all English words are matched
         if (this.englishWords.every((word) => word.status !== wordStatus.Normal)) {
@@ -167,7 +169,7 @@ matchWord(hebrewWord: hebrewWord) {
       } else {
         // Incorrect match
         this.grade -= 2; // Decrease grade by 8 for incorrect match
-  
+        
         if (this.grade <= 0) {
           this.grade = 0;
           this.englishWords.forEach((word) => {
@@ -244,7 +246,7 @@ matchWord(hebrewWord: hebrewWord) {
     this.selectedEnglishWords = null;
     this.feedback = '';
     this.score = 0;
-    this.grade = 16;
+    this.grade = 0;
   }
 
   navigateToCategorySelection() {

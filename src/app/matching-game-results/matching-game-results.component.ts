@@ -43,7 +43,15 @@ export class MatchingGameResultsComponent implements OnInit {
     }
   }
 
+  private roundGrade() : void{
+    
+  }
+
+  grade = math.floor()
+
+
   private setMessage() {
+
     if (this.grade > 90) {
       this.message = 'Excellent';
       this.grade = 100;
@@ -81,6 +89,6 @@ export class MatchingGameResultsComponent implements OnInit {
   }
 
   newGameButton(): void {
-    this.router.navigate(['/matching-game']);
+    this.router.navigate(['/letplay']);
   }
 }
