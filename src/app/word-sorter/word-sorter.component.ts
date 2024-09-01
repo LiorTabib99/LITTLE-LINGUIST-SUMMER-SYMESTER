@@ -40,7 +40,7 @@ export class WordSorterComponent implements OnInit {
   correctAnswers: number = 0;
   categoryName: string = '';
   message: string = '';
-  totalQuestions: number = 6; // Total number of questions
+  totalQuestions: number = 0; // Total number of questions
   correctlyGuessedIndices: Set<number> = new Set(); // To track correctly guessed words
   attemptsMap: Map<
     number,
@@ -111,6 +111,7 @@ export class WordSorterComponent implements OnInit {
               ),
             ];
             this.pointsForScore = 100 / this.words.length;
+            this.totalQuestions = this.words.length
             this.words = this.shuffleArray(this.words); // Shuffle words to randomize order
             this.categoryName = this.currentCategory.name ?? '';
             this.resetGame(); // Initialize a new game
@@ -198,6 +199,7 @@ export class WordSorterComponent implements OnInit {
             )
           ),
         ];
+        this.totalQuestions = this.words.length;
         this.pointsForScore = 100 / this.words.length;
         this.words = this.shuffleArray(this.words); // Shuffle words to randomize order
         this.categoryName = this.currentCategory.name ?? '';
@@ -283,6 +285,13 @@ export class WordSorterComponent implements OnInit {
     if (this.currentQuestionIndex >= this.words.length) {
       this.endGame();
     }
+    if (this.grade >= 100) {
+      this.grade = 100;
+    }
+    if (this.grade < 0) {
+      this.message = 'Bad, try again';
+      this.grade = 0;
+    }
   }
 
   private moveToNextWord(): void {
@@ -307,7 +316,7 @@ export class WordSorterComponent implements OnInit {
 
     // Create the GameResultData object
     const resultData: gameResultData = {
-      message: 'Game Over', // Set your message here
+      message: this.message, // Set your message here
       answers: results, // Populate with the formatted results
       grade: this.grade,
       score: this.score,

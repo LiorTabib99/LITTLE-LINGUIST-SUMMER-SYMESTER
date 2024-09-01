@@ -1,32 +1,40 @@
 <!-- end-game-results-dialogsorter2.component.html -->
 <div>
-    <h2>Game Results for {{ categoryName }}</h2>
-    <table mat-table [dataSource]="dataSource" matSort>
-      <!-- Origin Column -->
-      <ng-container matColumnDef="origin">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-        <td mat-cell *matCellDef="let element">origin :{{ element.origin }}</td>
-      </ng-container>
-  
-      <!-- Category Column -->
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-        <td mat-cell *matCellDef="let element">Category : {{ element.category }}</td>
-      </ng-container>
-  
-      <!-- Guess Column -->
-      <ng-container matColumnDef="guess">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-        <td mat-cell *matCellDef="let element"><mat-icon>{{ element.guess ? 'check_circle' : 'cancel' }}</mat-icon></td>
-        
-
-      </ng-container>
-  
-      <!-- Table Header and Row Definitions -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+  <h2>Word Sorter-{{ categoryName }}-Results</h2>
+  <div class="scoreandgrade">
+    <p>Grade: {{ setGrade() }}</p>
   </div>
-  
-  <!-- Add a close button -->
-  <button mat-button (click)="chooseNewGame()">New Game</button>
+  <div class="mes-con">
+    <p>{{ message }}</p>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Origin Column -->
+    <ng-container matColumnDef="origin">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">origin :{{ element.origin }}</td>
+    </ng-container>
+
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        Category : {{ element.category }}
+      </td>
+    </ng-container>
+
+    <!-- Guess Column -->
+    <ng-container matColumnDef="guess">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon>{{ element.guess ? "check_circle" : "cancel" }}</mat-icon>
+      </td>
+    </ng-container>
+
+    <!-- Table Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<!-- Add a close button -->
+<button mat-button (click)="newGameButton()">New Game</button>
