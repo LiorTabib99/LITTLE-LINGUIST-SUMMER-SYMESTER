@@ -43,49 +43,46 @@ export class MatchingGameResultsComponent implements OnInit {
     }
   }
 
-  private roundGrade() : void{
-    
-  }
-
-  grade = math.floor()
-
-
   private setMessage() {
-
     if (this.grade > 90) {
-      this.message = 'Excellent';
+      this.message = ` %${this.grade} Excellent`;
       this.grade = 100;
     } else if (this.grade > 80) {
-      this.message = 'Excellent';
+      this.message = ` %${this.grade} Excellent`;
       this.grade = 90;
     } else if (this.grade > 70) {
-      this.message = 'Amazing';
+      this.message = ` %${this.grade} Amazing`;
       this.grade = 80;
     } else if (this.grade > 60) {
-      this.message = 'Perfect';
+      this.message = ` %${this.grade} Perfect`;
       this.grade = 70;
     } else if (this.grade > 50) {
-      this.message = 'Great';
+      this.message = ` %${this.grade} Great`;
       this.grade = 60;
     } else if (this.grade > 40) {
-      this.message = 'Good';
+      this.message = `%${this.grade} Good`;
       this.grade = 50;
     } else if (this.grade > 30) {
-      this.message = 'Worse';
+      this.message = `%${this.grade} Worse`;
       this.grade = 40;
     } else if (this.grade > 20) {
-      this.message = 'Not good enough';
+      this.message = `%${this.grade} Not good enough`;
       this.grade = 30;
     } else if (this.grade > 10) {
-      this.message = 'Not good enough';
+      this.message = `%${this.grade} Not good enough`;
       this.grade = 20;
     } else if (this.grade > 0) {
-      this.message = 'Bad, try again';
+      this.message = ` %${this.grade} Bad, try again`;
       this.grade = 10;
     } else {
       this.message = 'Bad, try again';
       this.grade = 0;
     }
+  }
+
+  roundGradeDown(grade: number): number {
+    // Round down to the nearest multiple of 10
+    return Math.round(grade/10)*10;
   }
 
   newGameButton(): void {

@@ -170,18 +170,18 @@ matchWord(hebrewWord: hebrewWord) {
         // Incorrect match
         this.grade -= 2; // Decrease grade by 8 for incorrect match
         
-        if (this.grade <= 0) {
-          this.grade = 0;
-          this.englishWords.forEach((word) => {
-            word.status = wordStatus.Disabled;
-            word.attemptsLeft = 0;
-          });
-          this.hebrewWords.forEach((hebrew) => {
-            hebrew.status = wordStatus.Disabled;
-          });
-          this.endGame();
-          return;
-        }
+        // if (this.grade <= 0) {
+        //   this.grade = 0;
+        //   this.englishWords.forEach((word) => {
+        //     word.status = wordStatus.Disabled;
+        //     word.attemptsLeft = 0;
+        //   });
+        //   this.hebrewWords.forEach((hebrew) => {
+        //     hebrew.status = wordStatus.Disabled;
+        //   });
+        //   this.endGame();
+        //   return;
+        // }
   
         this.selectedEnglishWords.attemptsLeft--;
   
