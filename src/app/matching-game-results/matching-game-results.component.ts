@@ -95,6 +95,6 @@ export class MatchingGameResultsComponent implements OnInit {
   }
 
   newGameButton(): void {
-    this.router.navigate(['/letplay']);
+    this.router.navigate(['/letsplay']);
   }
 }
