@@ -199,7 +199,7 @@ export class WordSorterComponent implements OnInit {
             )
           ),
         ];
-        this.totalQuestions = this.words.length;
+        this.totalQuestions = this.words.length;  
         this.pointsForScore = 100 / this.words.length;
         this.words = this.shuffleArray(this.words); // Shuffle words to randomize order
         this.categoryName = this.currentCategory.name ?? '';
