@@ -26,15 +26,17 @@ export class MixLettersResultsComponent implements OnInit {
     private gameResultService: GamesResultService
   ) {}
 
+
   ngOnInit(): void {
     const data = this.gameResultService.getResultData();
+    console.log(data);
     if (data) {
-      this.dataSource = data.answers;
-      this.message = data.message;
+      this.dataSource = data.answers || [];
+      this.grade = Math.round(data.grade) || 100; // עיגול למספר שלם
       this.categoryName = data.categoryName;
-      this.grade = data.grade; // Now using the score as grade
+      this.setMessage();
     } else {
-      console.error('No data was found on the service');
+      console.error('Error: No data found in the service');
     }
   }
 
@@ -81,7 +83,7 @@ export class MixLettersResultsComponent implements OnInit {
 
   roundGradeDown(grade: number): number {
     // Round down to the nearest multiple of 10
-    return Math.round(grade / 10) * 10;
+    return Math.round(grade);
   }
 
   newGameButton(): void {

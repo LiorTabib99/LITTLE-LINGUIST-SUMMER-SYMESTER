@@ -3,7 +3,7 @@
 </div>
 <div mat-dialog-content>
   <div class="scoreandgrade">
-    <p>Grade: {{ grade }}</p>
+    <p>Grade: {{ grade | number:'1.0-0' }}</p>
   </div>
   <div class="mes-con">
     <p>{{ message }}</p>

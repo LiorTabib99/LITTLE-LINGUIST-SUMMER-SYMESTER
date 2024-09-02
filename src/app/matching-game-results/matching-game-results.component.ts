@@ -37,14 +37,13 @@ export class MatchingGameResultsComponent implements OnInit {
     console.log(data);
     if (data) {
       this.wordPairs = data.answers || [];
-      this.grade = data.grade || 100;
+      this.grade = Math.round(data.grade) || 100; // עיגול למספר שלם
       this.categoryName = data.categoryName;
       this.setMessage();
     } else {
       console.error('Error: No data found in the service');
     }
   }
-
   private setMessage() {
     if (this.grade > 90) {
       this.message = ` %${this.grade} Excellent`;
@@ -91,7 +90,7 @@ export class MatchingGameResultsComponent implements OnInit {
 
   roundGradeDown(grade: number): number {
     // Round down to the nearest multiple of 10
-    return Math.round(grade / 10) * 10;
+    return Math.round(grade);
   }
 
   newGameButton(): void {
