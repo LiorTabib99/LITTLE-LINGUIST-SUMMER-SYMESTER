@@ -8,13 +8,16 @@
     <span>{{ score }}</span>
   </div>
 
+   <h1>Mix Letters - {{ categoryName }}</h1>
+
   <div class="game-card-details">
-    <h1>Mix Letters - {{ categoryName }}</h1>
     <p class="hebrewWord">{{ currentWord.target }}</p>
     <p class="scrambledEnglishWord">{{ mixedword }}</p>
-    <mat-form-field class="guess-field">
+    <div class="input">
+      <p class="input-paragraph">Guess:</p><mat-form-field class="guess-field">
       <input matInput placeholder="enter a word" [(ngModel)]="guessInput"/>
     </mat-form-field>
+    </div>
     <div class="controls">
       <button class="submit-button" mat-raised-button color="primary" (click)="checkGuess()">
         Submit
