@@ -1,5 +1,7 @@
-<h2 mat-dialog-title>Matching game -{{ categoryName }}-Results</h2>
-
+<h2 mat-dialog-title>{{ categoryName }}-Results</h2>
+<button mat-button class="exit-button" (click)="openExitDialog()">
+      <mat-icon>exit_to_app</mat-icon>
+</button>
 <mat-dialog-content>
   <div class="results-summary">
     <p>Grade:{{ grade }}</p>

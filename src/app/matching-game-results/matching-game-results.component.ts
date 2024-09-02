@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { GamesResultService } from '../services/gameResults.service';
+import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 
 @Component({
   selector: 'app-game-result',
@@ -27,7 +28,8 @@ export class MatchingGameResultsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private gameResultService: GamesResultService
+    private gameResultService: GamesResultService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -43,9 +45,7 @@ export class MatchingGameResultsComponent implements OnInit {
     }
   }
 
- 
   private setMessage() {
-    
     if (this.grade > 90) {
       this.message = ` %${this.grade} Excellent`;
       this.grade = 100;
@@ -80,12 +80,18 @@ export class MatchingGameResultsComponent implements OnInit {
       this.message = 'Bad, try again';
       this.grade = 0;
     }
-   
+  }
+
+  openExitDialog(): void {
+    const dialogRef = this.dialog.open(ExitGameDialogComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/letsPlay']);
+    });
   }
 
   roundGradeDown(grade: number): number {
     // Round down to the nearest multiple of 10
-    return Math.round(grade/10)*10;
+    return Math.round(grade / 10) * 10;
   }
 
   newGameButton(): void {
