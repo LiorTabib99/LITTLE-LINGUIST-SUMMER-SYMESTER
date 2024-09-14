@@ -3,11 +3,13 @@ import { Category } from '../../shared/model/category';
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   Firestore,
   getDoc,
   getDocs,
   QuerySnapshot,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { categoryConverter } from './converters/categpry-converter';
 
@@ -43,12 +45,21 @@ export class CategoriesService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  delete(existingCategoryId: string): void {
-    // Logic for deletion can be added here
+  async delete(existingCategoryId: string): Promise<void> {
+    const docRef = doc(this.firestoreService, 'categories', existingCategoryId);
+    await deleteDoc(docRef);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(existingCategory: Category): void {}
+  async update(existingCategory: Category): Promise<void> {
+    const docRef = doc(
+      this.firestoreService,
+      'categories',
+      existingCategory.id
+    ).withConverter(categoryConverter);
+    const { ...updateData } = existingCategory;
+    await updateDoc(docRef, updateData);
+  }
 
   async add(newCategoryData: Category) {
     await addDoc(
