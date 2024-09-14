@@ -20,8 +20,8 @@ export class TriviaGameService {
   //random and one of them will be from the cateogry
 
   
-  getQuestionsByCategoryId(categoryId: number): Question[] {
-    const category = this.categoryService.get(categoryId.toString());
+  async getQuestionsByCategoryId(categoryId:string): Promise<Question[]> {
+    const category = await this.categoryService.get(categoryId.toString());
     if (category) {
       return category.words.map(word => ({
         question: `Translate  "${word.origin}"`,

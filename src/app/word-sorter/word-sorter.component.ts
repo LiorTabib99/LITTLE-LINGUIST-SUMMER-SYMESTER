@@ -80,7 +80,7 @@ export class WordSorterComponent implements OnInit {
       if (categoryId === "0") {
         this.handleSpecialCategory(); // Handle the case where categoryId is 0
       } else {
-        const category = this.categoriesService.get(categoryId.toString());
+        const category = await this.categoriesService.get(categoryId.toString());
         if (category) {
           this.currentCategory = category;
           this.randomCategory = this.getRandomCategory(
@@ -169,7 +169,7 @@ export class WordSorterComponent implements OnInit {
 
   private async handleSpecialCategory(): Promise<void> {
     // Fetch the special category with ID 0
-    const specialCategory = this.categoriesService.get("0");
+    const specialCategory = await this.categoriesService.get("0");
 
     if (specialCategory) {
       this.currentCategory = specialCategory;

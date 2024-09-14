@@ -17,7 +17,7 @@ import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.co
   styleUrls: ['./trivia-game.component.css'],
 })
 export class TriviaGameComponent implements OnInit {
-  categoryId: number | null = null;
+  categoryId: string | null = null;
   gameType: string | null = null;
 
   questions: Question[] = [];
@@ -34,12 +34,12 @@ export class TriviaGameComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      const categoryId = +params['categoryId'];
+    this.route.queryParams.subscribe(async (params) => {
+      const categoryId = params['categoryId'];
       this.categoryId = categoryId;
-      if (this.categoryId >= 0) {
-        this.questions = this.triviaService.getQuestionsByCategoryId(
-          this.categoryId
+      if (this.categoryId! >= "0") {
+        this.questions = await this.triviaService.getQuestionsByCategoryId(
+          this.categoryId!
         );
       } else {
         console.error('Invalid categoryId');
@@ -101,6 +101,6 @@ export class TriviaGameComponent implements OnInit {
   }
 
   goToDashboard() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/letsPlay']);
   }
 }

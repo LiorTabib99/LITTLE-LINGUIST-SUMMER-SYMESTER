@@ -41,9 +41,9 @@ export class CategoryFormComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (this.id) {
-      const categoryData = this.categoriesService.get(this.id);
+      const categoryData = await this.categoriesService.get(this.id);
 
       if (categoryData) {
         this.currentCategory = categoryData;

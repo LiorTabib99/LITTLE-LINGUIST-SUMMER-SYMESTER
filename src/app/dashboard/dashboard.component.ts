@@ -12,9 +12,7 @@ import { MixLettersComponent } from '../mix-letters/mix-letters.component';
 import { FooterComponent } from '../footer/footer.component';
 import { GameCardComponent } from '../game-card/game-card.component';
 
-
 import { MatCardModule } from '@angular/material/card';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +28,7 @@ import { MatCardModule } from '@angular/material/card';
     WordSorterComponent,
     MixLettersComponent,
     FooterComponent,
-    MatCardModule
+    MatCardModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -49,7 +47,6 @@ export class DashboardComponent {
   //   );
   // }
   // tesdttttt
-  
 }
 
 export class AppModule {}

@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../shared/model/category';
-import { addDoc, collection, Firestore, getDocs, QuerySnapshot } from '@angular/fire/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  Firestore,
+  getDoc,
+  getDocs,
+  QuerySnapshot,
+} from '@angular/fire/firestore';
 import { categoryConverter } from './converters/categpry-converter';
 
 @Injectable({
@@ -8,22 +16,6 @@ import { categoryConverter } from './converters/categpry-converter';
 })
 export class CategoriesService {
   constructor(private firestoreService: Firestore) {}
-
-  // async list(): Promise<Category[]> {
-  //   return []; // You can later implement fetching categories from Firestore
-  //   const collectionConnection = collection(
-  //     //  this.firestoreService,
-  //     'words'
-  //   ).withConverter(categoryConverter);
-  //   const querySnapshot: QuerySnapshot<Category> = await getDocs(
-  //   collectionConnection
-  //   );
-  //   const result: Category[] = [];
-  //   querySnapshot.docs.forEach((docSnap: DocumentSnapshot<Category>) => {
-  //   const data = docSnap.data();
-  //   if (data) {
-  //   result.push(data);
-  // }
 
   async list(): Promise<Category[]> {
     const collectionConnection = collection(
@@ -37,8 +29,17 @@ export class CategoriesService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  get(id: string): Category | undefined {
-    return undefined; // Logic for getting a category by id can be added here
+  async get(id: string): Promise<Category | undefined> {
+    const docRef = doc(this.firestoreService, 'categories', id).withConverter(
+      categoryConverter
+    );
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log('No such category');
+      return undefined; // Logic for getting a category by id can be added here
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,11 +47,8 @@ export class CategoriesService {
     // Logic for deletion can be added here
   }
 
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(existingCategory: Category): void {
-  
-  }
+  update(existingCategory: Category): void {}
 
   async add(newCategoryData: Category) {
     await addDoc(
@@ -60,7 +58,4 @@ export class CategoriesService {
       newCategoryData
     );
   }
-
-
 }
-  
