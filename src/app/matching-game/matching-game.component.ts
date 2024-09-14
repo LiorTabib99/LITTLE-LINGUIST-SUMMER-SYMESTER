@@ -66,10 +66,10 @@ export class MatchingGameComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    const categoryId = Number(
+    const categoryId = String(
       this.route.snapshot.queryParamMap.get('categoryId')
     );
-    if (categoryId >= 0) {
+    if (categoryId >= "0") {
       const category = await this.categoryService.get(categoryId.toString());
       this.categoryName = category?.name || 'Unknown Category';
 

@@ -63,18 +63,18 @@ export class MixLettersComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      const categoryId = +params['categoryId'];
+      const categoryId = params['categoryId'];
       this.loadWordsFromCategory(categoryId);
     });
     this.score = 0;
   }
 
-  async loadWordsFromCategory(categoryId: number): Promise<void> {
-    if (categoryId >= 0) {
-      if (categoryId === 0) {
+  async loadWordsFromCategory(categoryId: string): Promise<void> {
+    if (categoryId >= "0") {
+      if (categoryId === "0") {
         this.handleSpecialCategory();
       } else {
-        const category = await this.categoriesService.get(categoryId.toString());
+        const category = await this.categoriesService.get(categoryId);
         if (category) {
           if (category.words.length === 0) {
             this.message = 'The category is empty. No words to display!';

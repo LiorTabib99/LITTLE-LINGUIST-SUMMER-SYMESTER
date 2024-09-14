@@ -67,24 +67,26 @@ export class WordSorterComponent implements OnInit {
   }
 
   async loadCategories(categoryId: string): Promise<void> {
-    const allCategories = this.categoriesService.list(); // Fetch all categories from the service
+    const allCategories = await this.categoriesService.list(); // Fetch all categories from the service
 
-    if ((await allCategories).length < 2) {
+    if ((allCategories).length < 2) {
       this.message = 'Need at least 2 categories to play this game!';
       alert(this.message);
       this.router.navigate(['/letplay']);
       return;
     }
 
-    if (categoryId >= "0") {
-      if (categoryId === "0") {
+    if (categoryId >= '0') {
+      if (categoryId === '0') {
         this.handleSpecialCategory(); // Handle the case where categoryId is 0
       } else {
-        const category = await this.categoriesService.get(categoryId.toString());
+        const category = await this.categoriesService.get(
+          categoryId.toString()
+        );
         if (category) {
           this.currentCategory = category;
           this.randomCategory = this.getRandomCategory(
-            await allCategories,
+            allCategories,
             categoryId
           );
 
@@ -111,7 +113,7 @@ export class WordSorterComponent implements OnInit {
               ),
             ];
             this.pointsForScore = 100 / this.words.length;
-            this.totalQuestions = this.words.length
+            this.totalQuestions = this.words.length;
             this.words = this.shuffleArray(this.words); // Shuffle words to randomize order
             this.categoryName = this.currentCategory.name ?? '';
             this.resetGame(); // Initialize a new game
@@ -169,13 +171,13 @@ export class WordSorterComponent implements OnInit {
 
   private async handleSpecialCategory(): Promise<void> {
     // Fetch the special category with ID 0
-    const specialCategory = await this.categoriesService.get("0");
+    const specialCategory = await this.categoriesService.get('0');
 
     if (specialCategory) {
       this.currentCategory = specialCategory;
       // Load a random category for comparison
       const allCategories = this.categoriesService.list();
-      this.randomCategory = this.getRandomCategory(await allCategories, "0");
+      this.randomCategory = this.getRandomCategory(await allCategories, '0');
 
       if (this.randomCategory) {
         const currentCategoryWords = this.getWordsFromCategory(
@@ -199,7 +201,7 @@ export class WordSorterComponent implements OnInit {
             )
           ),
         ];
-        this.totalQuestions = this.words.length;  
+        this.totalQuestions = this.words.length;
         this.pointsForScore = 100 / this.words.length;
         this.words = this.shuffleArray(this.words); // Shuffle words to randomize order
         this.categoryName = this.currentCategory.name ?? '';
