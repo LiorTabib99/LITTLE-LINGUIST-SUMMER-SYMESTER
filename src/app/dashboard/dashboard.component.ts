@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { gameProfile } from '../../shared/model/gameProfile';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';

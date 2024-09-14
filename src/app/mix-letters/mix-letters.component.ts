@@ -74,7 +74,7 @@ export class MixLettersComponent implements OnInit {
       if (categoryId === 0) {
         this.handleSpecialCategory();
       } else {
-        const category = this.categoriesService.get(categoryId);
+        const category = this.categoriesService.get(categoryId.toString());
         if (category) {
           if (category.words.length === 0) {
             this.message = 'The category is empty. No words to display!';
@@ -95,7 +95,7 @@ export class MixLettersComponent implements OnInit {
   }
 
   handleSpecialCategory(): void {
-    const defaultCategory = this.categoriesService.get(0);
+    const defaultCategory = this.categoriesService.get("0");
     this.categoryName = defaultCategory!.name;
     if (defaultCategory) {
       this.words = defaultCategory.words;

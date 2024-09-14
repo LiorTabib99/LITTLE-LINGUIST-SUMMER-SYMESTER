@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Title } from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-dialog',
   standalone: true,
@@ -37,7 +38,13 @@ export class DialogComponent {
     private categoriesService: CategoriesService,
     private router: Router
   ) {
-    this.categories = this.categoriesService.list();
+    this.categoriesService.list().then(
+      (categories) =>{
+        this.categories = categories
+      }
+    ).catch((error)=>{
+      console.error("error loading categories",error)
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -46,6 +46,7 @@ export class CategoriesService {
     // Logic for deletion can be added here
   }
 
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(existingCategory: Category): void {
   
@@ -59,5 +60,7 @@ export class CategoriesService {
       newCategoryData
     );
   }
+
+
 }
   

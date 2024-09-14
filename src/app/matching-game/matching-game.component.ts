@@ -70,7 +70,7 @@ export class MatchingGameComponent implements OnInit {
       this.route.snapshot.queryParamMap.get('categoryId')
     );
     if (categoryId >= 0) {
-      const category = this.categoryService.get(categoryId);
+      const category = this.categoryService.get(categoryId.toString());
       this.categoryName = category?.name || 'Unknown Category';
 
       if (category && category.words.length >= 5) {

@@ -21,7 +21,7 @@ export class TriviaGameService {
 
   
   getQuestionsByCategoryId(categoryId: number): Question[] {
-    const category = this.categoryService.get(categoryId);
+    const category = this.categoryService.get(categoryId.toString());
     if (category) {
       return category.words.map(word => ({
         question: `Translate  "${word.origin}"`,
@@ -29,6 +29,6 @@ export class TriviaGameService {
         correctAnswer: word.target
       }));
     }
-    return [];
-  }
+  return[];
+}
 }

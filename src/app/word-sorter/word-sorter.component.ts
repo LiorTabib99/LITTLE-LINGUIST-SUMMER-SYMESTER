@@ -15,7 +15,7 @@ import { IcorrectAnswersComponent } from '../icorrect-answers/icorrect-answers.c
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { gameResultData } from '../../shared/model/gameResultData';
 import { GamesResultService } from '../services/gameResults.service';
-import {fire}
+
 @Component({
   selector: 'app-word-sorter',
   standalone: true,
@@ -59,32 +59,32 @@ export class WordSorterComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const categoryId = params['categoryId'];
       if (categoryId) {
-        this.loadCategories(Number(categoryId));
+        this.loadCategories(categoryId);
       } else {
         console.error('Category ID not provided in query params');
       }
     });
   }
 
-  loadCategories(categoryId: number): void {
+  async loadCategories(categoryId: string): Promise<void> {
     const allCategories = this.categoriesService.list(); // Fetch all categories from the service
 
-    if (allCategories.length < 2) {
+    if ((await allCategories).length < 2) {
       this.message = 'Need at least 2 categories to play this game!';
       alert(this.message);
       this.router.navigate(['/letplay']);
       return;
     }
 
-    if (categoryId >= 0) {
-      if (categoryId === 0) {
+    if (categoryId >= "0") {
+      if (categoryId === "0") {
         this.handleSpecialCategory(); // Handle the case where categoryId is 0
       } else {
-        const category = this.categoriesService.get(categoryId);
+        const category = this.categoriesService.get(categoryId.toString());
         if (category) {
           this.currentCategory = category;
           this.randomCategory = this.getRandomCategory(
-            allCategories,
+            await allCategories,
             categoryId
           );
 
@@ -132,7 +132,7 @@ export class WordSorterComponent implements OnInit {
 
   private getRandomCategory(
     allCategories: Category[],
-    excludeId: number
+    excludeId: string
   ): Category | undefined {
     const eligibleCategories = allCategories.filter(
       (category) => category.id !== excludeId
@@ -167,15 +167,15 @@ export class WordSorterComponent implements OnInit {
     };
   }
 
-  private handleSpecialCategory(): void {
+  private async handleSpecialCategory(): Promise<void> {
     // Fetch the special category with ID 0
-    const specialCategory = this.categoriesService.get(0);
+    const specialCategory = this.categoriesService.get("0");
 
     if (specialCategory) {
       this.currentCategory = specialCategory;
       // Load a random category for comparison
       const allCategories = this.categoriesService.list();
-      this.randomCategory = this.getRandomCategory(allCategories, 0);
+      this.randomCategory = this.getRandomCategory(await allCategories, "0");
 
       if (this.randomCategory) {
         const currentCategoryWords = this.getWordsFromCategory(
