@@ -15,7 +15,7 @@ import { IcorrectAnswersComponent } from '../icorrect-answers/icorrect-answers.c
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { gameResultData } from '../../shared/model/gameResultData';
 import { GamesResultService } from '../services/gameResults.service';
-
+import {fire}
 @Component({
   selector: 'app-word-sorter',
   standalone: true,

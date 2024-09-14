@@ -1,8 +1,5 @@
-import { CategoriesService } from './../services/categories.service';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Language } from '../../shared/model/language';
-import { Category } from '../../shared/model/category';
+import { Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgModelGroup } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,7 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslatedWord } from '../../shared/model/translatedWord';
-
+import { Component } from '@angular/core';
+import { CategoriesService } from '../services/categories.service';
+import { Category } from '../../shared/model/category';
+import { Language } from '../../shared/model/language';
 @Component({
   selector: 'app-category-form',
   standalone: true,
@@ -28,7 +28,7 @@ import { TranslatedWord } from '../../shared/model/translatedWord';
   styleUrl: './category-form.component.css',
 })
 export class CategoryFormComponent implements OnInit {
-  currentCategory = new Category(0, '', Language.English, Language.Hebrew);
+  currentCategory = new Category('', '', Language.Hebrew, Language.English);
   displayedColumns: string[] = ['Origin', 'Target', 'Actions'];
 
   @Input()
@@ -43,7 +43,7 @@ export class CategoryFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.id) {
-      const categoryData = this.categoriesService.get(parseInt(this.id));
+      const categoryData = this.categoriesService.get(this.id);
 
       if (categoryData) {
         this.currentCategory = categoryData;
@@ -56,6 +56,17 @@ export class CategoryFormComponent implements OnInit {
       ...this.currentCategory.words,
       new TranslatedWord('', ''),
     ];
+  }
+
+  onSubmitRegistration() {
+    if (this.id) {
+      this.categoriesService.update(this.currentCategory);
+      this.router.navigate(['']);
+    } else {
+      this.categoriesService
+        .add(this.currentCategory)
+        .then(() => this.router.navigate(['']));
+    }
   }
 
   deleteWord(index: number) {
@@ -74,4 +85,16 @@ export class CategoryFormComponent implements OnInit {
 
     this.router.navigate(['']);
   }
+
+  async onSubmit() {
+    try {
+      await this.categoriesService.add(this.currentCategory); // Use currentCategory
+      // Handle success
+    } catch (error) {
+      console.error('Error adding category:', error);
+      // Handle error
+    }
+  }
+
+
 }
