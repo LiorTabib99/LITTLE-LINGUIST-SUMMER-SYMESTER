@@ -89,7 +89,7 @@ import {
   getDocs,
 } from '@angular/fire/firestore';
 import { gameHistory } from '../../shared/model/gameHistory';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -102,6 +102,7 @@ export class pointsScoreService {
   constructor(private firestore: Firestore) {
     this.loadSavedScore();
   }
+
 
   private async loadSavedScore() {
     try {
@@ -116,29 +117,59 @@ export class pointsScoreService {
         });
       }
     } catch (error) {
-      console.error("error loading saving score", error)
+      console.error('error loading saving score', error);
     }
   }
 
-  private updateScoreValue(newScore : number){
+  private updateScoreValue(newScore: number) {
     this.scoreSubject.next(newScore);
-
   }
 
-  async listGameHistory(): Promise<gameHistory[]>{
+
+  async listGameHistory(): Promise<gameHistory[]> {
     try {
-      const querySnapshot = await getDocs(collection(this.firestore, "gameScores") as CollectionReference<gameHistory >);
-      const gameHistory : gameHistory[] = [];
-      querySnapshot.forEach((doc)=>{
-        const gameRecord = doc.data()
-        if(gameRecord.date instanceof Timestamp){
-          gameRecord.data = gameRecord.date.toDate()
+      const querySnapshot = await getDocs(
+        collection(
+          this.firestore,
+          'gameScores'
+        ) as CollectionReference<gameHistory>
+      );
+      const gameHistory: gameHistory[] = [];
+      querySnapshot.forEach((doc) => {
+        const gameRecord = doc.data();
+        if (gameRecord.date instanceof Timestamp) {
+          gameRecord.date = gameRecord.date.toDate();
         }
-        gameHistory.push(gameRecord)
-      })
-      return gameHistory             
+        gameHistory.push(gameRecord);
+      });
+      return gameHistory;
     } catch (error) {
       console.error('error loading saving score', error);
+      throw error;
+    }
+  }
+
+
+  //adding to the data
+  async addedGamePlayed(
+    gameType: string,
+    score: number,
+    grade: number
+  ): Promise<void> {
+    try {
+      const gameRecord: gameHistory = {
+        gameType,
+        score,
+        grade,
+        date: new Date(),
+      };
+      await setDoc(
+        doc(this.firestore, 'gameScores', new Date().toString()),
+        gameRecord
+      );
+      this.updateScoreValue(score)
+    } catch (error) {
+      console.error(error);
       throw error
     }
   }
