@@ -86,6 +86,7 @@ import {
   CollectionReference,
   Timestamp,
   doc,
+  getDocs,
 } from '@angular/fire/firestore';
 import { gameHistory } from '../../shared/model/gameHistory';
 import { BehaviorSubject, throwError } from 'rxjs';
@@ -126,9 +127,9 @@ export class pointsScoreService {
 
   async listGameHistory(): Promise<gameHistory[]>{
     try {
-      const querySnapshot = await getDoc(collection(this.firestore, "gameScores") as CollectionReference<gameHistory >);
+      const querySnapshot = await getDocs(collection(this.firestore, "gameScores") as CollectionReference<gameHistory >);
       const gameHistory : gameHistory[] = [];
-      querySnapshot.foreach((doc)=>{
+      querySnapshot.forEach((doc)=>{
         const gameRecord = doc.data()
         if(gameRecord.date instanceof Timestamp){
           gameRecord.data = gameRecord.date.toDate()
