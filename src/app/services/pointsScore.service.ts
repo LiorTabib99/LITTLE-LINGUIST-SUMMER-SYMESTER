@@ -89,7 +89,7 @@ import {
   getDocs,
 } from '@angular/fire/firestore';
 import { gameHistory } from '../../shared/model/gameHistory';
-import { BehaviorSubject, throwError} from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -102,7 +102,6 @@ export class pointsScoreService {
   constructor(private firestore: Firestore) {
     this.loadSavedScore();
   }
-
 
   private async loadSavedScore() {
     try {
@@ -124,7 +123,6 @@ export class pointsScoreService {
   private updateScoreValue(newScore: number) {
     this.scoreSubject.next(newScore);
   }
-
 
   async listGameHistory(): Promise<gameHistory[]> {
     try {
@@ -149,7 +147,6 @@ export class pointsScoreService {
     }
   }
 
-
   //adding to the data
   async addedGamePlayed(
     gameType: string,
@@ -167,12 +164,10 @@ export class pointsScoreService {
         doc(this.firestore, 'gameScores', new Date().toString()),
         gameRecord
       );
-      this.updateScoreValue(score)
+      this.updateScoreValue(score);
     } catch (error) {
       console.error(error);
-      throw error
+      throw error;
     }
   }
-
-
 }
