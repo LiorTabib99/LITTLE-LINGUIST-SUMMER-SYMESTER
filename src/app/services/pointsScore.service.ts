@@ -79,17 +79,20 @@ import { Injectable } from '@angular/core';
 import {
   Firestore,
   getDoc,
-  collection,
+  // collection,
   setDoc,
-  updateDoc,
-  addDoc,
-  CollectionReference,
-  Timestamp,
+  // updateDoc,
+  // addDoc,
+  // CollectionReference,
+  // Timestamp,
   doc,
-  getDocs,
+  // getDocs,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { gameHistory } from '../../shared/model/gameHistory';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, 
+  // throwError 
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -110,13 +113,13 @@ export class pointsScoreService {
         const data = docSnap.data();
         this.updateScoreValue(data['score'] || 0);
       } else {
-        console.log('No score found iniatiaze');
+        console.log('No score found, initializing');
         await setDoc(this.scorcDocRef, {
           score: 0,
         });
       }
     } catch (error) {
-      console.error('error loading saving score', error);
+      console.error('Error loading saved score', error);
     }
   }
 
@@ -124,30 +127,16 @@ export class pointsScoreService {
     this.scoreSubject.next(newScore);
   }
 
-  async listGameHistory(): Promise<gameHistory[]> {
+  // פונקציה ציבורית לעדכון הניקוד ושמירה ב-Firestore
+  async updateScore(newScore: number): Promise<void> {
+    this.updateScoreValue(newScore); // עדכון מקומי
     try {
-      const querySnapshot = await getDocs(
-        collection(
-          this.firestore,
-          'gameScores'
-        ) as CollectionReference<gameHistory>
-      );
-      const gameHistory: gameHistory[] = [];
-      querySnapshot.forEach((doc) => {
-        const gameRecord = doc.data();
-        if (gameRecord.date instanceof Timestamp) {
-          gameRecord.date = gameRecord.date.toDate();
-        }
-        gameHistory.push(gameRecord);
-      });
-      return gameHistory;
+      await updateDoc(this.scorcDocRef, { score: newScore });
     } catch (error) {
-      console.error('error loading saving score', error);
-      throw error;
+      console.error('Error updating score in Firestore', error);
     }
   }
 
-  //adding to the data
   async addedGamePlayed(
     gameType: string,
     score: number,
@@ -164,7 +153,7 @@ export class pointsScoreService {
         doc(this.firestore, 'gameScores', new Date().toString()),
         gameRecord
       );
-      this.updateScoreValue(score);
+      this.updateScoreValue(score); // עדכון הניקוד מקומית לאחר הוספת משחק
     } catch (error) {
       console.error(error);
       throw error;

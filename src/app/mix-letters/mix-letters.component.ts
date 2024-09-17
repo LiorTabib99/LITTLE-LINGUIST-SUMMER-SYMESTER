@@ -133,7 +133,7 @@ export class MixLettersComponent implements OnInit {
     return array;
   }
 
-  checkGuess(): void {
+  async checkGuess(): Promise<void> {
     const isCorrect =
       this.guessInput.toLowerCase() === this.currentWord.origin.toLowerCase();
 
@@ -154,7 +154,7 @@ export class MixLettersComponent implements OnInit {
           height: '200px',
         });
         this.score++;
-        this.scoreService.updateScore(this.score);
+        await this.scoreService.updateScore(this.score);
         this.answers.push({
           question: this.mixedword.replace(/ /g, ''),
           answer: this.currentWord.origin,
@@ -216,7 +216,7 @@ export class MixLettersComponent implements OnInit {
   }
 
   endGame(): void {
-    this.scoreService.addedGamePlayed('Mixed Letters', this.score);
+    this.scoreService.addedGamePlayed('Mixed Letters', this.score,this.grade);
     this.message = `You translated ${this.currectAnswers} out of ${this.totalQuestions} words correctly `;
     const gameResultData: gameResultData = {
       message: this.message,

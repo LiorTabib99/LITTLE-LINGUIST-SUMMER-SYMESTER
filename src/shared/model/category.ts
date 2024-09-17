@@ -18,32 +18,3 @@ export class Category {
     public target: Language
   ) {}
 }
-
-// import { Language } from './language';
-// import { TranslatedWord } from './translatedWord';
-
-// export class Category {
-//   [x: string]: any;
-//   id: string;
-//   name: string;
-//   origin: Language;
-//   target: Language;
-//   lastUpdateDate: Date;
-//   words: TranslatedWord[];
-
-//   constructor(
-//     id: string,
-//     name: string,
-//     origin: Language,
-//     target: Language,
-//     lastUpdateDate: Date, // Include lastUpdateDate in the constructor
-//     words: TranslatedWord[] // Include words in the constructor
-//   ) {
-//     this.id = id;
-//     this.name = name;
-//     this.origin = origin;
-//     this.target = target;
-//     this.lastUpdateDate = lastUpdateDate;
-//     this.words = words;
-//   }
-// }

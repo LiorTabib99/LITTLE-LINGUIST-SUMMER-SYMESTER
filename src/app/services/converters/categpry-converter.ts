@@ -13,9 +13,7 @@ export const categoryConverter: FirestoreDataConverter<Category> = {
       words: category.words.map((word) => ({
         origin: word.origin,
         target: word.target,
-        guess: word.guess,
       })),
-      questions: category.questions, // אין צורך בהמרה עבור שאלות
     };
   },
 
@@ -37,7 +35,6 @@ export const categoryConverter: FirestoreDataConverter<Category> = {
       ? data['words'].map((word: any) => ({
           origin: word.origin,
           target: word.target,
-          guess: word.guess,
         }))
       : [];
     category.questions = data['questions'] || [];

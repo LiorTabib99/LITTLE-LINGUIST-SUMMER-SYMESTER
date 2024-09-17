@@ -216,9 +216,9 @@ export class MatchingGameComponent implements OnInit {
     }
   }
 
-  endGame() {
+  async endGame() {
     this.feedback = `This game is over. Your final score is: ${this.score}`;
-    this.pointScore.addedGamePlayed('Word sorter', this.score);
+    await this.pointScore.addedGamePlayed('Word sorter', this.score, this.grade);
     const dataResult = this.englishWords.map((englishWord) => {
       const hebrewWord = this.hebrewWords.find((hebrewWord) => {
         return hebrewWord.origin === englishWord.word;

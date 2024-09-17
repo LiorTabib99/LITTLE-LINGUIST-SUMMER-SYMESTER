@@ -9,7 +9,7 @@
 // } from '@angular/fire/firestore';
 
 // @Injectable({
-//   providedIn: 'root',
+//   providedIn: 'root' ,
 // })
 // export class CategoriesService {
 //   constructor(private firestoreService: Firestore) {}
