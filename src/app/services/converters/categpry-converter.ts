@@ -21,12 +21,12 @@ export const categoryConverter: FirestoreDataConverter<Category> = {
     const data = snapshot.data(options);
 
     // יצירת אובייקט Category עם 4 השדות הנדרשים
-    const category = new Category(
-      snapshot.id,
-      data['name'],
-      data['origin'] as Language,
-      data['target'] as Language
-    );
+  const category = new Category(
+    snapshot.id, // This is the document ID from Firestore
+    data['name'],
+    data['origin'] as Language,
+    data['target'] as Language
+  );
 
     // עדכון השדות הנוספים לאחר יצירת האובייקט
     category.lastUpdateDate = data['lastUpdateDate']?.toDate(); // המרה מ-Timestamp ל-Date
@@ -37,7 +37,7 @@ export const categoryConverter: FirestoreDataConverter<Category> = {
           target: word.target,
         }))
       : [];
-    category.questions = data['questions'] || [];
+    // category.questions = data['questions'] || [];
 
     return category;
   },

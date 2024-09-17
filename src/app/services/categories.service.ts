@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../shared/model/category';
 import {
-  addDoc,
+  // addDoc,
   collection,
   deleteDoc,
   doc,
@@ -9,6 +9,7 @@ import {
   getDoc,
   getDocs,
   QuerySnapshot,
+  setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
 import { categoryConverter } from './converters/categpry-converter';
@@ -62,11 +63,10 @@ export class CategoriesService {
   }
 
   async add(newCategoryData: Category) {
-    await addDoc(
-      collection(this.firestoreService, 'categories').withConverter(
-        categoryConverter
-      ),
-      newCategoryData
-    );
+    const docRef = doc(collection(this.firestoreService, 'categories')); // Create a reference with a generated ID
+    newCategoryData.id = docRef.id; // Assign the generated ID to your category object
+
+    await setDoc(docRef.withConverter(categoryConverter), newCategoryData); // Use setDoc to assign the ID and the data
+    console.log(newCategoryData);
   }
 }
