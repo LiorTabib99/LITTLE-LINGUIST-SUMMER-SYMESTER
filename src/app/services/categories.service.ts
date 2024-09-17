@@ -52,13 +52,70 @@ export class CategoriesService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // async update(existingCategory: Category): Promise<void> {
+  //   if (!existingCategory.id) {
+  //     throw new Error('Category must have an ID to be updated.');
+  //   }
+  //   const docRef = doc(
+  //     this.firestoreService,
+  //     'categories',
+  //     existingCategory.id
+  //   ).withConverter(categoryConverter);
+  //   const { ...updateData } = existingCategory;
+  //   await updateDoc(docRef, updateData);
+  // }
+
+  // async update(existingCategory: Category): Promise<void> {
+  //   if (!existingCategory.id) {
+  //     throw new Error('Category must have an ID to be updated.');
+  //   }
+
+  //   const docRef = doc(
+  //     this.firestoreService,
+  //     'categories',
+  //     existingCategory.id
+  //   ).withConverter(categoryConverter);
+
+  //   // Update the entire existingCategory object directly
+  //   const { ...updateData } = existingCategory;
+  //   await updateDoc(docRef, updateData);
+  // }
+
+  // async update(existingCategory: Category): Promise<void> {
+  //   if (!existingCategory.id) {
+  //     throw new Error('Category must have an ID to be updated.');
+  //   }
+
+  //   // Get the reference to the existing category document by its ID
+  //   const docRef = doc(
+  //     this.firestoreService,
+  //     'categories',
+  //     existingCategory.id
+  //   );
+
+  //   // Convert the existingCategory to a Firestore-friendly format
+  //   const updateData = categoryConverter.toFirestore(existingCategory);
+
+  //   // Update the Firestore document with the converted data, keeping the same ID
+  //   await updateDoc(docRef, updateData);
+  // }
+
   async update(existingCategory: Category): Promise<void> {
+    if (!existingCategory.id) {
+      throw new Error('Category must have an ID to be updated.');
+    }
+
+    // Get a reference to the existing category document by its ID
     const docRef = doc(
       this.firestoreService,
       'categories',
       existingCategory.id
-    ).withConverter(categoryConverter);
-    const { ...updateData } = existingCategory;
+    );
+
+    // Use the converter to transform the Category object to a Firestore-compatible format
+    const updateData = categoryConverter.toFirestore(existingCategory);
+
+    // Update the Firestore document with the converted data
     await updateDoc(docRef, updateData);
   }
 

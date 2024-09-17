@@ -1,42 +1,19 @@
-// import { Injectable } from '@angular/core';
-// import { gameResult } from '../../shared/model/gameResult';
-// import {
-//   addDoc,
-//   collection,
-//   Firestore,
-//   getDocs,
-//   QuerySnapshot,
-// } from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import { gameResult } from '../../shared/model/gameResult';
+import {
+  addDoc,
+  collection,
+  Firestore,
+  getDocs,
+  QuerySnapshot,
+} from '@angular/fire/firestore';
 
-// @Injectable({
-//   providedIn: 'root' ,
-// })
-// export class CategoriesService {
-//   constructor(private firestoreService: Firestore) {}
+@Injectable({
+  providedIn: 'root' ,
+})
+export class GamesResultService {
 
-//   async addGameResultadd(newGameResultData: gameResult) {
-//     await addDoc(
-//       collection(this.firestoreService, 'categories')
-//         .withConverter
-//         // categoryConverter
-//         (),
-//       newGameResultData
-//     );
-//   }
-
-//   async list(): Promise<Category[]> {
-//     const collectionConnection = collection(
-//       this.firestoreService,
-//       'categories'
-//     ).withConverter(categoryConverter);
-//     const querySnapshot: QuerySnapshot<Category> = await getDocs(
-//       collectionConnection
-//     );
-//     return querySnapshot.docs.map((doc) => doc.data()); // מחזיר את המידע ישירות מפיירסטור
-//   }
-
-// }
-
+}
 
 
 
