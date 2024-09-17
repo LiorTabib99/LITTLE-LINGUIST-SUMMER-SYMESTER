@@ -24,7 +24,7 @@ export class TriviaGameComponent implements OnInit {
   currentQuestionIndex = 0;
   score = 0;
   feedback = '';
-
+  grade = 0
   constructor(
     private triviaService: TriviaGameService,
     private scoreService: pointsScoreService,
@@ -58,6 +58,7 @@ export class TriviaGameComponent implements OnInit {
 
   selectOption(option: string) {
     if (option === this.currentQuestion.correctAnswer) {
+      this.grade += (100/this.questions.length)
       this.score++;
       this.feedback = 'Correct!';
     } else {

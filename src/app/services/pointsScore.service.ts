@@ -1,80 +1,3 @@
-// import { Injectable } from '@angular/core';
-// import { BehaviorSubject } from 'rxjs';
-// import { gamePlayed } from '../../shared/model/gamePlayed';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class pointsScoreService {
-//   private scoreSubject = new BehaviorSubject<number>(0);
-//   private gamePlayed: gamePlayed[] = [];
-//   scoreSubject$ = this.scoreSubject.asObservable();
-
-//   constructor() {
-//     //Will take the saved score points on a specipic game
-//     this.loadSavedPointsScorce();
-//     this.loadGamePlayedHistory();
-//   }
-
-//   private loadSavedPointsScorce() {
-//     const savedPointsScore = localStorage.getItem('savedScore');
-//     if (savedPointsScore !== null) {
-//       this.scoreSubject.next(Number(savedPointsScore));
-//     }
-//   }
-
-//   private loadGamePlayedHistory() {
-//     const gamePlayedHistory = localStorage.getItem('gameHistory');
-//     if (gamePlayedHistory) {
-//       this.gamePlayed =
-//       JSON.parse(gamePlayedHistory)
-//       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//       .map((record: any) =>
-//         ({
-//         ...record,
-//         date: new Date(record.date),
-//       }));
-//     }
-//   }
-
-//   updateScore(scoreSubject: number) {
-//     this.scoreSubject.next(scoreSubject);
-
-//     //Saved the score and it's key
-//     localStorage.setItem('savedScore', scoreSubject.toString());
-//   }
-
-//   deleteScore() {
-//     this.scoreSubject.next(0);
-//     //Delete the score and it's key
-//     localStorage.removeItem('savedScore');
-//   }
-
-//   getScore() {
-//     const score = localStorage.getItem('savedScore');
-//     //shows the score
-//     return score;
-//   }
-
-//   addedGamePlayed(gameType : string, score:number){
-//     const gamePlayed : gamePlayed =
-//     {gameType,score,date:new Date()}
-//     this.gamePlayed.push(gamePlayed)
-//     localStorage.setItem('gameHistory', JSON.stringify(this.gamePlayed))
-//   }
-
-//   //Will show the current score
-//   getCurrentScore(){
-//     return this.scoreSubject.getValue()
-//   }
-
-//   //Will add previos game
-//   getGameHistory(){
-//     return [...this.gamePlayed]
-//   }
-
-// }
-
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -82,16 +5,15 @@ import {
   collection,
   setDoc,
   updateDoc,
-  addDoc,
   CollectionReference,
   Timestamp,
   doc,
   getDocs,
-  updateDoc,
 } from '@angular/fire/firestore';
 import { gameHistory } from '../../shared/model/gameHistory';
-import { BehaviorSubject, 
-  // throwError 
+import {
+  BehaviorSubject,
+  // throwError
 } from 'rxjs';
 
 @Injectable({
@@ -131,21 +53,27 @@ export class pointsScoreService {
     return this.scoreSubject.getValue();
   }
 
-  async listGameHistory(): Promise<gameHistory[]>{
+  async listGameHistory(): Promise<gameHistory[]> {
     try {
-      const querySnapshot= await getDocs(collection(this.firestore, "gameScores")as CollectionReference<gameHistory>);
-      const gameHistory : gameHistory[] = []
-      querySnapshot.forEach((doc)=>{
-        const gameRecord = doc.data()
-        //checks if there is date which was found on the data 
-        if(gameRecord.date instanceof Timestamp){
-          gameRecord.date = gameRecord.date.toDate()
+      const querySnapshot = await getDocs(
+        collection(
+          this.firestore,
+          'gameScores'
+        ) as CollectionReference<gameHistory>
+      );
+      const gameHistory: gameHistory[] = [];
+      querySnapshot.forEach((doc) => {
+        const gameRecord = doc.data();
+        //checks if there is date which was found on the data
+        if (gameRecord.date instanceof Timestamp) {
+          gameRecord.date = gameRecord.date.toDate();
         }
-        gameHistory.push(gameRecord)
-      })
-      return gameHistory
+        gameHistory.push(gameRecord);
+      });
+      return gameHistory;
     } catch (error) {
       console.error('Error updating score in Firestore', error);
+      throw error;
     }
   }
 
