@@ -79,14 +79,14 @@ import { Injectable } from '@angular/core';
 import {
   Firestore,
   getDoc,
-  // collection,
+  collection,
   setDoc,
-  // updateDoc,
-  // addDoc,
-  // CollectionReference,
-  // Timestamp,
+  updateDoc,
+  addDoc,
+  CollectionReference,
+  Timestamp,
   doc,
-  // getDocs,
+  getDocs,
   updateDoc,
 } from '@angular/fire/firestore';
 import { gameHistory } from '../../shared/model/gameHistory';
@@ -125,6 +125,28 @@ export class pointsScoreService {
 
   private updateScoreValue(newScore: number) {
     this.scoreSubject.next(newScore);
+  }
+
+  getCurrentScore() {
+    return this.scoreSubject.getValue();
+  }
+
+  async listGameHistory(): Promise<gameHistory[]>{
+    try {
+      const querySnapshot= await getDocs(collection(this.firestore, "gameScores")as CollectionReference<gameHistory>);
+      const gameHistory : gameHistory[] = []
+      querySnapshot.forEach((doc)=>{
+        const gameRecord = doc.data()
+        //checks if there is date which was found on the data 
+        if(gameRecord.date instanceof Timestamp){
+          gameRecord.date = gameRecord.date.toDate()
+        }
+        gameHistory.push(gameRecord)
+      })
+      return gameHistory
+    } catch (error) {
+      console.error('Error updating score in Firestore', error);
+    }
   }
 
   // פונקציה ציבורית לעדכון הניקוד ושמירה ב-Firestore

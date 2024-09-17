@@ -79,7 +79,7 @@ export class TriviaGameComponent implements OnInit {
     this.feedback = `Game over! Your score is ${this.score}.`;
 
     if (this.gameType) {
-      await this.scoreService.addedGamePlayed(this.gameType, this.score);
+      await this.scoreService.addedGamePlayed(this.gameType, this.score,this.grade);
     }
 
     this.scoreService.updateScore(this.score);
