@@ -1,1 +1,41 @@
-<p>game-card-data works!</p>
+<div class="dashboard">
+  <mat-card *ngFor="let category of categoriesLearned">
+    <mat-card-title>{{ category }}</mat-card-title>
+    <mat-card-content>
+      <p>ממוצע נקודות: {{ getAverageScore(category) | number: '1.0-0' }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="openDialog(category)">פרטים נוספים</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>כמות הנקודות של השחקן הנוכחי</mat-card-title>
+    <mat-card-content>
+      <p>{{ totalPoints }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>כמות המשחקים ששיחק השחקן הנוכחי</mat-card-title>
+    <mat-card-content>
+      <p>{{ totalGames }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>סוג המשחק עם ציון ממוצע גבוה ביותר</mat-card-title>
+    <mat-card-content>
+      <p>{{ getHighestAverageScoreCategory() }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>סוג המשחק עם ציון ממוצע נמוך ביותר</mat-card-title>
+    <mat-card-content>
+      <p>{{ getLowestAverageScoreCategory() }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- הוסף כאן כרטיסיות נוספות לפי הצורך -->
+</div>
