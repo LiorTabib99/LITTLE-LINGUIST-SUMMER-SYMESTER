@@ -14,6 +14,7 @@ import { CorrectAnswersComponent } from '../correct-answers/correct-answers.comp
 import { IcorrectAnswersComponent } from '../icorrect-answers/icorrect-answers.component';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
 import { gameResultData } from '../../shared/model/gameResultData';
+import { pointsScoreService } from '../services/pointsScore.service';
 import { GamesResultService } from '../services/gameResults.service';
 
 @Component({
@@ -46,13 +47,15 @@ export class WordSorterComponent implements OnInit {
     number,
     { attempts: number; status: 'active' | 'incorrect' | 'correct' }
   > = new Map();
+  gameId = 4;
 
   constructor(
     private categoriesService: CategoriesService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private gamesResultService: GamesResultService
+    private pointsScoreService: pointsScoreService,
+    private GamesResultService: GamesResultService
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +72,7 @@ export class WordSorterComponent implements OnInit {
   async loadCategories(categoryId: string): Promise<void> {
     const allCategories = await this.categoriesService.list(); // Fetch all categories from the service
 
-    if ((allCategories).length < 2) {
+    if (allCategories.length < 2) {
       this.message = 'Need at least 2 categories to play this game!';
       alert(this.message);
       this.router.navigate(['/letplay']);
@@ -305,6 +308,12 @@ export class WordSorterComponent implements OnInit {
   }
 
   endGame(): void {
+    this.pointsScoreService.addedGamePlayed(
+      this.currentCategory!.id,
+      this.gameId,
+      this.score,
+      this.grade
+    );
     this.message = `You classified ${this.correctAnswers} out of ${this.totalQuestions} words correctly `;
     // Format the results according to GameResultData
     const results = this.words.map((word) => {
@@ -326,7 +335,7 @@ export class WordSorterComponent implements OnInit {
     };
 
     // Use the gameResultService to set the result data
-    this.gamesResultService.setResultData(resultData);
+    this.GamesResultService.setResultData(resultData);
 
     // Navigate to the results page
     this.router.navigate(['/word-sorter-results']);

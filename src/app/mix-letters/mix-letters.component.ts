@@ -51,6 +51,8 @@ export class MixLettersComponent implements OnInit {
   attemptsLeft: number = 1; // מספר הניסיונות שנותרו לכל מילה
   answeredWords: Set<string> = new Set(); // מעקב אחר מילים שנענו
   currectAnswers = 0;
+  categoryId = ""
+  gameId = 2;
 
   constructor(
     private route: ActivatedRoute,
@@ -64,6 +66,7 @@ export class MixLettersComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const categoryId = params['categoryId'];
+      this.categoryId = categoryId;
       this.loadWordsFromCategory(categoryId);
     });
     this.score = 0;
@@ -216,7 +219,7 @@ export class MixLettersComponent implements OnInit {
   }
 
   endGame(): void {
-    this.scoreService.addedGamePlayed('Mixed Letters', this.score,this.grade);
+    this.scoreService.addedGamePlayed(this.categoryId,this.gameId ,this.score,this.grade);
     this.message = `You translated ${this.currectAnswers} out of ${this.totalQuestions} words correctly `;
     const gameResultData: gameResultData = {
       message: this.message,

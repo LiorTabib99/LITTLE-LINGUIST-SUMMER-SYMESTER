@@ -91,7 +91,6 @@ export class pointsScoreService {
   async addedGamePlayed(
     categoryId : string,
     gameId : number,
-    date : Date,
     totalPoints :number,
     grade :number
   ): Promise<void> {
@@ -110,4 +109,6 @@ export class pointsScoreService {
       throw error;
     }
   }
+
+  // async setPoints
 }

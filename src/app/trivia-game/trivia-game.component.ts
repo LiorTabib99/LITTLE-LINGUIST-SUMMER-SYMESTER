@@ -24,7 +24,9 @@ export class TriviaGameComponent implements OnInit {
   currentQuestionIndex = 0;
   score = 0;
   feedback = '';
-  grade = 0
+  grade = 0;
+  gameId= 1;
+
   constructor(
     private triviaService: TriviaGameService,
     private scoreService: pointsScoreService,
@@ -49,7 +51,7 @@ export class TriviaGameComponent implements OnInit {
     });
 
     this.score = 0;
-    console.log('GameType:', this.gameType, 'CategoryId:', this.categoryId);
+    console.log(this.gameType, 'CategoryId:', this.categoryId);
   }
 
   get currentQuestion() {
@@ -80,7 +82,7 @@ export class TriviaGameComponent implements OnInit {
     this.feedback = `Game over! Your score is ${this.score}.`;
 
     if (this.gameType) {
-      await this.scoreService.addedGamePlayed(this.gameType, this.score,this.grade);
+      await this.scoreService.addedGamePlayed(this.categoryId!,this.gameId, this.score,this.grade);
     }
 
     this.scoreService.updateScore(this.score);

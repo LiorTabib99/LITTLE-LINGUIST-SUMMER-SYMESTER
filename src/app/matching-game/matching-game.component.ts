@@ -55,6 +55,8 @@ export class MatchingGameComponent implements OnInit {
   categoryHasEnoughWords = false; // משתנה בוליאני חדש לבדיקת האם יש מספיק מילים בקטגוריה
   pointsForScore: number = 0;
   progress = 0;
+  gameId = 4;
+  categoryId = ""
 
   constructor(
     private route: ActivatedRoute,
@@ -69,7 +71,8 @@ export class MatchingGameComponent implements OnInit {
     const categoryId = String(
       this.route.snapshot.queryParamMap.get('categoryId')
     );
-    if (categoryId >= "0") {
+    this.categoryId = categoryId
+    if (categoryId >= '0') {
       const category = await this.categoryService.get(categoryId.toString());
       this.categoryName = category?.name || 'Unknown Category';
 
@@ -218,7 +221,12 @@ export class MatchingGameComponent implements OnInit {
 
   async endGame() {
     this.feedback = `This game is over. Your final score is: ${this.score}`;
-    await this.pointScore.addedGamePlayed('Word sorter', this.score, this.grade);
+    await this.pointScore.addedGamePlayed(
+      this.categoryId,
+      this.gameId,
+      this.score,
+      this.grade
+    );
     const dataResult = this.englishWords.map((englishWord) => {
       const hebrewWord = this.hebrewWords.find((hebrewWord) => {
         return hebrewWord.origin === englishWord.word;
