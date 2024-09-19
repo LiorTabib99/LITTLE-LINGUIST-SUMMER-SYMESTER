@@ -4,20 +4,25 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { Router, NavigationEnd } from '@angular/router';
-import { routes } from './app.routes';
+
 import { Location } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { routerTitleMaping } from '../shared/model/routerTitleMaping';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent,MatIconModule,HeaderComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FooterComponent,
+    MatIconModule,
+    HeaderComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
+  private routerTitleMaping = routerTitleMaping;
   showTitle = true; //הראה את כותרת העמוד
 
   constructor(private router: Router, private location: Location) {}
@@ -46,36 +51,4 @@ export class AppComponent implements OnInit {
   }
 
   headerTitle = '';
-
-  private routerTitleMaping: {
-    [key: string]: {
-      showTitle: boolean;
-      headerTitle: string;
-    };
-  } = {
-    '/main': {
-      showTitle: true,
-      headerTitle: 'HomePage-Dashboard',
-    },
-    '/letsPlay': {
-      showTitle: true,
-      headerTitle: 'Choose a Game',
-    },
-    '/trivia-game': {
-      showTitle: true,
-      headerTitle: 'Play - Trivia',
-    },
-    '/mixLetter': {
-      showTitle: true,
-      headerTitle: 'Play - Mixed Letter',
-    },
-    '/word-sorting-game': {
-      showTitle: true,
-      headerTitle: 'Play - Word Sorting',
-      
-      
-    },
-  };
-
-
 }

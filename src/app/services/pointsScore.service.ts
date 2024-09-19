@@ -15,6 +15,7 @@ import {
   BehaviorSubject,
   // throwError
 } from 'rxjs';
+import { GameResult } from '../../shared/model/gameResult';
 
 @Injectable({
   providedIn: 'root',
@@ -88,22 +89,22 @@ export class pointsScoreService {
   }
 
   async addedGamePlayed(
-    gameType: string,
-    score: number,
-    grade: number
+    categoryId : string,
+    gameId : number,
+    date : Date,
+    totalPoints :number,
+    grade :number
   ): Promise<void> {
     try {
-      const gameRecord: gameHistory = {
-        gameType,
-        score,
+      const gameRecord: GameResult = {
+        categoryId,
+        gameId,
+        totalPoints,
         grade,
-        date: new Date(),
+        date: new Date
       };
-      await setDoc(
-        doc(this.firestore, 'gameScores', new Date().toString()),
-        gameRecord
-      );
-      this.updateScoreValue(score); // עדכון הניקוד מקומית לאחר הוספת משחק
+      await setDoc(doc(this.firestore, "gameScores",new Date().toString()),gameRecord);
+      console.log("gameRecord has been added successfully");
     } catch (error) {
       console.error(error);
       throw error;
