@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit {
   perfetGrades = 0;
   totalGamePlayEachMonth = 0;
   consecutiveDays = 0;
+  totalGamePlayed = 0
 
   constructor(private pointsScoreService: pointsScoreService) {}
 
@@ -87,7 +88,7 @@ export class DashboardComponent implements OnInit {
           { gameTitle: '', totalPoints: 0 }
         );
       }
-      this.totalGamePlayEachMonth = this.gameHistory.length;
+      this.totalGamePlayed = this.gameHistory.length;
       this.totalGameScore = this.gameHistory.reduce((total, game) => {
         const validPoints =
           isNaN(game.totalPoints) || game.totalPoints == null

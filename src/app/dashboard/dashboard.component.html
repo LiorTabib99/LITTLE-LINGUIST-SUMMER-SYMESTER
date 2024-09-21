@@ -10,28 +10,83 @@
         <h2>Statistics</h2>
         <div class="stats-cards">
           <mat-card class="stats-card">
-
-
-
-
-          <mat-card class="stats-card">
-          <mat-card-content> 
+            <mat-card-content>
               <p>
-                <strong>Total Score:</strong>
-                {{totalGameScore}}
+                <strong>Total Game Played:</strong>
+                {{ totalGamePlayed }}
               </p>
             </mat-card-content>
           </mat-card>
 
-          </div>
+          <mat-card class="stats-card">
+            <mat-card-content>
+              <p>
+                <strong>Total Score:</strong>
+                {{ totalGameScore }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="stats-card">
+            <mat-card-content>
+              <p>
+                <strong>Total Categories:</strong>
+                {{ totalCategories }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="stats-card">
+            <mat-card-content>
+              <p>
+                <strong>Perfect Grades:</strong>
+                {{ perfetGrades }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+
+
+
+           <mat-card class="stats-card">
+            <mat-card-content>
+              <p>
+                {{ consecutiveDays }}
+                <strong>Days Strike</strong>
+              </p>
+            </mat-card-content>
+          </mat-card>
+
+
+
+           <mat-card class="stats-card">
+            <mat-card-content>
+              <p>
+                <strong>Games Played on Each Month:</strong>
+                {{totalGamePlayEachMonth}}
+              </p>
+            </mat-card-content>
+          </mat-card>
+
+
+             <mat-card class="stats-card">
+            <mat-card-content>
+              <p>
+                <strong>highest Score:</strong>
+                {{highestScoreGame.gameTitle}}
+              </p>
+            </mat-card-content>
+          </mat-card>
+
+
+
+
+
+
+
+
+
           
-
-        
-          
-
-
-
-        
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
