@@ -63,7 +63,8 @@ export class DashboardComponent implements OnInit {
 
           return {
             gameTitle: gameTitle,
-            score: gameResult.totalPoints,
+            categoryId : gameResult.categoryId, 
+            totalPoints: gameResult.totalPoints,
             grade: gameResult.grade,
             date: validate,
           };
