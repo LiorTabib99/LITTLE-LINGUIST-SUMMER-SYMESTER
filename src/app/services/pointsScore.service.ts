@@ -10,7 +10,6 @@ import {
   doc,
   getDocs,
 } from '@angular/fire/firestore';
-import { gameHistory } from '../../shared/model/gameHistory';
 import {
   BehaviorSubject,
   // throwError
@@ -54,15 +53,15 @@ export class pointsScoreService {
     return this.scoreSubject.getValue();
   }
 
-  async listGameHistory(): Promise<gameHistory[]> {
+  async listGameHistory(): Promise<GameResult[]> {
     try {
       const querySnapshot = await getDocs(
         collection(
           this.firestore,
           'gameScores'
-        ) as CollectionReference<gameHistory>
+        ) as CollectionReference<GameResult>
       );
-      const gameHistory: gameHistory[] = [];
+      const gameHistory: GameResult[] = [];
       querySnapshot.forEach((doc) => {
         const gameRecord = doc.data();
         //checks if there is date which was found on the data
@@ -89,10 +88,10 @@ export class pointsScoreService {
   }
 
   async addedGamePlayed(
-    categoryId : string,
-    gameId : number,
-    totalPoints :number,
-    grade :number
+    categoryId: string,
+    gameId: number,
+    totalPoints: number,
+    grade: number
   ): Promise<void> {
     try {
       const gameRecord: GameResult = {
@@ -100,10 +99,13 @@ export class pointsScoreService {
         gameId,
         totalPoints,
         grade,
-        date: new Date
+        date: new Date(),
       };
-      await setDoc(doc(this.firestore, "gameScores",new Date().toString()),gameRecord);
-      console.log("gameRecord has been added successfully");
+      await setDoc(
+        doc(this.firestore, 'gameScores', new Date().toString()),
+        gameRecord
+      );
+      console.log('gameRecord has been added successfully');
     } catch (error) {
       console.error(error);
       throw error;
