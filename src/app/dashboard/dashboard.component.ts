@@ -7,6 +7,7 @@ import { GameCardComponent } from '../game-card/game-card.component';
 import { pointsScoreService } from '../services/pointsScore.service';
 import { MatCardModule } from '@angular/material/card';
 import { GameResult } from '../../shared/model/gameResult';
+import { gameCards } from '../../shared/model/gameCards';
 
 @Component({
   selector: 'app-dashboard',
@@ -68,11 +69,10 @@ export class DashboardComponent implements OnInit {
           categoryId: gameResult.categoryId,
         };
       });
+
+      // Filter and sort by date, ignoring null values for date
       this.gameHistory = this.gameHistory
-        .filter(
-          (game) => game.date !== null
-          // Filter and sort by date, ignoring null values for date
-        )
+        .filter((game) => game.date !== null)
         .sort(
           (a, b) => (b.date as Date).getTime() - (a.date as Date).getTime()
         );
@@ -97,8 +97,43 @@ export class DashboardComponent implements OnInit {
       }, 0);
 
       //to be fixed
+      this.totalCategories = new Set(
+        this.gameHistory.map((game) => game.gameTitle)
+      ).size;
+
+      this.perfetGrades = this.gameHistory.filter(
+        (game) => game.grade > 90
+      ).length;
+
+      //calculating how many game u have been played each specific date
+      this.calculateConsecutiveDaysStreak();
+      // how many games u played on this month
+      const today = new Date();
+      const start = new Date(today.getFullYear(), today.getMonth(), 1);
+      const end = new Date(today.getFullYear(), today.getMonth(), +1);
+      this.totalGamePlayEachMonth = this.gameHistory.filter((game) => {
+        const gameDate = new Date(game.date as Date);
+        return gameDate >= start && gameDate < end;
+      }).length;
     } catch (error) {
       console.log(error);
     }
+  }
+
+  private calculateConsecutiveDaysStreak() {
+    const today = new Date();
+    let consecutiveDays = 0;
+    const currentDate = new Date(today);
+    //returning the date
+    while (
+      this.gameHistory.some((game) => {
+        const gameDate = new Date(game.date as Date);
+        return gameDate.toDateString() === currentDate.toDateString();
+      })
+    ) {
+      consecutiveDays++;
+      currentDate.setDate(currentDate.getDate() - 1);
+    }
+    this.consecutiveDays = consecutiveDays;
   }
 }
