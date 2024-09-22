@@ -31,7 +31,7 @@ export class MixLettersResultsComponent implements OnInit {
     console.log(data);
     if (data) {
       this.correctAnswerAmount = data.answers.filter(
-        (answer) => answer.status === 'Correct'
+        (item: { isCorrect: boolean }) => item.isCorrect
       ).length;
       this.dataSource = data.answers || [];
       this.grade = Math.round(data.grade) || 100; // עיגול למספר שלם

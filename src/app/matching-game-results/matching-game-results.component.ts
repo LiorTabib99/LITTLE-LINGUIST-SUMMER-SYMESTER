@@ -37,9 +37,9 @@ export class MatchingGameResultsComponent implements OnInit {
     const data = this.gameResultService.getResultData();
     console.log(data);
     if (data) {
-      this.correctAnswerAmount = data.answers.filter(
-        (answer) => answer.status === 'Correct'
-      ).length;
+       this.correctAnswerAmount = data.answers.filter(
+         (item: { isCorrect: boolean }) => item.isCorrect
+       ).length;
       this.wordPairs = data.answers || [];
       this.grade = Math.round(data.grade) || 100; // עיגול למספר שלם
       this.categoryName = data.categoryName;

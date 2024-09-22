@@ -31,9 +31,9 @@ export class WordSorterResultsComponent implements OnInit {
   ngOnInit(): void {
     const data = this.gameResultService.getResultData();
     if (data) {
-      this.correctAnswerAmount = data.answers.filter(
-        (answer) => answer.status === 'Correct'
-      ).length;
+     this.correctAnswerAmount = data.answers.filter(
+       (item: { isCorrect: boolean }) => item.isCorrect
+     ).length;
       this.dataSource = data.answers;
       this.message = data.message;
       this.categoryName = data.categoryName;
