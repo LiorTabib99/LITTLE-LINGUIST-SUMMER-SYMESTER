@@ -20,17 +20,19 @@ export class MixLettersResultsComponent implements OnInit {
   message: string = '';
   grade: number = 0;
   categoryName: string | null = null;
-
+  correctAnswerAmount = 0;
   constructor(
     private router: Router,
     private gameResultService: GamesResultService
   ) {}
 
-
   ngOnInit(): void {
     const data = this.gameResultService.getResultData();
     console.log(data);
     if (data) {
+      this.correctAnswerAmount = data.answers.filter(
+        (answer) => answer.status === 'Correct'
+      ).length;
       this.dataSource = data.answers || [];
       this.grade = Math.round(data.grade) || 100; // עיגול למספר שלם
       this.categoryName = data.categoryName;

@@ -153,8 +153,8 @@ export class MixLettersComponent implements OnInit {
             origin: this.currentWord.origin,
             target: this.currentWord.target,
           },
-          width: '200px',
-          height: '200px',
+          width: '150px',
+          height: '100px',
         });
         this.score++;
         await this.scoreService.updateScore(this.score);
@@ -187,8 +187,8 @@ export class MixLettersComponent implements OnInit {
             origin: this.currentWord.origin,
             target: this.currentWord.target,
           },
-          width: '200px',
-          height: '200px',
+          width: '150px',
+          height: '90px',
         });
         if (this.grade >= 100) {
           this.grade = 100;

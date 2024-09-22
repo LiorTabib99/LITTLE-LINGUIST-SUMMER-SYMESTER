@@ -126,16 +126,16 @@ export class MatchingGameComponent implements OnInit {
   openCorrectAnswers(): void {
     this.dialog.open(CorrectAnswersComponent, {
       data: { message: 'Great Job!' },
-      width: '200px',
-      height: '200px',
+      width: '150px',
+      height: '90px',
     });
   }
 
   openIncorretAnswers(): void {
     this.dialog.open(IcorrectAnswersComponent, {
       data: { message: 'Incorrect, Give it another try' },
-      width: '200px',
-      height: '200px',
+      width: '150px',
+      height: '100px',
     });
   }
 
@@ -179,19 +179,6 @@ export class MatchingGameComponent implements OnInit {
       } else {
         // Incorrect match
         this.grade -= 2; // Decrease grade by 8 for incorrect match
-
-        // if (this.grade <= 0) {
-        //   this.grade = 0;
-        //   this.englishWords.forEach((word) => {
-        //     word.status = wordStatus.Disabled;
-        //     word.attemptsLeft = 0;
-        //   });
-        //   this.hebrewWords.forEach((hebrew) => {
-        //     hebrew.status = wordStatus.Disabled;
-        //   });
-        //   this.endGame();
-        //   return;
-        // }
 
         this.selectedEnglishWords.attemptsLeft--;
 

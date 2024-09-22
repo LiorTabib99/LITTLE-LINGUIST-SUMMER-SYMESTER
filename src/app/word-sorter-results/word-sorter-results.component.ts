@@ -21,7 +21,7 @@ export class WordSorterResultsComponent implements OnInit {
   message: string = '';
   grade: number = 0;
   categoryName: string | null = null;
-
+  correctAnswerAmount=0;
   constructor(
     private router: Router,
     private gameResultService: GamesResultService,
@@ -31,6 +31,9 @@ export class WordSorterResultsComponent implements OnInit {
   ngOnInit(): void {
     const data = this.gameResultService.getResultData();
     if (data) {
+      this.correctAnswerAmount = data.answers.filter(
+        (answer) => answer.status === 'Correct'
+      ).length;
       this.dataSource = data.answers;
       this.message = data.message;
       this.categoryName = data.categoryName;

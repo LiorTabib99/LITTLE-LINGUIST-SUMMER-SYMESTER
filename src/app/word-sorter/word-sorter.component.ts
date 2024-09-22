@@ -353,16 +353,16 @@ export class WordSorterComponent implements OnInit {
   openCorrectAnswerDialog(): void {
     this.dialog.open(CorrectAnswersComponent, {
       data: { message: 'Correct!' },
-      width: '200px',
-      height: '200px',
+      width: '150px',
+      height: '90px',
     });
   }
 
   openIncorrectAnswerDialog(): void {
     this.dialog.open(IcorrectAnswersComponent, {
       data: { message: 'Incorrect!' },
-      width: '200px',
-      height: '200px',
+      width: '150px',
+      height: '100px',
     });
   }
 
