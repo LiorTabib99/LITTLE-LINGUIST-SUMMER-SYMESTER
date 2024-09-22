@@ -33,6 +33,8 @@ export class DashboardComponent implements OnInit {
   totalGameScore = 0;
   totalCategories = 0;
   perfectGrades = 0;
+  gamesNeeded = 0;
+  totalRequirdGames = 15;
   totalGamePlayEachMonth = 0;
   consecutiveDays = 0;
   gamesNeededForChallenge = 0;
@@ -100,7 +102,7 @@ export class DashboardComponent implements OnInit {
         this.gameHistory.map((game) => game.gameTitle)
       ).size;
       this.perfectGrades = this.gameHistory.filter(
-        (game) => game.grade > 90
+        (game) => game.grade === 100
       ).length;
 
       this.calculateConsecutiveDaysStreak();
@@ -112,10 +114,7 @@ export class DashboardComponent implements OnInit {
         const gameDate = new Date(game.date as Date);
         return gameDate >= start && gameDate <= end;
       }).length;
-      this.gamesNeededForChallenge = Math.max(
-        0,
-        20 - this.totalGamePlayEachMonth
-      );
+      this.gamesNeeded = this.totalRequirdGames - this.totalGamePlayEachMonth;
       // this.gamesNeeded = this.totalRequiredGames - this.totalGamePlayEachMonth;
     } catch (error) {
       console.error('Error initializing component:', error);

@@ -1,4 +1,3 @@
-
 <div class="dashboard">
   <mat-card>
     <mat-card-header>
@@ -10,7 +9,7 @@
         <div class="stats-cards">
           <mat-card class="stat-card">
             <mat-card-content>
-               {{ totalGamesPlayed }}
+              {{ totalGamesPlayed }}
               <p><strong>Games</strong></p>
             </mat-card-content>
           </mat-card>
@@ -23,12 +22,12 @@
           <mat-card class="stat-card">
             <mat-card-content>
               {{ totalCategories }}
-              <p><strong> Categories learnt</strong> </p>
+              <p><strong> Categories learnt</strong></p>
             </mat-card-content>
           </mat-card>
-                <mat-card class="stat-card">
+          <mat-card class="stat-card">
             <mat-card-content>
-               {{ highestScoreGame.gameTitle }}
+              {{ highestScoreGame.gameTitle }}
               <p>
                 <strong>Highest Score Games</strong>
               </p>
@@ -36,25 +35,28 @@
           </mat-card>
           <mat-card class="stat-card">
             <mat-card-content>
-              {{ perfectGrades }} %
-              <p><strong>Perfect Games:</strong></p>
+              {{ perfectGrades }} 
+              <p><strong> 90% Perfect Games</strong></p>
             </mat-card-content>
           </mat-card>
           <mat-card class="stat-card">
             <mat-card-content>
               {{ consecutiveDays }}
-              <p><strong>Days strike</strong> </p>
+              <p><strong>Days strike</strong></p>
             </mat-card-content>
           </mat-card>
           <mat-card class="stat-card">
             <mat-card-content>
-              <p>
-                {{ totalGamePlayEachMonth }}
-                <strong>Games Played This Month</strong>
+              <p class="num">{{ totalGamePlayEachMonth }}</p>
+              <p class="pinmonth">Games This Month </p>
+              <p class="pinmonth" *ngIf="totalGamePlayEachMonth < totalRequirdGames">
+                You need to play {{ gamesNeeded }} more to complete the chalange
+              </p>
+              <p class="pinmonth" *ngIf="totalGamePlayEachMonth >= totalRequirdGames">
+                You have reached the goal of {{totalRequirdGames}} games this month.
               </p>
             </mat-card-content>
-          </mat-card>
-    
+          </mat-card>
         </div>
       </div></mat-card-content
     ></mat-card
