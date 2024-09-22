@@ -1,93 +1,62 @@
-<h1>You're learning:</h1>
 
 <div class="dashboard">
   <mat-card>
     <mat-card-header>
-      <mat-card-title class="ttile"> </mat-card-title>
+      <mat-card-title class="title">Your learning :</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <!-- Display statistics -->
       <div class="statistics-container">
-        <h2>Statistics</h2>
         <div class="stats-cards">
-          <mat-card class="stats-card">
+          <mat-card class="stat-card">
             <mat-card-content>
+               {{ totalGamesPlayed }}
+              <p><strong>Games</strong></p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="stat-card">
+            <mat-card-content>
+              {{ totalGameScore }}
+              <p><strong>Points</strong></p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="stat-card">
+            <mat-card-content>
+              {{ totalCategories }}
+              <p><strong> Categories learnt</strong> </p>
+            </mat-card-content>
+          </mat-card>
+                <mat-card class="stat-card">
+            <mat-card-content>
+               {{ highestScoreGame.gameTitle }}
               <p>
-                <strong>Total Game Played:</strong>
-                {{ totalGamePlayed }}
+                <strong>Highest Score Games</strong>
               </p>
             </mat-card-content>
           </mat-card>
-
-          <mat-card class="stats-card">
+          <mat-card class="stat-card">
+            <mat-card-content>
+              {{ perfectGrades }} %
+              <p><strong>Perfect Games:</strong></p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="stat-card">
+            <mat-card-content>
+              {{ consecutiveDays }}
+              <p><strong>Days strike</strong> </p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="stat-card">
             <mat-card-content>
               <p>
-                <strong>Total Score:</strong>
-                {{ totalGameScore }}
+                {{ totalGamePlayEachMonth }}
+                <strong>Games Played This Month</strong>
               </p>
             </mat-card-content>
           </mat-card>
-
-          <mat-card class="stats-card">
-            <mat-card-content>
-              <p>
-                <strong>Total Categories:</strong>
-                {{ totalCategories }}
-              </p>
-            </mat-card-content>
-          </mat-card>
-
-          <mat-card class="stats-card">
-            <mat-card-content>
-              <p>
-                <strong>Perfect Grades:</strong>
-                {{ perfetGrades }}
-              </p>
-            </mat-card-content>
-          </mat-card>
-
-
-
-           <mat-card class="stats-card">
-            <mat-card-content>
-              <p>
-                {{ consecutiveDays }}
-                <strong>Days Strike</strong>
-              </p>
-            </mat-card-content>
-          </mat-card>
-
-
-
-           <mat-card class="stats-card">
-            <mat-card-content>
-              <p>
-                <strong>Games Played on Each Month:</strong>
-                {{totalGamePlayEachMonth}}
-              </p>
-            </mat-card-content>
-          </mat-card>
-
-
-             <mat-card class="stats-card">
-            <mat-card-content>
-              <p>
-                <strong>highest Score:</strong>
-                {{highestScoreGame.gameTitle}}
-              </p>
-            </mat-card-content>
-          </mat-card>
-
-
-
-
-
-
-
-
-
-          
+    
         </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+      </div></mat-card-content
+    ></mat-card
+  >
 </div>
