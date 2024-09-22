@@ -3,7 +3,7 @@ import { pointsScoreService } from '../services/pointsScore.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { gameCards } from '../../shared/model/gameCards';
-import { GameResult } from '../../shared/model/gameResult'; // Import your game result interface
+import { GameResult } from '../../shared/model/gameResult';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,16 +29,23 @@ export class DashboardComponent implements OnInit {
     gameTitle: '',
     totalPoints: 0,
   };
+  lowestScoreGame: { gameTitle: string; totalPoints: number } = {
+    gameTitle: '',
+    totalPoints: 0,
+  };
+  categoryPlayedMost: { categoryId: string; name: string; count: number } = {
+    categoryId: '',
+    name: '',
+    count: 0,
+  };
   totalGamesPlayed = 0;
   totalGameScore = 0;
   totalCategories = 0;
   perfectGrades = 0;
   gamesNeeded = 0;
-  totalRequirdGames = 15;
+  totalRequirdGames = 20;
   totalGamePlayEachMonth = 0;
   consecutiveDays = 0;
-  gamesNeededForChallenge = 0;
-  uniqueCategoryIds: Set<number> = new Set();
 
   constructor(
     private scoreService: pointsScoreService,
@@ -55,12 +62,11 @@ export class DashboardComponent implements OnInit {
           (card) => card.id === gameResult.gameId
         );
         const gameTitle = gameCard ? gameCard.title : 'Unknown Game';
-
         const date = new Date(gameResult.date);
         const validDate = isNaN(date.getTime()) ? null : date;
 
         return {
-          gameTitle: gameTitle,
+          gameTitle,
           totalPoints: gameResult.totalPoints,
           grade: gameResult.grade,
           date: validDate,
@@ -68,7 +74,6 @@ export class DashboardComponent implements OnInit {
         };
       });
 
-      // Filter and sort by date, ignoring null values for date
       this.gameHistory = this.gameHistory
         .filter((game) => game.date !== null)
         .sort(
@@ -86,10 +91,12 @@ export class DashboardComponent implements OnInit {
             game.totalPoints > highest.totalPoints ? game : highest,
           { gameTitle: '', totalPoints: 0 }
         );
+
+        this.lowestScoreGame = this.calculateLowestScoreGame();
+        this.categoryPlayedMost = this.calculateMostPlayedCategory();
       }
 
       this.totalGamesPlayed = this.gameHistory.length;
-      console.log(this.gameHistory);
       this.totalGameScore = this.gameHistory.reduce((total, game) => {
         const validPoints =
           isNaN(game.totalPoints) || game.totalPoints == null
@@ -97,9 +104,8 @@ export class DashboardComponent implements OnInit {
             : game.totalPoints;
         return total + validPoints;
       }, 0);
-      console.log(this.totalGameScore);
       this.totalCategories = new Set(
-        this.gameHistory.map((game) => game.gameTitle)
+        this.gameHistory.map((game) => game.categoryId)
       ).size;
       this.perfectGrades = this.gameHistory.filter(
         (game) => game.grade === 100
@@ -115,18 +121,77 @@ export class DashboardComponent implements OnInit {
         return gameDate >= start && gameDate <= end;
       }).length;
       this.gamesNeeded = this.totalRequirdGames - this.totalGamePlayEachMonth;
-      // this.gamesNeeded = this.totalRequiredGames - this.totalGamePlayEachMonth;
     } catch (error) {
       console.error('Error initializing component:', error);
     }
   }
+
+  calculateLowestScoreGame(): { gameTitle: string; totalPoints: number } {
+    const scoresByGame: { [key: string]: number[] } = {};
+    this.gameHistory.forEach((game) => {
+      if (!scoresByGame[game.gameTitle]) {
+        scoresByGame[game.gameTitle] = [];
+      }
+      scoresByGame[game.gameTitle].push(game.totalPoints);
+    });
+
+    const averageScores = Object.entries(scoresByGame).map(
+      ([title, scores]) => ({
+        gameTitle: title,
+        averageScore: scores.reduce((a, b) => a + b, 0) / scores.length,
+      })
+    );
+
+    return averageScores.reduce(
+      (lowest, game) =>
+        game.averageScore < lowest.totalPoints
+          ? { gameTitle: game.gameTitle, totalPoints: game.averageScore }
+          : lowest,
+      { gameTitle: '', totalPoints: Infinity }
+    );
+  }
+
+  calculateMostPlayedCategory(): {
+    categoryId: string;
+    name: string;
+    count: number;
+  } {
+    const categoryCount: { [key: string]: number } = {};
+    this.gameHistory.forEach((game) => {
+      if (!categoryCount[game.categoryId]) {
+        categoryCount[game.categoryId] = 0;
+      }
+      categoryCount[game.categoryId]++;
+    });
+
+    const mostPlayedCategory = Object.entries(categoryCount).reduce(
+      (mostPlayed, [categoryId, count]) =>
+        count > mostPlayed.count ? { categoryId, count } : mostPlayed,
+      { categoryId: '', count: 0 }
+    );
+
+    const categoryIdAsNumber = Number(mostPlayedCategory.categoryId);
+    const category = gameCards.find((card) => card.id === categoryIdAsNumber);
+
+    console.log('Game History:', this.gameHistory);
+    console.log('Game Cards:', gameCards);
+
+    return {
+      categoryId: mostPlayedCategory.categoryId,
+      name: category ? category.title : 'Unknown Category',
+      count: mostPlayedCategory.count,
+    };
+  }
+
+  
+
+  
 
   calculateConsecutiveDaysStreak(): void {
     const today = new Date();
     let consecutiveDays = 0;
     const currentDate = new Date(today);
 
-    // Use a condition that checks if there are games on the current date
     while (
       this.gameHistory.some((game) => {
         const gameDate = new Date(game.date as Date);
@@ -134,10 +199,9 @@ export class DashboardComponent implements OnInit {
       })
     ) {
       consecutiveDays++;
-      currentDate.setDate(currentDate.getDate() - 1); // Move to the previous day
+      currentDate.setDate(currentDate.getDate() - 1);
     }
 
     this.consecutiveDays = consecutiveDays;
-    console.log('Consecutive days of games played:', this.consecutiveDays);
   }
 }
