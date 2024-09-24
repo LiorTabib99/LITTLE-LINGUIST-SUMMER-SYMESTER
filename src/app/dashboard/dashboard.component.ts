@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { pointsScoreService } from '../services/pointsScore.service';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { gameCards } from '../../shared/model/gameCards';
 import { GameResult } from '../../shared/model/gameResult';
-
+import { CategoriesService } from '../services/categories.service';
+import { Category } from '../../shared/model/category';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  providers: [DatePipe],
   imports: [CommonModule, MatCardModule],
 })
 export class DashboardComponent implements OnInit {
   gameHistory: {
-    gameTitle: string;
     totalPoints: number;
+    gameTitle: string;
     grade: number;
     date: Date | null;
     categoryId: string;
@@ -25,14 +25,7 @@ export class DashboardComponent implements OnInit {
     gameTitle: '',
     totalPoints: 0,
   };
-  highestScoreGame: { gameTitle: string; totalPoints: number } = {
-    gameTitle: '',
-    totalPoints: 0,
-  };
-  lowestScoreGame: { gameTitle: string; totalPoints: number } = {
-    gameTitle: '',
-    totalPoints: 0,
-  };
+
   categoryPlayedMost: { categoryId: string; name: string; count: number } = {
     categoryId: '',
     name: '',
@@ -47,9 +40,23 @@ export class DashboardComponent implements OnInit {
   totalGamePlayEachMonth = 0;
   consecutiveDays = 0;
 
+  lowestGradeGame: { gameTitle: string; grade: number } = {
+    gameTitle: '',
+    grade: 0,
+  };
+
+  highestGradeGame: { gameTitle: string; grade: number } = {
+    gameTitle: '',
+    grade: 0,
+  };
+
+  playedCategories: Category[] = [];
+
+  unPlayedCategories: Category[] = [];
+
   constructor(
     private scoreService: pointsScoreService,
-    private datePipe: DatePipe
+    private categoriesService: CategoriesService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -73,6 +80,18 @@ export class DashboardComponent implements OnInit {
           categoryId: gameResult.categoryId,
         };
       });
+      const allCategories: Category[] = await this.categoriesService.list();
+      const playedCategoriesId = new Set(
+        this.gameHistory.map((game) => game.categoryId)
+      );
+
+      this.playedCategories = allCategories.filter((category) => {
+        playedCategoriesId.has(category.id);
+      });
+
+      this.unPlayedCategories = allCategories.filter((category) => {
+        !playedCategoriesId.has(category.id);
+      });
 
       this.gameHistory = this.gameHistory
         .filter((game) => game.date !== null)
@@ -83,16 +102,15 @@ export class DashboardComponent implements OnInit {
       if (this.gameHistory.length > 0) {
         this.lastGame = {
           gameTitle: this.gameHistory[0].gameTitle,
-          totalPoints: this.gameHistory[0].totalPoints,
+          totalPoints: this.gameHistory[0].grade,
         };
 
-        this.highestScoreGame = this.gameHistory.reduce(
-          (highest, game) =>
-            game.totalPoints > highest.totalPoints ? game : highest,
-          { gameTitle: '', totalPoints: 0 }
+        this.highestGradeGame = this.gameHistory.reduce(
+          (highest, game) => (game.grade > highest.grade ? game : highest),
+          { gameTitle: '', grade: 0 }
         );
 
-        this.lowestScoreGame = this.calculateLowestScoreGame();
+        this.lowestGradeGame = this.calculateLowestGradeGame();
         this.categoryPlayedMost = this.calculateMostPlayedCategory();
       }
 
@@ -107,9 +125,13 @@ export class DashboardComponent implements OnInit {
       this.totalCategories = new Set(
         this.gameHistory.map((game) => game.categoryId)
       ).size;
-      this.perfectGrades = this.gameHistory.filter(
-        (game) => game.grade === 100
+      const totalGames = this.gameHistory.length;
+      const perefectGrades = this.gameHistory.filter(
+        (game) => game.grade == 100
       ).length;
+      const presentGame =
+        totalGames > 0 ? (perefectGrades / totalGames) * 100 : 0;
+      this.perfectGrades = Math.round(presentGame);
 
       this.calculateConsecutiveDaysStreak();
 
@@ -126,28 +148,26 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  calculateLowestScoreGame(): { gameTitle: string; totalPoints: number } {
-    const scoresByGame: { [key: string]: number[] } = {};
+  calculateLowestGradeGame(): { gameTitle: string; grade: number } {
+    const gradeByGame: { [key: string]: number[] } = {};
     this.gameHistory.forEach((game) => {
-      if (!scoresByGame[game.gameTitle]) {
-        scoresByGame[game.gameTitle] = [];
+      if (!gradeByGame[game.gameTitle]) {
+        gradeByGame[game.gameTitle] = [];
       }
-      scoresByGame[game.gameTitle].push(game.totalPoints);
+      gradeByGame[game.gameTitle].push(game.grade);
     });
 
-    const averageScores = Object.entries(scoresByGame).map(
-      ([title, scores]) => ({
-        gameTitle: title,
-        averageScore: scores.reduce((a, b) => a + b, 0) / scores.length,
-      })
-    );
+    const averageGrade = Object.entries(gradeByGame).map(([title, grade]) => ({
+      gameTitle: title,
+      averageGrade: grade.reduce((a, b) => a + b, 0) / grade.length,
+    }));
 
-    return averageScores.reduce(
+    return averageGrade.reduce(
       (lowest, game) =>
-        game.averageScore < lowest.totalPoints
-          ? { gameTitle: game.gameTitle, totalPoints: game.averageScore }
+        game.averageGrade < lowest.grade
+          ? { gameTitle: game.gameTitle, grade: game.averageGrade }
           : lowest,
-      { gameTitle: '', totalPoints: Infinity }
+      { gameTitle: '', grade: Infinity }
     );
   }
 
@@ -182,10 +202,6 @@ export class DashboardComponent implements OnInit {
       count: mostPlayedCategory.count,
     };
   }
-
-  
-
-  
 
   calculateConsecutiveDaysStreak(): void {
     const today = new Date();

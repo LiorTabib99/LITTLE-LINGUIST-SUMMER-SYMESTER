@@ -18,22 +18,32 @@
               <p><strong>Points</strong></p>
             </mat-card-content>
           </mat-card>
+
           <mat-card class="stat-card">
             <mat-card-content>
-              {{ totalCategories }}
+              {{ playedCategories.length }}
               <p><strong>Categories learnt</strong></p>
             </mat-card-content>
           </mat-card>
+
+          <!-- Unplayed Categories -->
           <mat-card class="stat-card">
             <mat-card-content>
-              {{ highestScoreGame.gameTitle }}
-              <p><strong>Highest Score Game</strong></p>
+              {{ unPlayedCategories.length }}
+              <p><strong>Categories Unlearnt</strong></p>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="stat-card">
+            <mat-card-content>
+              {{ highestGradeGame.gameTitle }}
+              <p><strong>Highest Game Grade</strong></p>
             </mat-card-content>
           </mat-card>
           <mat-card class="stat-card">
             <mat-card-content>
               {{ perfectGrades }}
-              <p><strong>90% Perfect Games</strong></p>
+              <p><strong> Perfect Games</strong></p>
             </mat-card-content>
           </mat-card>
           <mat-card class="stat-card">
@@ -64,14 +74,8 @@
           </mat-card>
           <mat-card class="stat-card">
             <mat-card-content>
-              {{ lowestScoreGame.gameTitle }}
-              <p><strong>Lowest Average Score Game</strong></p>
-            </mat-card-content>
-          </mat-card>
-          <mat-card class="stat-card">
-            <mat-card-content>
-              {{ categoryPlayedMost.name }}
-              <p><strong>Most Played Category</strong></p>
+              {{ lowestGradeGame.gameTitle }}
+              <p><strong>Lowest Average Game Grade</strong></p>
             </mat-card-content>
           </mat-card>
         </div>

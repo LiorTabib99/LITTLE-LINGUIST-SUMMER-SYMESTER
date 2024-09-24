@@ -95,7 +95,7 @@ export class MatchingGameResultsComponent implements OnInit {
   roundGradeDown(grade: number): number {
     // Round down to the nearest multiple of 10
     return Math.round(grade);
-  }
+  }                    
 
   newGameButton(): void {
     this.router.navigate(['/letsPlay']);
