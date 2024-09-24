@@ -6,11 +6,17 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { GamesResultService } from '../services/gameResults.service';
 import { ExitGameDialogComponent } from '../exit-game-dialog/exit-game-dialog.component';
-
+import { PointsScoreComponent } from '../points-score/points-score.component';
 @Component({
   selector: 'app-game-result',
   standalone: true,
-  imports: [MatTableModule, CommonModule, MatDialogModule, MatIconModule],
+  imports: [
+    MatTableModule,
+    CommonModule,
+    MatDialogModule,
+    MatIconModule,
+    PointsScoreComponent,
+  ],
   templateUrl: './matching-game-results.component.html',
   styleUrls: ['./matching-game-results.component.css'], // Corrected 'styleUrl' to 'styleUrls'
 })
@@ -25,7 +31,7 @@ export class MatchingGameResultsComponent implements OnInit {
   grade: number = 100;
   message: string = '';
   categoryName = '';
-  correctAnswerAmount=0; 
+  correctAnswerAmount = 0;
 
   constructor(
     private router: Router,
@@ -37,9 +43,9 @@ export class MatchingGameResultsComponent implements OnInit {
     const data = this.gameResultService.getResultData();
     console.log(data);
     if (data) {
-       this.correctAnswerAmount = data.answers.filter(
-         (item: { isCorrect: boolean }) => item.isCorrect
-       ).length;
+      this.correctAnswerAmount = data.answers.filter(
+        (item: { isCorrect: boolean }) => item.isCorrect
+      ).length;
       this.wordPairs = data.answers || [];
       this.grade = Math.round(data.grade) || 100; // עיגול למספר שלם
       this.categoryName = data.categoryName;
@@ -95,7 +101,7 @@ export class MatchingGameResultsComponent implements OnInit {
   roundGradeDown(grade: number): number {
     // Round down to the nearest multiple of 10
     return Math.round(grade);
-  }                    
+  }
 
   newGameButton(): void {
     this.router.navigate(['/letsPlay']);

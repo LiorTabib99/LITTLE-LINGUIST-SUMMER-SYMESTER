@@ -6,11 +6,17 @@ import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { GamesResultService } from '../services/gameResults.service';
 import { pointsScoreService } from '../services/pointsScore.service';
-
+import { PointsScoreComponent } from '../points-score/points-score.component';
 @Component({
   selector: 'app-word-sorter-results',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, CommonModule, MatTableModule],
+  imports: [
+    MatButtonModule,
+    PointsScoreComponent,
+    MatIconModule,
+    CommonModule,
+    MatTableModule,
+  ],
   templateUrl: './word-sorter-results.component.html',
   styleUrls: ['./word-sorter-results.component.css'],
 })
@@ -21,7 +27,7 @@ export class WordSorterResultsComponent implements OnInit {
   message: string = '';
   grade: number = 0;
   categoryName: string | null = null;
-  correctAnswerAmount=0;
+  correctAnswerAmount = 0;
   constructor(
     private router: Router,
     private gameResultService: GamesResultService,
@@ -31,9 +37,9 @@ export class WordSorterResultsComponent implements OnInit {
   ngOnInit(): void {
     const data = this.gameResultService.getResultData();
     if (data) {
-     this.correctAnswerAmount = data.answers.filter(
-       (item: { isCorrect: boolean }) => item.isCorrect
-     ).length;
+      this.correctAnswerAmount = data.answers.filter(
+        (item: { isCorrect: boolean }) => item.isCorrect
+      ).length;
       this.dataSource = data.answers;
       this.message = data.message;
       this.categoryName = data.categoryName;

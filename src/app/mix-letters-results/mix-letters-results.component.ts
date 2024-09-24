@@ -6,10 +6,17 @@ import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { GamesResultService } from '../services/gameResults.service';
+import { PointsScoreComponent } from '../points-score/points-score.component';
 @Component({
   selector: 'app-mix-letters-results',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, CommonModule, MatTableModule],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    PointsScoreComponent,
+    CommonModule,
+    MatTableModule,
+  ],
   templateUrl: './mix-letters-results.component.html',
   styleUrl: './mix-letters-results.component.css',
 })

@@ -13,11 +13,12 @@ export class PointsScoreComponent implements OnInit {
   lastScore = 0;
   gameHistory: GameResult[] = [];
   constructor(private pointsScoreService: pointsScoreService) {}
-  ngOnInit(): void {
-    this.pointsScoreService$.subscribe((score) => {
+  async ngOnInit(): Promise<void> {
+    await this.loadGameHistory();
+    this.pointsScoreService.score$.subscribe((score) => {
       this.lastScore = score;
     });
-    this.loadGameHistory();
+   
   }
 
   async loadGameHistory(){
