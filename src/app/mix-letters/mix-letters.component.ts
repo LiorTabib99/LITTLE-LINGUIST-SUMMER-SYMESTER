@@ -144,7 +144,7 @@ export class MixLettersComponent implements OnInit {
       if (isCorrect) {
         this.currentQuestion++;
         this.currectAnswers++;
-        this.grade += this.pointsForQuestion;
+        this.grade += Math.round(this.pointsForQuestion);
         this.answeredWords.add(this.currentWord.origin);
         this.message = 'Correct! 🎉';
         this.dialog.open(CorrectAnswersComponent, {

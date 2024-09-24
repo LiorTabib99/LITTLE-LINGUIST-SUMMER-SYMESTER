@@ -262,7 +262,7 @@ export class WordSorterComponent implements OnInit {
       (!wordInCurrentCategory && !userGuess);
 
     if (isCorrect) {
-      this.grade += this.pointsForScore;
+      this.grade += Math.round(this.pointsForScore)
       this.currentQuestionIndex++;
       this.correctlyGuessedIndices.add(this.currentQuestionIndex);
       this.score++;

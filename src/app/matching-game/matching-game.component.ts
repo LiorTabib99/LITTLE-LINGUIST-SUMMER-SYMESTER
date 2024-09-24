@@ -168,7 +168,7 @@ export class MatchingGameComponent implements OnInit {
         this.score++; // Increase score for correct match
         this.selectedEnglishWords = null;
         this.openCorrectAnswers();
-        this.grade += this.pointsForScore;
+        this.grade +=Math.round(this.pointsForScore);
 
         // Check if all English words are matched
         if (
