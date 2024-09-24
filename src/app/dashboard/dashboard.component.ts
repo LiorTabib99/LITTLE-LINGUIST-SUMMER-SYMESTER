@@ -86,11 +86,11 @@ export class DashboardComponent implements OnInit {
       );
 
       this.playedCategories = allCategories.filter((category) => {
-        playedCategoriesId.has(category.id);
+        return  playedCategoriesId.has(category.id);
       });
 
       this.unPlayedCategories = allCategories.filter((category) => {
-        !playedCategoriesId.has(category.id);
+       return !playedCategoriesId.has(category.id);
       });
 
       this.gameHistory = this.gameHistory
